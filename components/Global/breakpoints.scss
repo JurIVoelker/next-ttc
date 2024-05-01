@@ -1,0 +1,30 @@
+// Breakpoints
+$breakpoint-xs: 480px;
+$breakpoint-s: 768px;
+$breakpoint-m: 992px;
+$breakpoint-l: 1200px;
+
+// Mixins
+@mixin size-xs {
+  @media (max-width: $breakpoint-xs) {
+    @content;
+  }
+}
+
+@mixin size-s {
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-s) {
+    @content;
+  }
+}
+
+@mixin size-m {
+  @media (min-width: $breakpoint-s) and (max-width: $breakpoint-m) {
+    @content;
+  }
+}
+
+@mixin size-l {
+  @media (min-width: $breakpoint-m) {
+    @content;
+  }
+}
