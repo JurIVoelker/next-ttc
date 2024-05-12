@@ -1,0 +1,28 @@
+@import "../../components/Global/theme.scss";
+
+$inner-radius: calc($border-radius - 2px);
+
+.tabList {
+  border-radius: $border-radius;
+  background-color: $light-gray;
+  display: flex;
+  width: fit-content;
+  border: 2px solid $light-gray;
+  gap: 2px;
+  .tabSection {
+    &:first-child {
+      border-radius: $inner-radius 0 0 $inner-radius;
+    }
+    &:last-child {
+      border-radius: 0 $inner-radius $border-radius 0;
+    }
+    background-color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: 0.1s ease-out;
+    &[data-selected] {
+      background-color: $primary-bg;
+      color: white;
+    }
+  }
+}
