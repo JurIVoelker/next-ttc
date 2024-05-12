@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "start_pages",
+  "info": {
+    "singularName": "start-page",
+    "pluralName": "start-pages",
+    "displayName": "Start Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "willkommenTitel": {
+      "type": "string"
+    },
+    "willkommenText": {
+      "type": "text"
+    },
+    "mehrErfahrenLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "link.start-page-link"
+    },
+    "aktuellesTitel": {
+      "type": "string"
+    },
+    "mehrTitel": {
+      "type": "string"
+    },
+    "titelbild": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}
