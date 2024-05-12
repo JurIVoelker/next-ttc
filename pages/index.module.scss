@@ -1,0 +1,58 @@
+@import "../components/Global/theme.scss";
+
+.welcomeContainer {
+  display: flex;
+  gap: 48px;
+  padding-bottom: 48px;
+  @include size-m {
+    display: block;
+  }
+  @include size-s {
+    display: block;
+  }
+  .welcomeText {
+    height: 460px;
+    width: 300px;
+    flex-shrink: 0;
+    padding-bottom: 24px;
+    @include size-m {
+      width: 100%;
+      height: auto;
+    }
+    @include size-s {
+      width: 100%;
+      height: auto;
+    }
+
+    h1 {
+      margin-bottom: 16px;
+    }
+  }
+  img {
+    width: 100%;
+    height: 460px;
+    object-fit: cover;
+    border-radius: $border-radius;
+    @include size-s {
+      height: 300px;
+    }
+  }
+}
+
+.cardCollection {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  @include size-m {
+    grid-template-columns: 1fr 1fr;
+  }
+  @include size-s {
+    grid-template-columns: 1fr;
+  }
+}
+
+.moreArticlesButton {
+  @include button-styles;
+  display: inline-block;
+  margin-top: 16px;
+}
