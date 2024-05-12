@@ -1,0 +1,43 @@
+@import "./colors.scss";
+
+$border-radius: 10px;
+$box-shadow: 0 4px 16px rgba(105, 105, 105, 0.295);
+
+@mixin input-styles {
+  font-size: 16px;
+  padding: 8px 16px;
+  border: 2px solid $light-gray;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  @content;
+}
+
+@mixin button-styles($style: "normal") {
+  @content;
+  font-size: 16px;
+  padding: 8px 16px;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  cursor: pointer;
+  font-family: Inter;
+  font-weight: 500;
+  transition: 0.1s ease-out;
+
+  @if ($style == "normal") {
+    border: 2px solid $primary-bg;
+    background-color: $primary-bg;
+    color: white;
+    &[data-hovered] {
+      background-color: $primary-bg-hover;
+    }
+  }
+
+  @if ($style == "outline") {
+    border: 2px solid $primary-bg;
+    color: $text-on-bright;
+    background-color: #fafafa;
+    &[data-hovered] {
+      background-color: #e4e9f8;
+    }
+  }
+}
