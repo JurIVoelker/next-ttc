@@ -1,0 +1,8 @@
+@import "../components/Global/theme.scss";
+.pageContainer {
+  .button {
+    @include button-styles;
+    margin-top: 16px;
+    display: block;
+  }
+}
