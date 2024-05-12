@@ -3,4 +3,17 @@
 .navContainer {
   height: 70px;
   background-color: $primary-bg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  @include size-m {
+    gap: 32px;
+  }
+  @include size-s {
+    gap: 16px;
+  }
+  .link {
+    color: white;
+  }
 }
