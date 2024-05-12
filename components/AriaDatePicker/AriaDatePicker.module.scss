@@ -1,0 +1,47 @@
+@import "../../components/Global/theme.scss";
+
+.inputGroup {
+  display: flex;
+  gap: 16px;
+  width: fit-content;
+  @include input-styles;
+  .dateInput {
+    display: flex;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.popover {
+  background-color: white;
+  padding: 24px;
+  border-radius: $border-radius;
+  outline: 2px solid $light-gray;
+  box-shadow: $box-shadow;
+  font-family: Inter;
+  .headerSection {
+    width: 90%;
+    margin-left: 5%;
+    display: flex;
+    justify-content: space-between;
+    button {
+      background-color: transparent;
+      border: none;
+      padding: 4px;
+    }
+  }
+  .calendarGrid {
+    width: 100%;
+    margin-top: 16px;
+    th,
+    td {
+      padding: 8px 12px;
+      text-align: center;
+    }
+    td [aria-disabled] {
+      color: $text-gray;
+    }
+  }
+}
