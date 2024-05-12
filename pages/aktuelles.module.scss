@@ -1,0 +1,13 @@
+@import "../components/Global/theme.scss";
+
+.cardCollection {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 1fr 1fr 1fr;
+  @include size-m {
+    grid-template-columns: 1fr 1fr;
+  }
+  @include size-s {
+    grid-template-columns: 1fr;
+  }
+}
