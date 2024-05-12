@@ -1,0 +1,18 @@
+@import "../Global/theme.scss";
+.card {
+  border-radius: $border-radius;
+  background-color: white;
+  box-shadow: $box-shadow;
+  .image {
+    border-radius: $border-radius $border-radius 0 0;
+    width: 100%;
+    object-fit: cover;
+  }
+  .textContent {
+    padding: 32px;
+    p {
+      margin-top: 8px;
+      color: $text-gray;
+    }
+  }
+}
