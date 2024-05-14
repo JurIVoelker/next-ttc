@@ -1,12 +1,12 @@
 @import "../../components/Global/theme.scss";
 .container {
-  margin-top: 48px;
+  margin-top: 16px;
   background-color: white;
   border-radius: $border-radius;
   box-shadow: $box-shadow;
   .content {
     div {
-      height: 500px;
+      height: 350px;
       padding: 16px;
       font-family: Inter;
       font-size: 16px;
@@ -16,7 +16,7 @@
   .menuBar {
     background-color: #fafafa;
     border-radius: $border-radius $border-radius 0 0;
-    padding: 4px;
+    padding: 8px;
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
@@ -37,6 +37,10 @@
       }
       &[data-hovered] {
         background-color: $light-gray;
+      }
+      &.isActive {
+        background-color: #e4eaf5;
+        border: 2px solid $primary-bg;
       }
     }
   }

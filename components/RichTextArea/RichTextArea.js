@@ -7,6 +7,7 @@ import {
   faArrowRotateLeft,
   faArrowRotateRight,
   faBold,
+  faHeading,
   faItalic,
   faList,
   faParagraph,
@@ -15,7 +16,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const RichTextArea = ({ text, setText }) => {
-  const content = "<p>Hello World!</p>";
+  const content = text;
 
   const extensions = [
     TextStyle.configure({ types: [ListItem.name] }),
@@ -31,16 +32,29 @@ const RichTextArea = ({ text, setText }) => {
     }),
   ];
 
+  const handleUpdate = (e) => {
+    const content =
+      e.editor.contentComponent.editorContentRef.current.querySelector(
+        ".ProseMirror"
+      ).innerHTML;
+    setText(content);
+  };
+
   const editor = useEditor({
     extensions,
     content,
+    onUpdate: handleUpdate,
   });
 
   return (
     <>
       <div className={styles.container}>
         <MenuBar editor={editor}></MenuBar>
-        <EditorContent editor={editor} className={styles.content} />
+        <EditorContent
+          editor={editor}
+          className={styles.content}
+          content={text}
+        />
       </div>
     </>
   );
@@ -62,21 +76,21 @@ export const MenuBar = ({ editor }) => {
         <Button
           onPress={() => editor.chain().focus().toggleBold().run()}
           isDisabled={!editor.can().chain().focus().toggleBold().run()}
-          className={editor.isActive("bold") ? "is-active" : ""}
+          className={editor.isActive("bold") ? styles.isActive : ""}
         >
           <FontAwesomeIcon icon={faBold} />
         </Button>
         <Button
           onPress={() => editor.chain().focus().toggleItalic().run()}
           isDisabled={!editor.can().chain().focus().toggleItalic().run()}
-          className={editor.isActive("italic") ? "is-active" : ""}
+          className={editor.isActive("italic") ? styles.isActive : ""}
         >
           <FontAwesomeIcon icon={faItalic} />
         </Button>
         <Button
           onPress={() => editor.chain().focus().toggleStrike().run()}
           isDisabled={!editor.can().chain().focus().toggleStrike().run()}
-          className={editor.isActive("strike") ? "is-active" : ""}
+          className={editor.isActive("strike") ? styles.isActive : ""}
         >
           <FontAwesomeIcon icon={faStrikethrough} />
         </Button>
@@ -85,92 +99,41 @@ export const MenuBar = ({ editor }) => {
         </Button>
         <Button
           onPress={() => editor.chain().focus().setParagraph().run()}
-          className={editor.isActive("paragraph") ? "is-active" : ""}
+          className={editor.isActive("paragraph") ? styles.isActive : ""}
         >
           <FontAwesomeIcon icon={faParagraph} />
-        </Button>
-        <Button
-          onPress={() =>
-            editor.chain().focus().toggleHeading({ level: 1 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 1 }) ? "is-active" : ""
-          }
-        >
-          Überschrift
-        </Button>
-        <Button
-          onPress={() =>
-            editor.chain().focus().toggleHeading({ level: 2 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 2 }) ? "is-active" : ""
-          }
-        >
-          h2
         </Button>
         <Button
           onPress={() =>
             editor.chain().focus().toggleHeading({ level: 3 }).run()
           }
           className={
-            editor.isActive("heading", { level: 3 }) ? "is-active" : ""
+            editor.isActive("heading", { level: 3 }) ? styles.isActive : ""
           }
         >
-          h3
+          <FontAwesomeIcon icon={faHeading} style={{ height: "15px" }} />
         </Button>
         <Button
           onPress={() =>
-            editor.chain().focus().toggleHeading({ level: 4 }).run()
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
           }
           className={
-            editor.isActive("heading", { level: 4 }) ? "is-active" : ""
+            editor.isActive("heading", { level: 2 }) ? styles.isActive : ""
           }
         >
-          h4
+          <FontAwesomeIcon icon={faHeading} />
         </Button>
-        <Button
-          onPress={() =>
-            editor.chain().focus().toggleHeading({ level: 5 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 5 }) ? "is-active" : ""
-          }
-        >
-          h5
-        </Button>
-        <Button
-          onPress={() =>
-            editor.chain().focus().toggleHeading({ level: 6 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 6 }) ? "is-active" : ""
-          }
-        >
-          h6
-        </Button>
+
         <Button
           onPress={() => editor.chain().focus().toggleBulletList().run()}
-          className={editor.isActive("bulletList") ? "is-active" : ""}
+          className={editor.isActive("bulletList") ? styles.isActive : ""}
         >
           <FontAwesomeIcon icon={faList} />
         </Button>
-        {/** 
-        <Button
-          onPress={() => editor.chain().focus().toggleOrderedList().run()}
-          className={editor.isActive("orderedList") ? "is-active" : ""}
-        >
-          <svg>
-            <path d="M27 14h36v8H27zm0 36h36v8H27zm0-18h36v8H27zM11.8 15.8V22h1.8v-7.8h-1.5l-2.1 1 .3 1.3zm.3 22.7.7-.6c1.1-1 2.1-2.1 2.1-3.4 0-1.4-1-2.4-2.7-2.4-1.1 0-2 .4-2.6.8l.5 1.3c.4-.3 1-.6 1.7-.6.9 0 1.3.5 1.3 1.1 0 .9-.9 1.8-2.6 3.3l-1 .9V40H15v-1.5h-2.9zm1.2 15.4c1-.4 1.4-1 1.4-1.8 0-1.1-.9-1.9-2.6-1.9-1 0-1.9.3-2.4.6l.4 1.3c.3-.2 1-.5 1.6-.5.8 0 1.2.3 1.2.8 0 .7-.8.9-1.4.9h-.7v1.3h.7c.8 0 1.6.3 1.6 1.1 0 .6-.5 1-1.4 1-.7 0-1.5-.3-1.8-.5l-.4 1.4c.5.3 1.3.6 2.3.6 2 0 3.2-1 3.2-2.4 0-1.1-.8-1.8-1.7-1.9z"></path>
-          </svg>
-        </Button>*/}
         <Button
           onPress={() => editor.chain().focus().setHorizontalRule().run()}
         >
           __
-        </Button>
-        <Button onPress={() => editor.chain().focus().setHardBreak().run()}>
-          hard break
         </Button>
         <Button
           onPress={() => editor.chain().focus().undo().run()}

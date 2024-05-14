@@ -21,7 +21,7 @@ const AriaTextField: React.FC<AriaTextFieldProps> = ({
   ...props
 }) => {
   const _className = className
-    ? className + styles.inputWrapper
+    ? className + " " + styles.inputWrapper
     : styles.inputWrapper;
   return (
     <>

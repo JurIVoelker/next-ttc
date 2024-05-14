@@ -30,6 +30,10 @@ $box-shadow: 0 4px 16px rgba(105, 105, 105, 0.295);
     &[data-hovered] {
       background-color: $primary-bg-hover;
     }
+    &[data-disabled] {
+      background-color: $text-gray;
+      border: 2px solid $light-gray;
+    }
   }
 
   @if ($style == "outline") {
@@ -38,6 +42,10 @@ $box-shadow: 0 4px 16px rgba(105, 105, 105, 0.295);
     background-color: #fafafa;
     &[data-hovered] {
       background-color: #e4e9f8;
+    }
+    &[data-disabled] {
+      color: $text-gray;
+      border: 2px solid $light-gray;
     }
   }
 }

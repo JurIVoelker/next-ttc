@@ -4,6 +4,7 @@
   display: flex;
   gap: 16px;
   width: fit-content;
+  margin-top: 4px;
   @include input-styles;
   .dateInput {
     display: flex;
@@ -44,4 +45,7 @@
       color: $text-gray;
     }
   }
+}
+.label {
+  margin-bottom: 4px;
 }

@@ -19,10 +19,10 @@ import styles from "./AriaDatePicker.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 
-const AriaDatePicker = () => {
+const AriaDatePicker = ({ className, date, setDate }) => {
   return (
-    <DatePicker>
-      <Label>Anzeigedatum</Label>
+    <DatePicker className={className} value={date || null} onChange={setDate}>
+      <Label className={styles.label}>Anzeigedatum</Label>
       <Group className={styles.inputGroup}>
         <DateInput className={styles.dateInput}>
           {(segment) => (
