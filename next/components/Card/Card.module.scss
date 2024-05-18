@@ -1,5 +1,6 @@
 @import "../Global/theme.scss";
 .card {
+  position: relative;
   height: 100%;
   border-radius: $border-radius;
   background-color: white;
@@ -16,6 +17,22 @@
       color: $text-gray;
       overflow: hidden;
       word-break: break-all; /* Breaks words at any point */
+    }
+  }
+  .adminButtons {
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    top: -16px;
+    right: -16px;
+    gap: 8px;
+    width: 100%;
+    a {
+      @include button-styles;
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-content: center;
     }
   }
 }

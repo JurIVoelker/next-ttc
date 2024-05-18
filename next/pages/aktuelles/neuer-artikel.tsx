@@ -18,7 +18,6 @@ import Image from "next/image";
 import Card from "../../components/Card/Card";
 import { PulseLoader } from "react-spinners";
 import { createArticle } from "../../utils/strapi";
-import { useRouter } from "next/router";
 
 const emptyTextAreaContent = '<p><br class="ProseMirror-trailingBreak"></p>';
 

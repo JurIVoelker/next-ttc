@@ -10,3 +10,9 @@
     flex-direction: column;
   }
 }
+
+.newArticle {
+  @include button-styles;
+  display: inline-block;
+  margin-top: 16px;
+}

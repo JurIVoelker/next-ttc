@@ -103,7 +103,7 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
 export async function getStaticProps() {
   const startPageData = await getRequest("start-page?populate=deep");
   const articles = await getRequest(
-    "articles?pagination[page]=1&pagination[pageSize]=3&populate=deep"
+    "articles?pagination[page]=1&pagination[pageSize]=3&populate=deep&sort[0]=datum:desc"
   );
 
   return {
