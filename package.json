@@ -4,37 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "concurrently -p \"[{name}]\" -n \"Strapi,NextJs\" -c \"blue.bold,green.bold\" \"npm run dev-strapi\" \"npm run dev-next\"",
-    "dev-next": "next dev",
-    "dev-strapi": "cd strapi && npm run develop",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.5.2",
-    "@fortawesome/free-brands-svg-icons": "^6.5.2",
-    "@fortawesome/free-solid-svg-icons": "^6.5.2",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@tiptap/extension-text-style": "^2.3.2",
-    "@tiptap/pm": "^2.3.2",
-    "@tiptap/react": "^2.3.2",
-    "@tiptap/starter-kit": "^2.3.2",
-    "axios": "^1.6.8",
-    "next": "14.2.3",
-    "react": "^18",
-    "react-aria": "^3.32.1",
-    "react-aria-components": "^1.1.1",
-    "react-dom": "^18",
-    "react-grid-gallery": "^1.0.1",
-    "react-spinners": "^0.13.8",
-    "sass": "^1.76.0",
-    "zod": "^3.23.8"
+    "dev-next": "wait-on http://127.0.0.1:1337 && cd next && npm run dev",
+    "dev-strapi": "cd strapi && npm run develop"
   },
   "devDependencies": {
-    "@types/node": "20.12.11",
-    "@types/react": "18.3.1",
     "concurrently": "^8.2.2",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.3"
+    "wait-on": "^7.2.0"
   }
 }

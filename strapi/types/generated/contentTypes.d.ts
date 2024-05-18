@@ -788,6 +788,36 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAkutellesPageAkutellesPage extends Schema.SingleType {
+  collectionName: 'akutelles_pages';
+  info: {
+    singularName: 'akutelles-page';
+    pluralName: 'akutelles-pages';
+    displayName: 'Akutelles Page';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    aktuellesTitel: Attribute.String;
+    aktuellesText: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::akutelles-page.akutelles-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::akutelles-page.akutelles-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiArticleArticle extends Schema.CollectionType {
   collectionName: 'articles';
   info: {
@@ -899,6 +929,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::akutelles-page.akutelles-page': ApiAkutellesPageAkutellesPage;
       'api::article.article': ApiArticleArticle;
       'api::start-page.start-page': ApiStartPageStartPage;
       'api::test.test': ApiTestTest;

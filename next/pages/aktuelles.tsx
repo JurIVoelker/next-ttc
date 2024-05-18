@@ -9,13 +9,26 @@ import styles from "./aktuelles.module.scss";
 const PAGE_SIZE = 12;
 const INITIAL_PAGE = 1;
 
-interface AktuellesProps {
-  articles: Articles;
+interface StrapiData {
+  data: {
+    attributes: {
+      aktuellesTitel: string;
+      aktuellesText: string;
+    };
+  };
 }
 
-const Aktuelles: React.FC<AktuellesProps> = ({ articles }) => {
+interface AktuellesProps {
+  articles: Articles;
+  strapiData: StrapiData;
+}
+
+const Aktuelles: React.FC<AktuellesProps> = ({ articles, strapiData }) => {
+  console.log(strapiData);
   return (
     <Layout>
+      <h1>{strapiData?.data?.attributes?.aktuellesTitel}</h1>
+      <p>{strapiData?.data?.attributes?.aktuellesText}</p>
       <div className={styles.cardCollection}>
         {articles.data.map((article, index) => {
           return (
@@ -44,5 +57,6 @@ export const getStaticProps = async () => {
   const articles = await getRequest(
     `articles?pagination[page]=${INITIAL_PAGE}&pagination[pageSize]=${PAGE_SIZE}&populate=deep`
   );
-  return { props: { articles: articles } };
+  const aktuellesData = await getRequest("akutelles-page?populate=deep");
+  return { props: { articles: articles, strapiData: aktuellesData } };
 };
