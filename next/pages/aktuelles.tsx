@@ -24,10 +24,11 @@ interface AktuellesProps {
 }
 
 const Aktuelles: React.FC<AktuellesProps> = ({ articles, strapiData }) => {
-  console.log(strapiData);
   return (
     <Layout>
-      <h1>{strapiData?.data?.attributes?.aktuellesTitel}</h1>
+      <h1 style={{ marginBottom: "12px" }}>
+        {strapiData?.data?.attributes?.aktuellesTitel}
+      </h1>
       <p>{strapiData?.data?.attributes?.aktuellesText}</p>
       <div className={styles.cardCollection}>
         {articles.data.map((article, index) => {
