@@ -2,16 +2,11 @@ import React, { useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import {
   Button,
-  DatePicker,
-  FieldError,
-  Input,
-  Label,
   Link,
   Tab,
   TabList,
   TabPanel,
   Tabs,
-  TextField,
 } from "react-aria-components";
 import styles from "./neuer-artikel.module.scss";
 import AriaTextField from "../../components/AriaTextField/AriaTextField";
@@ -21,6 +16,9 @@ import RichTextArea from "../../components/RichTextArea/RichTextArea";
 import AriaImageDropzone from "../../components/AriaImageDropzone/AriaImageDropzone";
 import Image from "next/image";
 import Card from "../../components/Card/Card";
+import { PulseLoader } from "react-spinners";
+import { createArticle } from "../../utils/strapi";
+import { useRouter } from "next/router";
 
 const emptyTextAreaContent = '<p><br class="ProseMirror-trailingBreak"></p>';
 
@@ -36,89 +34,137 @@ const NewPage = () => {
   const [previewImage, setPreviewImage] = useState(false);
   const [images, setImages] = useState([]);
 
-  const handleConfirm = () => {};
+  const [previewText, setPreviewText] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
+
+  const [isSuccess, setSuccess] = useState(false);
+
+  const handleConfirm = () => {
+    setIsSending(true);
+    const body = {
+      titel: title,
+      kurzBeschreibung: previewText,
+      datum: date,
+      text: text,
+    };
+    createArticle(body, images, previewImage).then((res) => {
+      setIsSending(false);
+      if (res.error) {
+        if (res.error === "slug must be unique") {
+          setErrorMessage(
+            `Bitte wähle einen anderen Titel! "${title}" ist bereits vergeben!`
+          );
+        }
+      } else {
+        setErrorMessage("");
+        setSuccess(true);
+      }
+    });
+  };
 
   const isValid =
     title !== "" && !!date && text !== emptyTextAreaContent && !!previewImage;
 
   return (
     <Layout>
-      <Tabs
-        selectedKey={tab}
-        onSelectionChange={(e: string) => {
-          setTab(e);
-        }}
-        className={styles.tabs}
-      >
-        <TabList aria-label="Inhalt tabs" className={styles.tabList}>
-          <Tab id="text" className={styles.tabSection}>
-            Text
-          </Tab>
-          <Tab id="images" className={styles.tabSection}>
-            Bilder
-          </Tab>
-          <Tab id="preview" className={styles.tabSection}>
-            Vorschau
-          </Tab>
-        </TabList>
-
-        <TabPanel id="text">
-          <TextTab
-            text={text}
-            setText={setText}
-            title={title}
-            setTitle={setTitle}
-            date={date}
-            setDate={setDate}
-          />
-        </TabPanel>
-        <TabPanel id="images">
-          <ImageTab
-            preview={previewImage}
-            setPreview={setPreviewImage}
-            images={images}
-            setImages={setImages}
-          />
-        </TabPanel>
-        <TabPanel id="preview">
-          <PreviewTab
-            preview={previewImage}
-            images={images}
-            title={title}
-            text={text}
-            isValid={isValid}
-            date={date}
-          />{" "}
-        </TabPanel>
-      </Tabs>
-      <div className={styles.buttonGroup}>
-        {tab === "text" ? (
-          <Link href="/aktuelles" className={styles.abortButton}>
-            Abbrechen
+      {isSuccess && (
+        <>
+          <h3 style={{ marginTop: "32px" }}>Erfolg</h3>
+          <p style={{ marginTop: "16px" }}>
+            Dein Artikel wurde erfolgreich hochgeladen
+          </p>
+          <Link href="/aktuelles" className={styles.button}>
+            Zurück zur Übersicht
           </Link>
-        ) : (
-          <Button
-            className={styles.abortButton}
-            onPress={() => {
-              if (tab === "preview") setTab("images");
-              else if (tab === "images") setTab("text");
+        </>
+      )}
+      {!isSuccess && (
+        <>
+          <Tabs
+            selectedKey={tab}
+            onSelectionChange={(e: string) => {
+              setTab(e);
             }}
+            className={styles.tabs}
           >
-            Zurück
-          </Button>
-        )}
-        <Button
-          className={styles.continueButton}
-          onPress={() => {
-            if (tab === "text") setTab("images");
-            else if (tab === "images") setTab("preview");
-            else if (tab === "preview") handleConfirm();
-          }}
-          isDisabled={tab === "preview" && !isValid}
-        >
-          {tab === "preview" ? "Artikel erstellen" : "Weiter"}
-        </Button>
-      </div>
+            <TabList aria-label="Inhalt tabs" className={styles.tabList}>
+              <Tab id="text" className={styles.tabSection}>
+                Text
+              </Tab>
+              <Tab id="images" className={styles.tabSection}>
+                Bilder
+              </Tab>
+              <Tab id="preview" className={styles.tabSection}>
+                Vorschau
+              </Tab>
+            </TabList>
+
+            <TabPanel id="text">
+              <TextTab
+                text={text}
+                setText={setText}
+                title={title}
+                setTitle={setTitle}
+                date={date}
+                setDate={setDate}
+              />
+            </TabPanel>
+            <TabPanel id="images">
+              <ImageTab
+                preview={previewImage}
+                setPreview={setPreviewImage}
+                images={images}
+                setImages={setImages}
+              />
+            </TabPanel>
+            <TabPanel id="preview">
+              <PreviewTab
+                preview={previewImage}
+                title={title}
+                text={text}
+                isValid={isValid}
+                date={date}
+                setPreviewText={setPreviewText}
+                errorMessage={errorMessage}
+                isSending={isSending}
+              />{" "}
+            </TabPanel>
+          </Tabs>
+          <div className={styles.buttonGroup}>
+            {tab === "text" && !isSending ? (
+              <Link href="/aktuelles" className={styles.abortButton}>
+                Abbrechen
+              </Link>
+            ) : (
+              <Button
+                className={styles.abortButton}
+                onPress={() => {
+                  if (tab === "preview") setTab("images");
+                  else if (tab === "images") setTab("text");
+                }}
+              >
+                Zurück
+              </Button>
+            )}
+            <Button
+              className={styles.continueButton}
+              onPress={() => {
+                if (tab === "text") setTab("images");
+                else if (tab === "images") setTab("preview");
+                else if (tab === "preview") handleConfirm();
+              }}
+              isDisabled={tab === "preview" && !isValid && !isSending}
+            >
+              {isSending ? (
+                <PulseLoader color="white" />
+              ) : (
+                <>{tab === "preview" ? "Artikel erstellen" : "Weiter"}</>
+              )}
+            </Button>
+          </div>
+        </>
+      )}
     </Layout>
   );
 };
@@ -208,7 +254,16 @@ const ImageTab = ({ images, setImages, preview, setPreview }) => {
   );
 };
 
-const PreviewTab = ({ preview, date, title, text, isValid }) => {
+const PreviewTab = ({
+  preview,
+  date,
+  title,
+  text,
+  isValid,
+  setPreviewText,
+  errorMessage,
+  isSending,
+}) => {
   let onlyText = "";
   let isHTMLTag = false;
   for (let i = 0; i < text.length; i++) {
@@ -222,6 +277,7 @@ const PreviewTab = ({ preview, date, title, text, isValid }) => {
     }
   }
   const shortenedText = onlyText.substring(0, 100) + "...";
+  setPreviewText(shortenedText);
   const addZeros = (number) => {
     return String(number).length === 1 ? "0" + number : number;
   };
@@ -260,6 +316,9 @@ const PreviewTab = ({ preview, date, title, text, isValid }) => {
             )}
           </ul>
         </div>
+      )}
+      {errorMessage && !isSending && (
+        <div className={styles.error}>{errorMessage}</div>
       )}
     </div>
   );

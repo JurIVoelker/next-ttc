@@ -19,7 +19,11 @@ const Aktuelles: React.FC<AktuellesProps> = ({ articles }) => {
       <div className={styles.cardCollection}>
         {articles.data.map((article, index) => {
           return (
-            <Link href={`aktuelles/${article.attributes.slug}`} key={index}>
+            <Link
+              href={`aktuelles/${article.attributes.slug}`}
+              key={index}
+              className={styles.cardLink}
+            >
               <Card
                 title={article.attributes.titel}
                 description={article.attributes.kurzBeschreibung}

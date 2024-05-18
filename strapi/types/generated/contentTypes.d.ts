@@ -800,12 +800,12 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    titel: Attribute.String;
-    kurzBeschreibung: Attribute.Text;
+    titel: Attribute.String & Attribute.Required;
+    kurzBeschreibung: Attribute.Text & Attribute.Required;
     vorschauBild: Attribute.Media;
-    datum: Attribute.Date;
-    text: Attribute.Text;
-    slug: Attribute.UID<'api::article.article', 'titel'>;
+    datum: Attribute.Date & Attribute.Required;
+    text: Attribute.Text & Attribute.Required;
+    slug: Attribute.UID<'api::article.article', 'titel'> & Attribute.Required;
     bilder: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

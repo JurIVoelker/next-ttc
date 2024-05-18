@@ -13,10 +13,12 @@
   "pluginOptions": {},
   "attributes": {
     "titel": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "kurzBeschreibung": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
     "vorschauBild": {
       "type": "media",
@@ -30,24 +32,28 @@
       ]
     },
     "datum": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "text": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
     "slug": {
       "type": "uid",
-      "targetField": "titel"
+      "targetField": "titel",
+      "required": true
     },
     "bilder": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     }
   }
 }

@@ -13,6 +13,8 @@
     p {
       margin-top: 8px;
       color: $text-gray;
+      overflow: hidden;
+      word-break: break-all; /* Breaks words at any point */
     }
   }
 }

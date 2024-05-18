@@ -37,7 +37,7 @@ const AktuellesDetailPage: React.FC<AktuellesDetailPageProps> = ({
           alt=""
           className={styles.image}
         ></Image>
-        <p>{postData.attributes.text}</p>
+        <div dangerouslySetInnerHTML={{ __html: postData.attributes.text }} />
       </div>
       {images && (
         <div className={styles.gallery}>
