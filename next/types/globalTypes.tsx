@@ -1,6 +1,7 @@
 import { Url } from "url";
 
 export interface Article {
+  id: number;
   attributes: {
     datum: string;
     kurzBeschreibung: string;

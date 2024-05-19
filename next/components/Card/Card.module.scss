@@ -1,22 +1,24 @@
 @import "../Global/theme.scss";
-.card {
+.cardWrapper {
   position: relative;
-  height: 100%;
-  border-radius: $border-radius;
-  background-color: white;
-  box-shadow: $box-shadow;
-  .image {
-    border-radius: $border-radius $border-radius 0 0;
-    width: 100%;
-    object-fit: cover;
-  }
-  .textContent {
-    padding: 32px;
-    p {
-      margin-top: 8px;
-      color: $text-gray;
-      overflow: hidden;
-      word-break: break-all; /* Breaks words at any point */
+  .card {
+    height: 100%;
+    border-radius: $border-radius;
+    background-color: white;
+    box-shadow: $box-shadow;
+    .image {
+      border-radius: $border-radius $border-radius 0 0;
+      width: 100%;
+      object-fit: cover;
+    }
+    .textContent {
+      padding: 32px;
+      p {
+        margin-top: 8px;
+        color: $text-gray;
+        overflow: hidden;
+        word-break: break-all; /* Breaks words at any point */
+      }
     }
   }
   .adminButtons {
@@ -27,6 +29,7 @@
     right: -16px;
     gap: 8px;
     width: 100%;
+    button,
     a {
       @include button-styles;
       width: 40px;

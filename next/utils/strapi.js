@@ -159,3 +159,15 @@ async function uploadArticleImage(file, refId, field, jwt) {
   });
   return imageUpload;
 }
+
+export async function deleteArticle(id) {
+  if (typeof localStorage !== "undefined") {
+    const jwt = localStorage.getItem("jwt");
+    await axios.delete(`${strapiUrl}/api/articles/${id}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    return;
+  }
+}

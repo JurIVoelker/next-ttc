@@ -111,6 +111,7 @@ export async function getStaticProps() {
       strapiData: startPageData,
       articles,
     },
+    revalidate: 600,
   };
 }
 

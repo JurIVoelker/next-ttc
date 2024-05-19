@@ -1,14 +1,13 @@
 import Image from "next/image";
 import styles from "./Card.module.scss";
 import React from "react";
-import { Button, Link } from "react-aria-components";
+import { Button, DialogTrigger, Link } from "react-aria-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faDeleteLeft,
-  faEdit,
-  faPen,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+
+import AriaModal from "../AriaModal/AriaModal";
+import { deleteArticle } from "../../utils/strapi";
+import { useRouter } from "next/router";
 
 interface CardProps {
   imageUrl: string;
@@ -16,42 +15,65 @@ interface CardProps {
   description: string;
   isShowMoreVisible?: boolean;
   date?: string;
-  isEditable: boolean;
+  isEditable?: boolean;
+  slug?: string;
+  id?: number;
 }
 
 const Card: React.FC<CardProps> = ({
   imageUrl,
   title,
   description,
-  isShowMoreVisible,
   date,
   isEditable,
+  slug,
+  id,
 }) => {
+  const { push } = useRouter();
+
+  const handleDelete = () => {
+    deleteArticle(id).then(() => {
+      push("/aktuelles");
+    });
+  };
+
+  const linkProps = slug ? { href: `aktuelles/${slug}` } : "";
+
   return (
-    <div className={styles.card}>
+    <div className={styles.cardWrapper}>
       {isEditable && (
         <div className={styles.adminButtons}>
-          <Link href="/">
+          <Link href={`/bearbeiten/${slug}`}>
             <FontAwesomeIcon icon={faPen} color="white" />
           </Link>
-          <Link href="/">
-            <FontAwesomeIcon icon={faTrash} color="white" />
-          </Link>
+          <DialogTrigger>
+            <Button>
+              <FontAwesomeIcon icon={faTrash} color="white" />
+            </Button>
+            <AriaModal
+              title={"Löschen bestätigen"}
+              text={`Möchtest du wirklich den Artikel "${title}" löschen? Dieser Schritt kann nicht rückgängig gemacht werden!`}
+              onConfirm={handleDelete}
+            />
+          </DialogTrigger>
         </div>
       )}
-
-      <Image
-        src={imageUrl}
-        width={300}
-        height={200}
-        alt={`Bildvorschau für ${title}`}
-        className={styles.image}
-      ></Image>
-      <div className={styles.textContent}>
-        <h3>{title}</h3>
-        <p>{description}</p>
-        {date && <p>{date.split("-").reverse().join(".")}</p>}
-      </div>
+      <Link {...linkProps}>
+        <div className={styles.card}>
+          <Image
+            src={imageUrl}
+            width={300}
+            height={200}
+            alt={`Bildvorschau für ${title}`}
+            className={styles.image}
+          ></Image>
+          <div className={styles.textContent}>
+            <h3>{title}</h3>
+            <p>{description}</p>
+            {date && <p>{date.split("-").reverse().join(".")}</p>}
+          </div>
+        </div>
+      </Link>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { Link } from "react-aria-components";
+import { Button, DialogTrigger, Link } from "react-aria-components";
 import { Articles } from "../types/globalTypes";
 import { getRequest, getStrapiImage } from "../utils/strapi";
 import Card from "../components/Card/Card";
@@ -24,7 +24,7 @@ interface AktuellesProps {
 }
 
 const Aktuelles: React.FC<AktuellesProps> = ({ articles, strapiData }) => {
-  const [jwt, setJwt] = useState(false);
+  const [jwt, setJwt] = useState<boolean | string>(false);
 
   useEffect(() => {
     if (typeof localStorage !== "undefined") {
@@ -46,19 +46,16 @@ const Aktuelles: React.FC<AktuellesProps> = ({ articles, strapiData }) => {
       <div className={styles.cardCollection}>
         {articles.data.map((article, index) => {
           return (
-            <Link
-              href={`aktuelles/${article.attributes.slug}`}
+            <Card
               key={index}
-              className={styles.cardLink}
-            >
-              <Card
-                title={article.attributes.titel}
-                description={article.attributes.kurzBeschreibung}
-                imageUrl={getStrapiImage(article.attributes.vorschauBild)}
-                date={article.attributes.datum}
-                isEditable={jwt}
-              ></Card>
-            </Link>
+              title={article.attributes.titel}
+              description={article.attributes.kurzBeschreibung}
+              imageUrl={getStrapiImage(article.attributes.vorschauBild)}
+              date={article.attributes.datum}
+              isEditable={!!jwt}
+              slug={article.attributes.slug}
+              id={article.id}
+            ></Card>
           );
         })}
       </div>
@@ -73,5 +70,8 @@ export const getStaticProps = async () => {
     `articles?pagination[page]=${INITIAL_PAGE}&pagination[pageSize]=${PAGE_SIZE}&populate=deep&sort[0]=datum:desc`
   );
   const aktuellesData = await getRequest("akutelles-page?populate=deep");
-  return { props: { articles: articles, strapiData: aktuellesData } };
+  return {
+    props: { articles: articles, strapiData: aktuellesData },
+    revalidate: 600,
+  };
 };

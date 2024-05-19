@@ -6,14 +6,53 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 48px;
+  gap: 32px;
   @include size-m {
-    gap: 32px;
+    gap: 12px;
   }
   @include size-s {
-    gap: 16px;
+    gap: 0;
   }
   .link {
     color: white;
+    padding: 10px 16px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    font-family: Inter;
+    font-size: 16px;
+    border-radius: 16px;
+    transition: background-color 100ms;
+    &[data-hovered],
+    :hover {
+      background-color: rgba(255, 255, 255, 0.267);
+    }
+  }
+}
+
+.listBoxWrapper {
+  z-index: 99;
+  position: absolute;
+  padding: 15px;
+  left: -64px;
+  &.isOpen .listBox {
+    display: flex;
+  }
+  .listBox {
+    display: none;
+    background-color: $primary-bg;
+    border-radius: 0 0 $border-radius $border-radius;
+    width: 200px;
+    color: white;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    .listBoxItem {
+      padding: 10px 16px;
+      border-radius: $border-radius;
+      transition: background-color 200ms;
+      &[data-hovered] {
+        background-color: rgba(255, 255, 255, 0.267);
+      }
+    }
   }
 }
