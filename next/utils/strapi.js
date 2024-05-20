@@ -1,11 +1,13 @@
 import { z } from "zod";
 import axios from "axios";
 
+//export const strapiUrl = "http://192.168.2.162:1337";
+export const strapiUrl = "http://127.0.0.1:1337";
+
 export async function getRequest(route) {
-  const strapiApi = "http://127.0.0.1:1337/api";
   try {
     const data = await axios
-      .get(`${strapiApi}/${route}`)
+      .get(`${strapiUrl}/api/${route}`)
       .then((res) => res.data);
     return data;
   } catch (error) {
@@ -14,8 +16,6 @@ export async function getRequest(route) {
     throw error; // Re-throw the error to be handled by the caller
   }
 }
-
-export const strapiUrl = "http://127.0.0.1:1337";
 
 export const getStrapiImage = (object) => {
   let url;
