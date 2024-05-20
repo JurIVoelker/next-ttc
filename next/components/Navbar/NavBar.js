@@ -6,10 +6,10 @@ import { useRef, useState } from "react";
 
 const NavBar = () => {
   const vereinLinks = [
-    { name: "Events", href: "/events" },
-    { name: "Organisation", href: "/organisation" },
-    { name: "Sponsoren", href: "/sponsoren" },
-    { name: "Unsere Halle", href: "/halle" },
+    { name: "Events", href: "/verein/events" },
+    { name: "Organisation", href: "/verein/organisation" },
+    { name: "Sponsoren", href: "/verein/sponsoren" },
+    { name: "Unsere Halle", href: "/verein/halle" },
   ];
 
   const erwachseneLinks = [
@@ -32,14 +32,14 @@ const NavBar = () => {
   ];
 
   const anderesLinks = [
-    { name: "Links", href: "/links" },
+    { name: "Links", href: "/anderes/links" },
     {
       name: "Downloads",
-      href: "/downloads",
+      href: "/anderes/downloads",
     },
-    { name: "Impressum", href: "/impressum" },
-    { name: "Datenschutz", href: "/datenschutz" },
-    { name: "Kontakt", href: "/kontakt" },
+    { name: "Impressum", href: "/anderes/impressum" },
+    { name: "Datenschutz", href: "/anderes/datenschutz" },
+    { name: "Kontakt", href: "/anderes/kontakt" },
   ];
 
   return (
