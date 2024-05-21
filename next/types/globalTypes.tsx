@@ -31,3 +31,20 @@ export interface StrapiImages {
     { id: number; attributes: { url: string; height: number; width: number } }
   ];
 }
+
+export interface Tag {
+  id: number;
+  text: string;
+  url: string;
+  icon: Icon;
+}
+
+export interface Icon {
+  data: {
+    id: number;
+    attributes: {
+      name: String;
+      fontAwesomeIconName: String;
+    };
+  };
+}

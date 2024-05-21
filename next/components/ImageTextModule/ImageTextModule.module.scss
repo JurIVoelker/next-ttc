@@ -1,0 +1,43 @@
+@import "../Global/theme.scss";
+.wrapper {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 48px;
+  img {
+    flex-grow: 1;
+    object-fit: cover;
+    border-radius: $border-radius;
+    height: 400px;
+  }
+  h2 {
+    margin-bottom: 16px;
+  }
+  .contentContainer {
+    flex-shrink: 0;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  @include size-s {
+    display: grid;
+    img {
+      width: 100%;
+      height: 300px;
+    }
+    .contentContainer {
+      width: 100%;
+    }
+  }
+
+  @include size-m {
+    display: grid;
+    img {
+      width: 100%;
+      height: 400px;
+    }
+    .contentContainer {
+      width: 100%;
+    }
+  }
+}

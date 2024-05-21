@@ -854,6 +854,60 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
+export interface ApiHallePageHallePage extends Schema.SingleType {
+  collectionName: 'halle_pages';
+  info: {
+    singularName: 'halle-page';
+    pluralName: 'halle-pages';
+    displayName: 'Halle Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titel: Attribute.String;
+    hallen: Attribute.Component<'content.text-image-module', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::halle-page.halle-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::halle-page.halle-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiIconIcon extends Schema.CollectionType {
+  collectionName: 'icons';
+  info: {
+    singularName: 'icon';
+    pluralName: 'icons';
+    displayName: 'icon';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    fontAwesomeIconName: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::icon.icon', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::icon.icon', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiStartPageStartPage extends Schema.SingleType {
   collectionName: 'start_pages';
   info: {
@@ -911,6 +965,35 @@ export interface ApiTestTest extends Schema.SingleType {
   };
 }
 
+export interface ApiTest2Test2 extends Schema.SingleType {
+  collectionName: 'test2s';
+  info: {
+    singularName: 'test2';
+    pluralName: 'test2s';
+    displayName: 'test2';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    icon: Attribute.Relation<'api::test2.test2', 'oneToOne', 'api::icon.icon'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::test2.test2',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::test2.test2',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -931,8 +1014,11 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::akutelles-page.akutelles-page': ApiAkutellesPageAkutellesPage;
       'api::article.article': ApiArticleArticle;
+      'api::halle-page.halle-page': ApiHallePageHallePage;
+      'api::icon.icon': ApiIconIcon;
       'api::start-page.start-page': ApiStartPageStartPage;
       'api::test.test': ApiTestTest;
+      'api::test2.test2': ApiTest2Test2;
     }
   }
 }
