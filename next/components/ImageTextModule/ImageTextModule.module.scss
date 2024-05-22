@@ -3,6 +3,9 @@
   display: flex;
   gap: 32px;
   margin-bottom: 48px;
+  &.right {
+    flex-direction: row-reverse;
+  }
   img {
     flex-grow: 1;
     object-fit: cover;
@@ -18,6 +21,26 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    .tags {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      .tag {
+        padding: 8px 16px;
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background-color: $tag;
+        border-radius: $border-radius;
+        color: $text-on-dark;
+        &.link {
+          text-decoration: underline;
+        }
+      }
+    }
   }
   @include size-s {
     display: grid;
@@ -29,7 +52,6 @@
       width: 100%;
     }
   }
-
   @include size-m {
     display: grid;
     img {

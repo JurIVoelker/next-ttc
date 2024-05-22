@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "training_erwachsene_pages",
+  "info": {
+    "singularName": "training-erwachsene-page",
+    "pluralName": "training-erwachsene-pages",
+    "displayName": "Training Erwachsene Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "bild": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "trainingszeiten": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.trainingszeit"
+    }
+  }
+}

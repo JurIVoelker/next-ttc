@@ -15,6 +15,30 @@ export interface ContentTextImageModule extends Schema.Component {
   };
 }
 
+export interface ContentTrainingszeit extends Schema.Component {
+  collectionName: 'components_content_trainingszeits';
+  info: {
+    displayName: 'trainingszeit';
+    icon: 'clock';
+    description: '';
+  };
+  attributes: {
+    wochentag: Attribute.Enumeration<
+      [
+        'Montag',
+        'Dienstag',
+        'Mittwoch',
+        'Donnerstag',
+        'Freitag',
+        'Samstag',
+        'Sonntag',
+        'Feiertag'
+      ]
+    >;
+    zeit: Attribute.String;
+  };
+}
+
 export interface LinkStartPageLink extends Schema.Component {
   collectionName: 'components_link_start_page_links';
   info: {
@@ -40,7 +64,7 @@ export interface TagsLink extends Schema.Component {
   attributes: {
     text: Attribute.String;
     url: Attribute.String;
-    icon: Attribute.Relation<'tags.link', 'oneToOne', 'api::icon.icon'>;
+    icon: Attribute.Enumeration<['info', 'link']>;
   };
 }
 
@@ -48,6 +72,7 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'content.text-image-module': ContentTextImageModule;
+      'content.trainingszeit': ContentTrainingszeit;
       'link.start-page-link': LinkStartPageLink;
       'tags.link': TagsLink;
     }

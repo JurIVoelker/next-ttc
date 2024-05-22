@@ -885,29 +885,6 @@ export interface ApiHallePageHallePage extends Schema.SingleType {
   };
 }
 
-export interface ApiIconIcon extends Schema.CollectionType {
-  collectionName: 'icons';
-  info: {
-    singularName: 'icon';
-    pluralName: 'icons';
-    displayName: 'icon';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    name: Attribute.String;
-    fontAwesomeIconName: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::icon.icon', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::icon.icon', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
 export interface ApiStartPageStartPage extends Schema.SingleType {
   collectionName: 'start_pages';
   info: {
@@ -965,28 +942,72 @@ export interface ApiTestTest extends Schema.SingleType {
   };
 }
 
-export interface ApiTest2Test2 extends Schema.SingleType {
-  collectionName: 'test2s';
+export interface ApiTrainingErwachsenePageTrainingErwachsenePage
+  extends Schema.SingleType {
+  collectionName: 'training_erwachsene_pages';
   info: {
-    singularName: 'test2';
-    pluralName: 'test2s';
-    displayName: 'test2';
+    singularName: 'training-erwachsene-page';
+    pluralName: 'training-erwachsene-pages';
+    displayName: 'Training Erwachsene Page';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
-    icon: Attribute.Relation<'api::test2.test2', 'oneToOne', 'api::icon.icon'>;
+    titel: Attribute.String;
+    text: Attribute.String;
+    bild: Attribute.Media;
+    trainingszeiten: Attribute.Component<'content.trainingszeit', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::test2.test2',
+      'api::training-erwachsene-page.training-erwachsene-page',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::test2.test2',
+      'api::training-erwachsene-page.training-erwachsene-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTrainingJugendPageTrainingJugendPage
+  extends Schema.SingleType {
+  collectionName: 'training_jugend_pages';
+  info: {
+    singularName: 'training-jugend-page';
+    pluralName: 'training-jugend-pages';
+    displayName: 'Training Jugend Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    titel: Attribute.String;
+    text: Attribute.Text;
+    bild: Attribute.Media;
+    anfaengerTraining: Attribute.Component<'content.trainingszeit', true>;
+    fortgeschrittenenTraining: Attribute.Component<
+      'content.trainingszeit',
+      true
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::training-jugend-page.training-jugend-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::training-jugend-page.training-jugend-page',
       'oneToOne',
       'admin::user'
     > &
@@ -1015,10 +1036,10 @@ declare module '@strapi/types' {
       'api::akutelles-page.akutelles-page': ApiAkutellesPageAkutellesPage;
       'api::article.article': ApiArticleArticle;
       'api::halle-page.halle-page': ApiHallePageHallePage;
-      'api::icon.icon': ApiIconIcon;
       'api::start-page.start-page': ApiStartPageStartPage;
       'api::test.test': ApiTestTest;
-      'api::test2.test2': ApiTest2Test2;
+      'api::training-erwachsene-page.training-erwachsene-page': ApiTrainingErwachsenePageTrainingErwachsenePage;
+      'api::training-jugend-page.training-jugend-page': ApiTrainingJugendPageTrainingJugendPage;
     }
   }
 }

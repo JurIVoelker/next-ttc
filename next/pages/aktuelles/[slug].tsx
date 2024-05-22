@@ -5,6 +5,7 @@ import Layout from "../../components/Layout/Layout";
 import Image from "next/image";
 import styles from "./aktuellesDetailPage.module.scss";
 import { Gallery } from "react-grid-gallery";
+import TextWrap from "../../components/TextWrap/TextWrap";
 
 interface AktuellesDetailPageProps {
   postData: Article;
@@ -29,16 +30,11 @@ const AktuellesDetailPage: React.FC<AktuellesDetailPageProps> = ({
       <span className={styles.date}>
         {postData.attributes.datum.split("-").reverse().join(".")}
       </span>
-      <div className={styles.textWrapper}>
-        <Image
-          src={getStrapiImage(postData.attributes.vorschauBild)}
-          width={500}
-          height={300}
-          alt=""
-          className={styles.image}
-        ></Image>
-        <div dangerouslySetInnerHTML={{ __html: postData.attributes.text }} />
-      </div>
+      <TextWrap
+        image={postData.attributes.vorschauBild}
+        text={postData.attributes.text}
+        textType="html"
+      />
       {images && (
         <div className={styles.gallery}>
           <Gallery

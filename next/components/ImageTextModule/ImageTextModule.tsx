@@ -2,6 +2,8 @@ import Image from "next/image";
 import styles from "./ImageTextModule.module.scss";
 import { ReactNode } from "react";
 import { Tag } from "../../types/globalTypes";
+import { getFontAweseomeIcon } from "../../utils/getIcons";
+import Link from "next/link";
 
 interface ImageTextModuleProps {
   children: ReactNode;
@@ -16,17 +18,42 @@ const ImageTextModule: React.FC<ImageTextModuleProps> = ({
   imagePosition = "left",
   tags,
 }) => {
-  console.log(tags);
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={`${styles.wrapper} ${
+        imagePosition === "left" ? "" : styles.right
+      }`}
+    >
       <Image src={imgSrc} height={500} width={500} alt="" />
-      {tags.map((tag) => {
-        if (tag.url) {
-          return <div key={tag.id}></div>;
-        }
-        return "";
-      })}
-      <div className={styles.contentContainer}>{children}</div>
+      <div className={styles.contentContainer}>
+        {children}
+        <div className={styles.tags}>
+          {tags.map((tag) => {
+            const content = (
+              <>
+                {getFontAweseomeIcon(tag.icon)}
+                {tag.text}
+              </>
+            );
+            if (tag.url) {
+              return (
+                <Link
+                  key={tag.id}
+                  className={`${styles.tag} ${styles.link}`}
+                  href={tag.url}
+                >
+                  {content}
+                </Link>
+              );
+            }
+            return (
+              <span key={tag.id} className={styles.tag}>
+                {content}
+              </span>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
