@@ -36,15 +36,27 @@ export interface Tag {
   id: number;
   text: string;
   url: string;
-  icon: Icon;
+  icon: string;
+}
+export interface TeamProps {
+  name: string;
+  link: string;
+  rank: string;
+  points: string;
+  league: string;
+  leagueLink: string;
 }
 
-export interface Icon {
-  data: {
-    id: number;
-    attributes: {
-      name: String;
-      fontAwesomeIconName: String;
-    };
-  };
+export interface PlayersProps {
+  team?: string;
+  league?: string;
+  leagueLink?: string;
+  players?: Player[];
+}
+
+export interface Player {
+  placement?: string;
+  name?: string;
+  gamesPlayed?: string;
+  balance?: string;
 }

@@ -9,7 +9,7 @@ interface ImageTextModuleProps {
   children: ReactNode;
   imgSrc: string;
   imagePosition?: "left" | "right";
-  tags: Tag[];
+  tags?: Tag[];
 }
 
 const ImageTextModule: React.FC<ImageTextModuleProps> = ({
@@ -28,30 +28,31 @@ const ImageTextModule: React.FC<ImageTextModuleProps> = ({
       <div className={styles.contentContainer}>
         {children}
         <div className={styles.tags}>
-          {tags.map((tag) => {
-            const content = (
-              <>
-                {getFontAweseomeIcon(tag.icon)}
-                {tag.text}
-              </>
-            );
-            if (tag.url) {
-              return (
-                <Link
-                  key={tag.id}
-                  className={`${styles.tag} ${styles.link}`}
-                  href={tag.url}
-                >
-                  {content}
-                </Link>
+          {tags &&
+            tags.map((tag) => {
+              const content = (
+                <>
+                  {getFontAweseomeIcon(tag.icon)}
+                  {tag.text}
+                </>
               );
-            }
-            return (
-              <span key={tag.id} className={styles.tag}>
-                {content}
-              </span>
-            );
-          })}
+              if (tag.url) {
+                return (
+                  <Link
+                    key={tag.id}
+                    className={`${styles.tag} ${styles.link}`}
+                    href={tag.url}
+                  >
+                    {content}
+                  </Link>
+                );
+              }
+              return (
+                <span key={tag.id} className={styles.tag}>
+                  {content}
+                </span>
+              );
+            })}
         </div>
       </div>
     </div>

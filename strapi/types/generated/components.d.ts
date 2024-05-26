@@ -1,5 +1,29 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface ContentMannschaft extends Schema.Component {
+  collectionName: 'components_content_mannschafts';
+  info: {
+    displayName: 'mannschaft';
+    icon: 'emotionHappy';
+  };
+  attributes: {
+    name: Attribute.String;
+    bild: Attribute.Media;
+  };
+}
+
+export interface ContentMannschaften extends Schema.Component {
+  collectionName: 'components_content_mannschaftens';
+  info: {
+    displayName: 'mannschaften';
+    icon: 'emotionHappy';
+  };
+  attributes: {
+    name: Attribute.String;
+    bild: Attribute.Media;
+  };
+}
+
 export interface ContentTextImageModule extends Schema.Component {
   collectionName: 'components_content_text_image_modules';
   info: {
@@ -71,6 +95,8 @@ export interface TagsLink extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'content.mannschaft': ContentMannschaft;
+      'content.mannschaften': ContentMannschaften;
       'content.text-image-module': ContentTextImageModule;
       'content.trainingszeit': ContentTrainingszeit;
       'link.start-page-link': LinkStartPageLink;

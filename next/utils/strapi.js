@@ -21,8 +21,8 @@ export const getStrapiImage = (object) => {
   let url;
   if (object?.data) {
     url = strapiUrl + object?.data?.attributes?.url;
-  } else {
-    url = strapiUrl + object?.attributes.url;
+  } else if (object?.attributes) {
+    url = strapiUrl + object?.attributes?.url;
   }
   return url;
 };

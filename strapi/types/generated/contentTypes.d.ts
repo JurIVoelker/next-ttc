@@ -885,6 +885,38 @@ export interface ApiHallePageHallePage extends Schema.SingleType {
   };
 }
 
+export interface ApiMannschaftenJugendPageMannschaftenJugendPage
+  extends Schema.SingleType {
+  collectionName: 'mannschaften_jugend_pages';
+  info: {
+    singularName: 'mannschaften-jugend-page';
+    pluralName: 'mannschaften-jugend-pages';
+    displayName: 'Mannschaften Jugend Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titel: Attribute.String;
+    mannschaften: Attribute.Component<'content.mannschaft', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::mannschaften-jugend-page.mannschaften-jugend-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::mannschaften-jugend-page.mannschaften-jugend-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiStartPageStartPage extends Schema.SingleType {
   collectionName: 'start_pages';
   info: {
@@ -1036,6 +1068,7 @@ declare module '@strapi/types' {
       'api::akutelles-page.akutelles-page': ApiAkutellesPageAkutellesPage;
       'api::article.article': ApiArticleArticle;
       'api::halle-page.halle-page': ApiHallePageHallePage;
+      'api::mannschaften-jugend-page.mannschaften-jugend-page': ApiMannschaftenJugendPageMannschaftenJugendPage;
       'api::start-page.start-page': ApiStartPageStartPage;
       'api::test.test': ApiTestTest;
       'api::training-erwachsene-page.training-erwachsene-page': ApiTrainingErwachsenePageTrainingErwachsenePage;

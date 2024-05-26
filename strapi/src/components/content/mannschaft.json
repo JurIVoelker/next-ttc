@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_content_mannschafts",
+  "info": {
+    "displayName": "mannschaft",
+    "icon": "emotionHappy"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "bild": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}
