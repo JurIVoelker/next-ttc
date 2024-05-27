@@ -47,7 +47,7 @@ export async function auth(password) {
   return false;
 }
 
-export async function createArticle(body, images, previewImage) {
+export async function createArticle(body, images, previewImage, setProgress) {
   if (typeof localStorage !== "undefined") {
     const jwt = localStorage.getItem("jwt");
     const validate = ArticlesSchema.safeParse(body);
@@ -91,21 +91,25 @@ export async function createArticle(body, images, previewImage) {
       const articleId = response.data.data.id;
 
       const uploadPromises = images.map((image) => {
-        return uploadArticleImage(image, articleId, "bilder", jwt).catch(
-          (e) => {
+        return uploadArticleImage(image, articleId, "bilder", jwt)
+          .then(() => {
+            setProgress((prev) => prev + 1);
+          })
+          .catch((e) => {
             return "error", e; // Todo logging
-          }
-        );
+          });
       });
 
       uploadPromises.push(
-        uploadArticleImage(previewImage, articleId, "vorschauBild", jwt).catch(
-          (e) => {
+        uploadArticleImage(previewImage, articleId, "vorschauBild", jwt)
+          .then(() => {
+            setProgress((prev) => prev + 1);
+          })
+          .catch((e) => {
             return "error", e; // Todo logging
-          }
-        )
+          })
       );
-      Promise.all(uploadPromises);
+      await Promise.all(uploadPromises);
       return { message: "success" };
     } catch (error) {
       if (error?.response?.data?.error?.details?.errors) {
