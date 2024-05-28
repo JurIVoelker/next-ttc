@@ -48,8 +48,7 @@ const NewPage = () => {
     });
   };
 
-  const isValid =
-    title !== "" && !!date && text !== emptyTextAreaContent && !!previewImage;
+  const isValid = title !== "" && !!date && text !== emptyTextAreaContent;
 
   return (
     <Layout>

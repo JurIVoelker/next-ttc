@@ -26,6 +26,7 @@ const TabOverview = ({
   setPreviewText,
   errorMessage,
   uploadProgress,
+  tabs = ["Text", "Bilder", "Vorschau"],
 }) => {
   return (
     <>
@@ -33,7 +34,8 @@ const TabOverview = ({
         <>
           <h3 style={{ marginTop: "32px" }}>Erfolg</h3>
           <p style={{ marginTop: "16px" }}>
-            Dein Artikel wurde erfolgreich hochgeladen
+            Dein Artikel wurde erfolgreich{" "}
+            {tabs[1] === "Vorschau" ? "bearbeitet" : "hochgeladen"}
           </p>
           <Link href="/aktuelles" className={styles.button}>
             Zurück zur Übersicht
@@ -50,18 +52,14 @@ const TabOverview = ({
             className={styles.tabs}
           >
             <TabList aria-label="Inhalt tabs" className={styles.tabList}>
-              <Tab id="text" className={styles.tabSection}>
-                Text
-              </Tab>
-              <Tab id="images" className={styles.tabSection}>
-                Bilder
-              </Tab>
-              <Tab id="preview" className={styles.tabSection}>
-                Vorschau
-              </Tab>
+              {tabs.map((tab) => (
+                <Tab id={tab} className={styles.tabSection}>
+                  {tab}
+                </Tab>
+              ))}
             </TabList>
 
-            <TabPanel id="text">
+            <TabPanel id="Text">
               <TextTab
                 text={text}
                 setText={setText}
@@ -71,15 +69,17 @@ const TabOverview = ({
                 setDate={setDate}
               />
             </TabPanel>
-            <TabPanel id="images">
-              <ImageTab
-                preview={previewImage}
-                setPreview={setPreviewImage}
-                images={images}
-                setImages={setImages}
-              />
-            </TabPanel>
-            <TabPanel id="preview">
+            {tabs[1] !== "Vorschau" && (
+              <TabPanel id="Bilder">
+                <ImageTab
+                  preview={previewImage}
+                  setPreview={setPreviewImage}
+                  images={images}
+                  setImages={setImages}
+                />
+              </TabPanel>
+            )}
+            <TabPanel id="Vorschau">
               <PreviewTab
                 preview={previewImage}
                 title={title}
@@ -89,11 +89,11 @@ const TabOverview = ({
                 setPreviewText={setPreviewText}
                 errorMessage={errorMessage}
                 isSending={isSending}
-              />{" "}
+              />
             </TabPanel>
           </Tabs>
           <div className={styles.buttonGroup}>
-            {tab === "text" && !isSending ? (
+            {tab === "Text" && !isSending ? (
               <Link href="/aktuelles" className={styles.abortButton}>
                 Abbrechen
               </Link>
@@ -101,8 +101,9 @@ const TabOverview = ({
               <Button
                 className={styles.abortButton}
                 onPress={() => {
-                  if (tab === "preview") setTab("images");
-                  else if (tab === "images") setTab("text");
+                  if (tab === "Vorschau")
+                    setTab([tabs[1] === "Vorschau" ? tabs[0] : "Bilder"]);
+                  else if (tab === "Bilder") setTab("Text");
                 }}
               >
                 Zurück
@@ -111,22 +112,28 @@ const TabOverview = ({
             <Button
               className={styles.continueButton}
               onPress={() => {
-                if (tab === "text") setTab("images");
-                else if (tab === "images") setTab("preview");
-                else if (tab === "preview") handleConfirm();
+                if (tab === "Text") setTab(tabs[1]);
+                else if (tab === "Bilder") setTab("Vorschau");
+                else if (tab === "Vorschau") handleConfirm();
               }}
-              isDisabled={tab === "preview" && !isValid && !isSending}
+              isDisabled={tab === "Vorschau" && !isValid && !isSending}
             >
               {isSending ? (
                 <>
                   <PulseLoader color="white" />
                 </>
               ) : (
-                <>{tab === "preview" ? "Artikel erstellen" : "Weiter"}</>
+                <>
+                  {tab === "Vorschau"
+                    ? tabs[1] === "Vorschau"
+                      ? "Artikel bearbeiten"
+                      : "Artikel erstellen"
+                    : "Weiter"}
+                </>
               )}
             </Button>
           </div>
-          {isSending && (
+          {isSending && tabs[1] !== "Vorschau" && (
             <p>{`Bilder hochgeladen: ${uploadProgress}/${
               images.length + 1
             }`}</p>

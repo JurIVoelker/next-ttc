@@ -124,6 +124,33 @@ export async function createArticle(body, images, previewImage, setProgress) {
   }
 }
 
+export async function editArticle(body, articleId) {
+  if (typeof localStorage !== "undefined") {
+    const jwt = localStorage.getItem("jwt");
+    const { day, month, year } = body.datum;
+    const date = new Date(year, month - 1, day);
+
+    const reqBody = {
+      titel: body.titel,
+      kurzBeschreibung: body.kurzBeschreibung,
+      datum: date,
+      text: body.text,
+    };
+    const response = await axios.put(
+      strapiUrl + `/api/articles/${articleId}`,
+      {
+        data: reqBody,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      }
+    );
+    return response;
+  }
+}
+
 const ArticlesSchema = z.object({
   titel: z.string(),
   kurzBeschreibung: z.string(),

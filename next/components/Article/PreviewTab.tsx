@@ -1,3 +1,4 @@
+import { getStrapiImage } from "../../utils/strapi";
 import Card from "../Card/Card";
 import styles from "./PreviewTab.module.scss";
 export const PreviewTab = ({
@@ -38,7 +39,11 @@ export const PreviewTab = ({
             <h3 style={{ marginBottom: "16px" }}>Vorschau</h3>
             <Card
               description={shortenedText}
-              imageUrl={URL.createObjectURL(preview)}
+              imageUrl={
+                preview.data
+                  ? getStrapiImage(preview)
+                  : URL.createObjectURL(preview)
+              }
               title={title}
               date={formattedDate}
             ></Card>

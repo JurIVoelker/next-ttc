@@ -1,9 +1,83 @@
-import React from "react";
-import { getRequest, getStrapiImage, strapiUrl } from "../../utils/strapi";
-import { Article, Articles } from "../../types/globalTypes";
+import React, { useEffect, useState } from "react";
+import { createArticle, editArticle, getRequest } from "../../utils/strapi";
+import { Articles } from "../../types/globalTypes";
+import Layout from "../../components/Layout/Layout";
+import TabOverview from "../../components/Article/TabOverview";
+import { parseDate } from "@internationalized/date";
+
+const emptyTextAreaContent = '<p><br class="ProseMirror-trailingBreak"></p>';
+
 const EditPage = ({ postData }) => {
-  console.log(postData);
-  return <></>;
+  const [tab, setTab] = useState("text");
+  /* Text Tab */
+  const [title, setTitle] = useState(postData?.attributes?.titel);
+  const [date, setDate] = useState(parseDate(postData.attributes.datum));
+  const [text, setText] = useState(postData.attributes.text);
+
+  /* Image Tab */
+  const [previewImage, setPreviewImage] = useState(
+    postData.attributes.vorschauBild || false
+  );
+  const [images, setImages] = useState(null);
+
+  const [previewText, setPreviewText] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
+
+  const [isSuccess, setSuccess] = useState(false);
+
+  const [uploadProgress, setUploadProgress] = useState(0);
+
+  const handleConfirm = () => {
+    setIsSending(true);
+    const body = {
+      titel: title,
+      kurzBeschreibung: previewText,
+      datum: date,
+      text: text,
+    };
+    editArticle(body, postData.id).then((res) => {
+      setIsSending(false);
+      if (res.error) {
+        if (res.error === "slug must be unique") {
+          setErrorMessage(
+            `Bitte wähle einen anderen Titel! "${title}" ist bereits vergeben!`
+          );
+        }
+      } else {
+        setErrorMessage("");
+        setSuccess(true);
+      }
+    });
+  };
+
+  const isValid = title !== "" && !!date && text !== emptyTextAreaContent;
+  return (
+    <Layout>
+      <TabOverview
+        isSending={isSending}
+        handleConfirm={handleConfirm}
+        isSuccess={isSuccess}
+        tab={tab}
+        setTab={setTab}
+        text={text}
+        setText={setText}
+        title={title}
+        setTitle={setTitle}
+        date={date}
+        setDate={setDate}
+        previewImage={previewImage}
+        setPreviewImage={setPreviewImage}
+        images={images}
+        setImages={setImages}
+        isValid={isValid}
+        setPreviewText={setPreviewText}
+        errorMessage={errorMessage}
+        uploadProgress={uploadProgress}
+        tabs={["Text", "Vorschau"]}
+      />
+    </Layout>
+  );
 };
 
 export default EditPage;

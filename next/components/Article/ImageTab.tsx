@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "react-aria-components";
 import styles from "./ImageTab.module.scss";
 import AriaImageDropzone from "../AriaImageDropzone/AriaImageDropzone";
+import { getStrapiImage } from "../../utils/strapi";
 
 export const ImageTab = ({ images, setImages, preview, setPreview }) => {
   const handleSelectImage = (image) => {
@@ -18,7 +19,12 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
         {images.length > 0 && (
           <div className={styles.imageGrid}>
             {images.map((image) => {
-              const imageUrl = URL.createObjectURL(image);
+              let imageUrl;
+              if (image.attributes) {
+                imageUrl = getStrapiImage(image);
+              } else {
+                imageUrl = URL.createObjectURL(image);
+              }
               return (
                 <Button
                   className={`${styles.imageContainer} ${
@@ -29,7 +35,7 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
                   onPress={() => {
                     handleSelectImage(image);
                   }}
-                  key={image.name}
+                  key={image.name || image.attributes.url}
                 >
                   <Image
                     src={imageUrl}
@@ -37,7 +43,7 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
                     width={100}
                     height={100}
                   />
-                  <p>{image.name}</p>
+                  <p>{image.name || image.attributes.name}</p>
                 </Button>
               );
             })}

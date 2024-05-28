@@ -82,7 +82,9 @@ export async function getStaticProps() {
   return {
     props: {
       strapiData: mannschaftenData,
-      players: players.filter((team) => team.players.length !== 0), // Remove teams without players
+      players: players.filter(
+        (team) => team?.players && team?.players?.length !== 0
+      ), // Remove teams without players
     },
     revalidate: 600,
   };
