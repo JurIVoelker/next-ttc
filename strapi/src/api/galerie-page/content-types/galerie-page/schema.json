@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "galerie_pages",
+  "info": {
+    "singularName": "galerie-page",
+    "pluralName": "galerie-pages",
+    "displayName": "Galerie Page"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "bilder": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}
