@@ -52,10 +52,10 @@ const Trainer: React.FC<TrainerComponentProps> = ({ trainerProps }) => {
       <div className={styles.textContent}>
         <h2>{name}</h2>
         {content.map((content) => (
-          <p key={content.name}>
+          <span key={content.name}>
             <h4>{content.name}</h4>
-            {content.value}
-          </p>
+            <p>{content.value}</p>
+          </span>
         ))}
       </div>
     </div>

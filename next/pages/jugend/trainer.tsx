@@ -16,7 +16,6 @@ interface TrainerProps {
 }
 
 const TrainerPage: React.FC<TrainerProps> = ({ strapiData }) => {
-  console.log(strapiData);
   return (
     <Layout>
       <h1>{strapiData.data.attributes.titel}</h1>

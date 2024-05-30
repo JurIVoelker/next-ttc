@@ -8,8 +8,12 @@
     flex-direction: column;
     justify-content: center;
     gap: 0.5em;
-    h4 {
+    h4,
+    p {
       display: inline;
+    }
+    h4 {
+      font-weight: 500;
     }
   }
   .image {
