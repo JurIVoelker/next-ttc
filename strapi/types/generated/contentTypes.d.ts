@@ -976,6 +976,38 @@ export interface ApiImpressumPageImpressumPage extends Schema.SingleType {
   };
 }
 
+export interface ApiKontaktPageKontaktPage extends Schema.SingleType {
+  collectionName: 'kontakt_pages';
+  info: {
+    singularName: 'kontakt-page';
+    pluralName: 'kontakt-pages';
+    displayName: 'Kontakt Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titel: Attribute.String;
+    text: Attribute.String;
+    bild: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::kontakt-page.kontakt-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::kontakt-page.kontakt-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiLinksPageLinksPage extends Schema.SingleType {
   collectionName: 'links_pages';
   info: {
@@ -1204,6 +1236,7 @@ declare module '@strapi/types' {
       'api::download-page.download-page': ApiDownloadPageDownloadPage;
       'api::halle-page.halle-page': ApiHallePageHallePage;
       'api::impressum-page.impressum-page': ApiImpressumPageImpressumPage;
+      'api::kontakt-page.kontakt-page': ApiKontaktPageKontaktPage;
       'api::links-page.links-page': ApiLinksPageLinksPage;
       'api::mannschaften-jugend-page.mannschaften-jugend-page': ApiMannschaftenJugendPageMannschaftenJugendPage;
       'api::start-page.start-page': ApiStartPageStartPage;
