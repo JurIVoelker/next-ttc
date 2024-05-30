@@ -916,6 +916,36 @@ export interface ApiHallePageHallePage extends Schema.SingleType {
   };
 }
 
+export interface ApiImpressumPageImpressumPage extends Schema.SingleType {
+  collectionName: 'impressum_pages';
+  info: {
+    singularName: 'impressum-page';
+    pluralName: 'impressum-pages';
+    displayName: 'Impressum Page';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titel: Attribute.String;
+    impressum: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::impressum-page.impressum-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::impressum-page.impressum-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiLinksPageLinksPage extends Schema.SingleType {
   collectionName: 'links_pages';
   info: {
@@ -1012,28 +1042,6 @@ export interface ApiStartPageStartPage extends Schema.SingleType {
       'oneToOne',
       'admin::user'
     > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiTestTest extends Schema.SingleType {
-  collectionName: 'tests';
-  info: {
-    singularName: 'test';
-    pluralName: 'tests';
-    displayName: 'test';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    test: Attribute.Blocks;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::test.test', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::test.test', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -1164,10 +1172,10 @@ declare module '@strapi/types' {
       'api::article.article': ApiArticleArticle;
       'api::download-page.download-page': ApiDownloadPageDownloadPage;
       'api::halle-page.halle-page': ApiHallePageHallePage;
+      'api::impressum-page.impressum-page': ApiImpressumPageImpressumPage;
       'api::links-page.links-page': ApiLinksPageLinksPage;
       'api::mannschaften-jugend-page.mannschaften-jugend-page': ApiMannschaftenJugendPageMannschaftenJugendPage;
       'api::start-page.start-page': ApiStartPageStartPage;
-      'api::test.test': ApiTestTest;
       'api::trainer-page.trainer-page': ApiTrainerPageTrainerPage;
       'api::training-erwachsene-page.training-erwachsene-page': ApiTrainingErwachsenePageTrainingErwachsenePage;
       'api::training-jugend-page.training-jugend-page': ApiTrainingJugendPageTrainingJugendPage;
