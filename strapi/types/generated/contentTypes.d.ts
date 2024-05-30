@@ -885,6 +885,39 @@ export interface ApiHallePageHallePage extends Schema.SingleType {
   };
 }
 
+export interface ApiLinksPageLinksPage extends Schema.SingleType {
+  collectionName: 'links_pages';
+  info: {
+    singularName: 'links-page';
+    pluralName: 'links-pages';
+    displayName: 'Links Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titel: Attribute.String;
+    ttLinks: Attribute.Component<'link.link', true>;
+    ttVereine: Attribute.Component<'link.link', true>;
+    klingenmuenster: Attribute.Component<'link.link', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::links-page.links-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::links-page.links-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiMannschaftenJugendPageMannschaftenJugendPage
   extends Schema.SingleType {
   collectionName: 'mannschaften_jugend_pages';
@@ -1099,6 +1132,7 @@ declare module '@strapi/types' {
       'api::akutelles-page.akutelles-page': ApiAkutellesPageAkutellesPage;
       'api::article.article': ApiArticleArticle;
       'api::halle-page.halle-page': ApiHallePageHallePage;
+      'api::links-page.links-page': ApiLinksPageLinksPage;
       'api::mannschaften-jugend-page.mannschaften-jugend-page': ApiMannschaftenJugendPageMannschaftenJugendPage;
       'api::start-page.start-page': ApiStartPageStartPage;
       'api::test.test': ApiTestTest;

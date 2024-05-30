@@ -85,6 +85,19 @@ export interface ContentTrainingszeit extends Schema.Component {
   };
 }
 
+export interface LinkLink extends Schema.Component {
+  collectionName: 'components_link_links';
+  info: {
+    displayName: 'link';
+    icon: 'attachment';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String;
+    link: Attribute.String;
+  };
+}
+
 export interface LinkStartPageLink extends Schema.Component {
   collectionName: 'components_link_start_page_links';
   info: {
@@ -122,6 +135,7 @@ declare module '@strapi/types' {
       'content.text-image-module': ContentTextImageModule;
       'content.trainer': ContentTrainer;
       'content.trainingszeit': ContentTrainingszeit;
+      'link.link': LinkLink;
       'link.start-page-link': LinkStartPageLink;
       'tags.link': TagsLink;
     }
