@@ -2,7 +2,6 @@ import React from "react";
 import { getRequest, getStrapiImage, strapiUrl } from "../../utils/strapi";
 import { Article, Articles } from "../../types/globalTypes";
 import Layout from "../../components/Layout/Layout";
-import Image from "next/image";
 import styles from "./aktuellesDetailPage.module.scss";
 import { Gallery } from "react-grid-gallery";
 import TextWrap from "../../components/TextWrap/TextWrap";

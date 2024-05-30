@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Layout from "../../components/Layout/Layout";
-import NotAvailable from "../../components/NotAvailablePage/NotAvailablePage";
 import { getRequest } from "../../utils/strapi";
+import styles from "./links.module.scss";
 
 interface LinksPageProps {
   strapiData: {
@@ -28,24 +28,26 @@ const Links: React.FC<LinksPageProps> = ({ strapiData }) => {
   return (
     <Layout>
       <h1>{titel}</h1>
-      <h2>TT-Links</h2>
-      {ttLinks.map((link) => (
-        <Link href={link.link} target="_blank" key={link.name}>
-          {link.name}
-        </Link>
-      ))}
-      <h2>TT-Vereine</h2>
-      {ttVereine.map((link) => (
-        <Link href={link.link} target="_blank" key={link.name}>
-          {link.name}
-        </Link>
-      ))}
-      <h2>Klingenmünster</h2>
-      {klingenmuenster.map((link) => (
-        <Link href={link.link} target="_blank" key={link.name}>
-          {link.name}
-        </Link>
-      ))}
+      <div className={styles.content}>
+        <h2>TT-Links</h2>
+        {ttLinks.map((link) => (
+          <Link href={link.link} target="_blank" key={link.name}>
+            {link.name}
+          </Link>
+        ))}
+        <h2>TT-Vereine</h2>
+        {ttVereine.map((link) => (
+          <Link href={link.link} target="_blank" key={link.name}>
+            {link.name}
+          </Link>
+        ))}
+        <h2>Klingenmünster</h2>
+        {klingenmuenster.map((link) => (
+          <Link href={link.link} target="_blank" key={link.name}>
+            {link.name}
+          </Link>
+        ))}
+      </div>
     </Layout>
   );
 };
