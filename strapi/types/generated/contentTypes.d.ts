@@ -854,6 +854,36 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
+export interface ApiDatenschutzPageDatenschutzPage extends Schema.SingleType {
+  collectionName: 'datenschutz_pages';
+  info: {
+    singularName: 'datenschutz-page';
+    pluralName: 'datenschutz-pages';
+    displayName: 'Datenschutz Page';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titel: Attribute.String;
+    datenschutz: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::datenschutz-page.datenschutz-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::datenschutz-page.datenschutz-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiDownloadPageDownloadPage extends Schema.SingleType {
   collectionName: 'download_pages';
   info: {
@@ -1170,6 +1200,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::akutelles-page.akutelles-page': ApiAkutellesPageAkutellesPage;
       'api::article.article': ApiArticleArticle;
+      'api::datenschutz-page.datenschutz-page': ApiDatenschutzPageDatenschutzPage;
       'api::download-page.download-page': ApiDownloadPageDownloadPage;
       'api::halle-page.halle-page': ApiHallePageHallePage;
       'api::impressum-page.impressum-page': ApiImpressumPageImpressumPage;
