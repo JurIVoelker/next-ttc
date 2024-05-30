@@ -854,6 +854,37 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
+export interface ApiDownloadPageDownloadPage extends Schema.SingleType {
+  collectionName: 'download_pages';
+  info: {
+    singularName: 'download-page';
+    pluralName: 'download-pages';
+    displayName: 'Download Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titel: Attribute.String;
+    downloads: Attribute.DynamicZone<['content.file', 'link.link']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::download-page.download-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::download-page.download-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiHallePageHallePage extends Schema.SingleType {
   collectionName: 'halle_pages';
   info: {
@@ -1131,6 +1162,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::akutelles-page.akutelles-page': ApiAkutellesPageAkutellesPage;
       'api::article.article': ApiArticleArticle;
+      'api::download-page.download-page': ApiDownloadPageDownloadPage;
       'api::halle-page.halle-page': ApiHallePageHallePage;
       'api::links-page.links-page': ApiLinksPageLinksPage;
       'api::mannschaften-jugend-page.mannschaften-jugend-page': ApiMannschaftenJugendPageMannschaftenJugendPage;

@@ -1,0 +1,8 @@
+.downloads {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  a {
+    text-decoration: underline;
+  }
+}
