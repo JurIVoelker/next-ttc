@@ -60,3 +60,19 @@ export interface Player {
   gamesPlayed?: string;
   balance?: string;
 }
+
+export interface TrainerType {
+  aufschlagTraining: string;
+  bild: StrapiImage;
+  fairness: string;
+  geburtsDatum: string;
+  id: number;
+  mannschaft: string;
+  motivation: string;
+  name: string;
+  staerkenSpieler: string;
+  staerkenTrainer: string;
+  trainerSeit: string;
+  ttKeinSport: string;
+  vereinsfunktion: string;
+}

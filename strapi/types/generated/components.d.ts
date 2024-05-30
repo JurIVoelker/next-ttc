@@ -39,6 +39,28 @@ export interface ContentTextImageModule extends Schema.Component {
   };
 }
 
+export interface ContentTrainer extends Schema.Component {
+  collectionName: 'components_content_trainers';
+  info: {
+    displayName: 'trainer';
+    icon: 'user';
+  };
+  attributes: {
+    name: Attribute.String;
+    bild: Attribute.Media;
+    geburtsDatum: Attribute.Date;
+    trainerSeit: Attribute.Date;
+    vereinsfunktion: Attribute.String;
+    mannschaft: Attribute.String;
+    staerkenTrainer: Attribute.String;
+    staerkenSpieler: Attribute.String;
+    motivation: Attribute.String;
+    aufschlagtraining: Attribute.String;
+    fairness: Attribute.String;
+    ttKeinSport: Attribute.String;
+  };
+}
+
 export interface ContentTrainingszeit extends Schema.Component {
   collectionName: 'components_content_trainingszeits';
   info: {
@@ -98,6 +120,7 @@ declare module '@strapi/types' {
       'content.mannschaft': ContentMannschaft;
       'content.mannschaften': ContentMannschaften;
       'content.text-image-module': ContentTextImageModule;
+      'content.trainer': ContentTrainer;
       'content.trainingszeit': ContentTrainingszeit;
       'link.start-page-link': LinkStartPageLink;
       'tags.link': TagsLink;

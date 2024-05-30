@@ -974,6 +974,37 @@ export interface ApiTestTest extends Schema.SingleType {
   };
 }
 
+export interface ApiTrainerPageTrainerPage extends Schema.SingleType {
+  collectionName: 'trainer_pages';
+  info: {
+    singularName: 'trainer-page';
+    pluralName: 'trainer-pages';
+    displayName: 'Trainer Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titel: Attribute.String;
+    trainer: Attribute.Component<'content.trainer', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trainer-page.trainer-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trainer-page.trainer-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTrainingErwachsenePageTrainingErwachsenePage
   extends Schema.SingleType {
   collectionName: 'training_erwachsene_pages';
@@ -1071,6 +1102,7 @@ declare module '@strapi/types' {
       'api::mannschaften-jugend-page.mannschaften-jugend-page': ApiMannschaftenJugendPageMannschaftenJugendPage;
       'api::start-page.start-page': ApiStartPageStartPage;
       'api::test.test': ApiTestTest;
+      'api::trainer-page.trainer-page': ApiTrainerPageTrainerPage;
       'api::training-erwachsene-page.training-erwachsene-page': ApiTrainingErwachsenePageTrainingErwachsenePage;
       'api::training-jugend-page.training-jugend-page': ApiTrainingJugendPageTrainingJugendPage;
     }

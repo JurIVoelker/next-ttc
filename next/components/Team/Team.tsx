@@ -7,7 +7,6 @@ const Team = ({ image, players, title, myTischtennisLink, imagePosition }) => {
   const altImageUrl =
     "http://127.0.0.1:1337/uploads/6_MP_2023_07_24_IMG_8024_446c4d1f9a.jpg";
   const imgSrc = image ? getStrapiImage(image) : altImageUrl;
-  console.log(image);
   return (
     <ImageTextModule
       imgSrc={imgSrc}
