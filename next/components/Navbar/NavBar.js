@@ -16,7 +16,6 @@ import { useRef, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArrowRight,
   faBars,
   faChevronRight,
   faXmark,
@@ -155,68 +154,29 @@ const NavBar = () => {
           </div>
         </Popover>
       </MenuTrigger>
-      {/* 
-        <div className={styles.hamburgerButtonWrapper}>
-          <Button
-            className={styles.hamburgerButton}
-            onPress={handleMenuVisible}
-          >
-            <FontAwesomeIcon icon={faBars} />
-          </Button>
-        </div>
+      <div className={styles.menuWrapper}>
         <div className={`${styles.linkContainer}`}>
-          <Link href={"/"} className={styles.link}>
-            Start
-          </Link>
-          <LinkSelect options={vereinLinks} label={"Verein"} />
-          <LinkSelect options={erwachseneLinks} label={"Erwachsene"} />
-          <LinkSelect options={jugendLinks} label={"Jugend"} />
-          <LinkSelect options={termineLinks} label={"Termine"} />
-          <Link href={"/galerie"} className={styles.link}>
-            Galerie
-          </Link>
-          <Link href={"/aktuelles"} className={styles.link}>
-            Aktuelles
-          </Link>
-          <LinkSelect options={anderesLinks} label={"Anderes"} />
+          {items.map((item) => {
+            if (item.children) {
+              return (
+                <LinkSelect
+                  key={item.id}
+                  options={item.children}
+                  label={item.name}
+                />
+              );
+            } else {
+              return (
+                <>
+                  <Link href={item.href} className={styles.link}>
+                    {item.name}
+                  </Link>
+                </>
+              );
+            }
+          })}
         </div>
-
-        <Popover
-          className={`${
-            isMenuVisible ? styles.menuVisible : styles.menuHidden
-          }`}
-        >
-          <Menu>
-            <MenuItem href="/">Start</MenuItem>
-            <SubmenuTrigger>
-              <MenuItem>Verein</MenuItem>
-              <Popover>
-                {vereinLinks.map((link) => (
-                  <MenuItem id={link.name}>{link.name}</MenuItem>
-                ))}
-              </Popover>
-            </SubmenuTrigger>
-          </Menu>
-        </Popover> */}
-      {/* <div
-        className={`${isMenuVisible ? styles.menuVisible : styles.menuHidden}`}
-      >
-        <Link href={"/"} className={styles.link}>
-          Start
-        </Link>
-        <MobileLinks options={vereinLinks} label={"Verein"} />
-        <MobileLinks options={erwachseneLinks} label={"Erwachsene"} />
-        <MobileLinks options={jugendLinks} label={"Jugend"} />
-        <MobileLinks options={termineLinks} label={"Termine"} />
-        <Link href={"/galerie"} className={styles.link}>
-          Galerie
-        </Link>
-        <Link href={"/aktuelles"} className={styles.link}>
-          Aktuelles
-        </Link>
-        <MobileLinks options={anderesLinks} label={"Anderes"} />
-      </div> */}
-      {/* </div> */}
+      </div>
     </div>
   );
 };
