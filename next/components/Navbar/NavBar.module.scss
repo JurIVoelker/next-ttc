@@ -3,56 +3,197 @@
 .navContainer {
   height: 70px;
   background-color: $primary-bg;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 32px;
+
   @include size-m {
-    gap: 12px;
+    gap: 0px;
   }
   @include size-s {
     gap: 0;
   }
-  .link {
-    color: white;
-    padding: 10px 16px;
-    background-color: rgba(255, 255, 255, 0);
-    border: none;
-    font-family: Inter;
-    font-size: 16px;
-    border-radius: 16px;
-    transition: background-color 100ms;
-    &[data-hovered],
-    :hover {
-      background-color: rgba(255, 255, 255, 0.267);
-    }
-  }
-}
-
-.listBoxWrapper {
-  z-index: 99;
-  position: absolute;
-  padding: 15px;
-  left: -64px;
-  &.isOpen .listBox {
+  .buttonContainer {
+    height: 100%;
     display: flex;
-  }
-  .listBox {
-    display: none;
-    background-color: $primary-bg;
-    border-radius: 0 0 $border-radius $border-radius;
-    width: 200px;
-    color: white;
-    flex-direction: column;
-    gap: 8px;
-    padding: 16px;
-    .listBoxItem {
-      padding: 10px 16px;
-      border-radius: $border-radius;
-      transition: background-color 200ms;
-      &[data-hovered] {
-        background-color: rgba(255, 255, 255, 0.267);
+    align-items: center;
+    button {
+      margin-left: 2em;
+      width: 40px;
+      height: 40px;
+      padding: 4px;
+      background-color: transparent;
+      border: none;
+      svg {
+        color: white;
+        height: 100%;
+        width: 100%;
       }
     }
   }
 }
+
+.popover {
+  position: relative;
+  max-height: 100vh !important;
+  top: 0 !important;
+  left: 0 !important;
+  background-color: rgba($text-on-bright, 0.8);
+  backdrop-filter: blur(15px) grayscale(0.5);
+  display: flex;
+  width: 100vw;
+  height: calc(100vh);
+  .exitButton {
+    position: absolute;
+    padding: 1em;
+    background-color: transparent;
+    border: none;
+    color: white;
+    right: 1em;
+    top: 1em;
+    svg {
+      height: 16px;
+      width: 16px;
+    }
+  }
+  .menuWrapper {
+    outline: none !important;
+    margin-left: 30px;
+    margin-top: 80px;
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      &.submenu {
+        margin-left: 1em;
+      }
+      .menuItem {
+        padding: 0.5em;
+        display: inline-block;
+        border-radius: $border-radius;
+        font-family: Inter;
+        color: $text-on-dark;
+        border-radius: $border-radius;
+        display: flex;
+        gap: 0.5em;
+        align-items: center;
+        svg {
+          height: 16px;
+          width: 16px;
+        }
+        &[data-hovered] {
+          background-color: rgba($text-on-bright, 0.4);
+          backdrop-filter: blur(40px);
+        }
+        &[data-focused] {
+          background-color: rgba($text-on-bright, 0.8);
+          outline: none;
+          backdrop-filter: blur(40px);
+        }
+      }
+    }
+  }
+}
+//   .linkContainer {
+//     height: 100%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     gap: 32px;
+//     @include size-s {
+//       display: none;
+//     }
+//   }
+//   .menuVisible {
+//     display: flex !important;
+//     flex-direction: column;
+//     position: fixed;
+//     top: 0;
+//     width: 100vw;
+//     height: 100vh;
+//     background-color: rgba(0, 0, 0, 0.801);
+//     backdrop-filter: blur(60px);
+//     color: $text-on-dark;
+//     z-index: 100;
+//     a {
+//       padding: 0.5em;
+//     }
+//     .mobileLinks {
+//       display: flex;
+//       flex-direction: column;
+//       margin-left: 30px;
+//     }
+//   }
+//   .menuHidden {
+//     display: none;
+//   }
+//   .link {
+//     color: white;
+//     padding: 10px 16px;
+//     background-color: rgba(255, 255, 255, 0);
+//     border: none;
+//     font-family: Inter;
+//     font-size: 16px;
+//     border-radius: 16px;
+//     transition: background-color 100ms;
+//     &[data-hovered],
+//     :hover {
+//       background-color: rgba(255, 255, 255, 0.267);
+//     }
+//   }
+//   .hamburgerButtonWrapper {
+//     @include size-s {
+//       display: flex;
+//       position: static;
+//     }
+//     display: none;
+//     position: absolute;
+//     height: 70px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: flex-end;
+//     .hamburgerButton {
+//       @include size-s {
+//         display: block;
+//       }
+//       display: none;
+//       width: 100%;
+//       height: 40px;
+//       width: 40px;
+//       padding: 4px;
+//       background-color: transparent;
+//       border: none;
+//       cursor: pointer;
+//       svg {
+//         height: 100%;
+//         width: 100%;
+//         color: white;
+//       }
+//     }
+//   }
+// }
+
+// .listBoxWrapper {
+//   z-index: 99;
+//   position: absolute;
+//   padding: 15px;
+//   left: -64px;
+//   &.isOpen .listBox {
+//     display: flex;
+//   }
+//   .listBox {
+//     display: none;
+//     background-color: $primary-bg;
+//     border-radius: 0 0 $border-radius $border-radius;
+//     width: 200px;
+//     color: white;
+//     flex-direction: column;
+//     gap: 8px;
+//     padding: 16px;
+//     .listBoxItem {
+//       padding: 10px 16px;
+//       border-radius: $border-radius;
+//       transition: background-color 200ms;
+//       &[data-hovered] {
+//         background-color: rgba(255, 255, 255, 0.267);
+//       }
+//     }
+//   }
+// }
