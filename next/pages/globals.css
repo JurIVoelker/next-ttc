@@ -33,3 +33,7 @@ h4 {
 h1 {
   margin-bottom: 16px;
 }
+
+p {
+  line-height: 150%;
+}

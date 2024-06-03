@@ -2,7 +2,6 @@ import TextWrap from "../TextWrap/TextWrap";
 import styles from "./Training.module.scss";
 
 const Training = ({ trainDates, title, image, text }) => {
-  console.log(trainDates);
   return (
     <>
       <h1>{title}</h1>

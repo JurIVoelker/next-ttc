@@ -1,6 +1,9 @@
 @import "../Global/theme.scss";
 
 .textWrapper {
+  p {
+    line-height: 150% !important;
+  }
   display: block;
   .image {
     float: left;
@@ -17,4 +20,7 @@
       height: auto;
     }
   }
+}
+.contentWrapper {
+  line-height: 150%;
 }
