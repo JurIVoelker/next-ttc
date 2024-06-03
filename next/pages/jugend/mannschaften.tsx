@@ -2,6 +2,7 @@ import Layout from "../../components/Layout/Layout";
 import Team from "../../components/Team/Team";
 import { getRequest } from "../../utils/strapi";
 import {
+  filterMainPlayers,
   getAllTeams,
   getPlayersFromTeams,
 } from "../../utils/myTischtennisParser";
@@ -76,11 +77,15 @@ export async function getStaticProps() {
   );
 
   const players: PlayersProps[] = await getPlayersFromTeams(filteredTeams); // Get all individual players from each team
+  const filteredPlayers = players.filter(
+    (team) => team?.players && team?.players?.length !== 0
+  ); // Remove teams without players
+  const mainPlayers = filterMainPlayers(filteredPlayers);
 
   return {
     props: {
       strapiData: mannschaftenData,
-      players: players.filter((team) => !!team.players), // Remove teams without players
+      players: mainPlayers, // Remove teams without players
     },
     revalidate: 600,
   };

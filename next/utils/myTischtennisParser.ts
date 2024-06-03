@@ -69,3 +69,53 @@ async function getPlayers(team: TeamProps, showDoubles = false) {
     players: parsedPlayers.filter((player) => player.name),
   };
 }
+
+export const filterMainPlayers = (teams) => {
+  const romanRegex = /^(C|XC|L?X{0,3}(IX|IV|V?I{0,3}))$/;
+  return teams.map((team) => {
+    const teamNumber = getTeamNumber(team.team);
+    return {
+      ...team,
+      players: team.players.filter((player) => {
+        const playerNumber = parseInt(player?.placement?.split("."));
+        if (playerNumber) {
+          return playerNumber === teamNumber;
+        }
+        return false;
+      }),
+    };
+  });
+};
+
+function getTeamNumber(teamName) {
+  const romanRegex = /^(C|XC|L?X{0,3}(IX|IV|V?I{0,3}))$/;
+  let teamNumber = teamName.split(" ");
+  teamNumber = teamNumber[teamNumber.length - 1];
+  if (!teamNumber.match(romanRegex)) {
+    return 1;
+  } else return romanToInt(teamNumber);
+}
+
+function romanToInt(roman) {
+  const romanToIntMap = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+  };
+  let total = 0;
+  for (let i = 0; i < roman.length; i++) {
+    const currentVal = romanToIntMap[roman[i]];
+    const nextVal = romanToIntMap[roman[i + 1]];
+
+    if (nextVal && currentVal < nextVal) {
+      total -= currentVal;
+    } else {
+      total += currentVal;
+    }
+  }
+  return total;
+}

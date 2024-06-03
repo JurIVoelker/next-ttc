@@ -3,6 +3,7 @@ import NotAvailable from "../../components/NotAvailablePage/NotAvailablePage";
 import Team from "../../components/Team/Team";
 import { Player, PlayersProps, StrapiImage } from "../../types/globalTypes";
 import {
+  filterMainPlayers,
   getAllTeams,
   getPlayersFromTeams,
 } from "../../utils/myTischtennisParser";
@@ -77,14 +78,15 @@ export async function getStaticProps() {
   );
 
   const players: PlayersProps[] = await getPlayersFromTeams(filteredTeams); // Get all individual players from each team
-  console.log(players.map((team) => team));
+  const filteredPlayers = players.filter(
+    (team) => team?.players && team?.players?.length !== 0
+  ); // Remove teams without players
+  const mainPlayers = filterMainPlayers(filteredPlayers);
 
   return {
     props: {
       strapiData: mannschaftenData,
-      players: players.filter(
-        (team) => team?.players && team?.players?.length !== 0
-      ), // Remove teams without players
+      players: mainPlayers, // Remove teams without players
     },
     revalidate: 600,
   };
