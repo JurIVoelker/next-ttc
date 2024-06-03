@@ -15,7 +15,10 @@ const TextWrap = ({ image, text, textType = "text" }) => {
         ></Image>
         {textType === "text" && <p>{text}</p>}
         {textType === "html" && (
-          <div dangerouslySetInnerHTML={{ __html: text }} />
+          <div
+            dangerouslySetInnerHTML={{ __html: text }}
+            className={styles.contentWrapper}
+          />
         )}
       </div>
     </>
