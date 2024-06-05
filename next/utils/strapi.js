@@ -1,11 +1,11 @@
 import { z } from "zod";
 import axios from "axios";
 
-//export const strapiUrl = "http://192.168.2.162:1337";
-export const strapiUrl = "http://127.0.0.1:1337";
+const publicStrapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL_PUBLIC;
 
 export async function getRequest(route) {
   try {
+    const strapiUrl = process.env.STRAPI_URL_LOCAL;
     const data = await axios
       .get(`${strapiUrl}/api/${route}`)
       .then((res) => res.data);
@@ -20,9 +20,9 @@ export async function getRequest(route) {
 export const getStrapiImage = (object) => {
   let url;
   if (object?.data) {
-    url = strapiUrl + object?.data?.attributes?.url;
+    url = publicStrapiUrl + object?.data?.attributes?.url;
   } else if (object?.attributes) {
-    url = strapiUrl + object?.attributes?.url;
+    url = publicStrapiUrl + object?.attributes?.url;
   }
   return url;
 };
@@ -30,7 +30,7 @@ export const getStrapiImage = (object) => {
 export async function auth(password) {
   const body = { identifier: "test", password: password };
 
-  const res = await fetch(strapiUrl + "/api/auth/local", {
+  const res = await fetch(publicStrapiUrl + "/api/auth/local", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -77,7 +77,7 @@ export async function createArticle(body, images, previewImage, setProgress) {
 
     try {
       const response = await axios.post(
-        strapiUrl + "/api/articles",
+        publicStrapiUrl + "/api/articles",
         {
           data: reqBody,
         },
@@ -137,7 +137,7 @@ export async function editArticle(body, articleId) {
       text: body.text,
     };
     const response = await axios.put(
-      strapiUrl + `/api/articles/${articleId}`,
+      publicStrapiUrl + `/api/articles/${articleId}`,
       {
         data: reqBody,
       },
@@ -183,18 +183,22 @@ async function uploadArticleImage(file, refId, field, jwt) {
   formData.append("field", field);
   formData.append("files", file);
 
-  const imageUpload = await axios.post(strapiUrl + "/api/upload", formData, {
-    headers: {
-      Authorization: `Bearer ${jwt}`,
-    },
-  });
+  const imageUpload = await axios.post(
+    publicStrapiUrl + "/api/upload",
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }
+  );
   return imageUpload;
 }
 
 export async function deleteArticle(id) {
   if (typeof localStorage !== "undefined") {
     const jwt = localStorage.getItem("jwt");
-    await axios.delete(`${strapiUrl}/api/articles/${id}`, {
+    await axios.delete(`${publicStrapiUrl}/api/articles/${id}`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
