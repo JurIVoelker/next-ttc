@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Layout from "../../components/Layout/Layout";
 import { getRequest } from "../../utils/strapi";
 import styles from "./links.module.scss";
 
@@ -26,7 +25,7 @@ const Links: React.FC<LinksPageProps> = ({ strapiData }) => {
     strapiData.data.attributes;
 
   return (
-    <Layout>
+    <>
       <h1>{titel}</h1>
       <div className={styles.content}>
         <h2>TT-Links</h2>
@@ -48,7 +47,7 @@ const Links: React.FC<LinksPageProps> = ({ strapiData }) => {
           </Link>
         ))}
       </div>
-    </Layout>
+    </>
   );
 };
 

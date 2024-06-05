@@ -1,4 +1,3 @@
-import Layout from "../../components/Layout/Layout";
 import Team from "../../components/Team/Team";
 import { getRequest } from "../../utils/strapi";
 import {
@@ -38,7 +37,7 @@ interface Mannschaft {
 
 const Mannschaften: React.FC<MannschaftenProps> = ({ strapiData, players }) => {
   return (
-    <Layout>
+    <>
       <h1>{strapiData?.data?.attributes?.titel}</h1>
       {players.map((team, index) => {
         const image = strapiData?.data?.attributes?.mannschaften?.find(
@@ -55,7 +54,7 @@ const Mannschaften: React.FC<MannschaftenProps> = ({ strapiData, players }) => {
           />
         );
       })}
-    </Layout>
+    </>
   );
 };
 

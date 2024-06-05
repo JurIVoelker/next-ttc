@@ -1,6 +1,5 @@
-import Layout from "../../components/Layout/Layout";
 import Trainer from "../../components/Trainer/Trainer";
-import { StrapiImage, TrainerType } from "../../types/globalTypes";
+import { TrainerType } from "../../types/globalTypes";
 import { getRequest } from "../../utils/strapi";
 import styles from "./trainer.module.scss";
 
@@ -17,14 +16,14 @@ interface TrainerProps {
 
 const TrainerPage: React.FC<TrainerProps> = ({ strapiData }) => {
   return (
-    <Layout>
+    <>
       <h1>{strapiData.data.attributes.titel}</h1>
       <div className={styles.trainer}>
         {strapiData.data.attributes.trainer.map((trainer) => (
           <Trainer key={trainer.name} trainerProps={trainer} />
         ))}
       </div>
-    </Layout>
+    </>
   );
 };
 

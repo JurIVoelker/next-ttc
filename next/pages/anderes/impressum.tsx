@@ -1,4 +1,3 @@
-import Layout from "../../components/Layout/Layout";
 import { getRequest } from "../../utils/strapi";
 import { parse } from "../../utils/parseRichText";
 import styles from "./impressum.module.scss";
@@ -17,10 +16,10 @@ interface ImressumPageProps {
 const Impressum: React.FC<ImressumPageProps> = ({ strapiData }) => {
   const { titel, impressum } = strapiData.data.attributes;
   return (
-    <Layout>
+    <>
       <h1>{titel}</h1>
       <div className={styles.content}>{parse(impressum)}</div>
-    </Layout>
+    </>
   );
 };
 

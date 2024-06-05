@@ -1,4 +1,3 @@
-import Layout from "../components/Layout/Layout";
 import { Gallery } from "react-grid-gallery";
 import { StrapiImages } from "../types/globalTypes";
 import { getRequest, getStrapiImage } from "../utils/strapi";
@@ -27,10 +26,10 @@ const Galerie: React.FC<StrapiData> = ({ strapiData }) => {
     });
   }
   return (
-    <Layout>
+    <>
       <h1>{titel}</h1>
       <Gallery images={images} enableImageSelection={false} rowHeight={250} />
-    </Layout>
+    </>
   );
 };
 

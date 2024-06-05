@@ -945,6 +945,36 @@ export interface ApiGaleriePageGaleriePage extends Schema.SingleType {
   };
 }
 
+export interface ApiGlobalGlobal extends Schema.SingleType {
+  collectionName: 'globals';
+  info: {
+    singularName: 'global';
+    pluralName: 'globals';
+    displayName: 'Global';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    joolaLogo: Attribute.Media;
+    ttcKlingenmuensterLogo: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::global.global',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::global.global',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiHallePageHallePage extends Schema.SingleType {
   collectionName: 'halle_pages';
   info: {
@@ -1265,6 +1295,7 @@ declare module '@strapi/types' {
       'api::datenschutz-page.datenschutz-page': ApiDatenschutzPageDatenschutzPage;
       'api::download-page.download-page': ApiDownloadPageDownloadPage;
       'api::galerie-page.galerie-page': ApiGaleriePageGaleriePage;
+      'api::global.global': ApiGlobalGlobal;
       'api::halle-page.halle-page': ApiHallePageHallePage;
       'api::impressum-page.impressum-page': ApiImpressumPageImpressumPage;
       'api::kontakt-page.kontakt-page': ApiKontaktPageKontaktPage;

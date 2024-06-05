@@ -1,9 +1,6 @@
 import ImageTextModule from "../../components/ImageTextModule/ImageTextModule";
-import Layout from "../../components/Layout/Layout";
-import NotAvailable from "../../components/NotAvailablePage/NotAvailablePage";
 import { StrapiImage, Tag } from "../../types/globalTypes";
 import { getRequest, getStrapiImage } from "../../utils/strapi";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface HalleProps {
   strapiData: {
@@ -26,7 +23,7 @@ interface Halle {
 
 const Halle: React.FC<HalleProps> = ({ strapiData }) => {
   return (
-    <Layout>
+    <>
       <h1>{strapiData.data.attributes.titel}</h1>
       {strapiData.data.attributes.hallen.map((halle, index) => {
         return (
@@ -41,7 +38,7 @@ const Halle: React.FC<HalleProps> = ({ strapiData }) => {
           </ImageTextModule>
         );
       })}
-    </Layout>
+    </>
   );
 };
 

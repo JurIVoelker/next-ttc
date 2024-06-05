@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Layout from "../../components/Layout/Layout";
 import { StrapiImage } from "../../types/globalTypes";
 import { getRequest, getStrapiImage } from "../../utils/strapi";
 import styles from "./downloads.module.scss";
@@ -25,7 +24,7 @@ interface download {
 const Downloads: React.FC<DownloadsPageProps> = ({ strapiData }) => {
   const { downloads, titel } = strapiData.data.attributes;
   return (
-    <Layout>
+    <>
       <h1>{titel}</h1>
       <div className={styles.downloads}>
         {downloads.map((download) =>
@@ -42,7 +41,7 @@ const Downloads: React.FC<DownloadsPageProps> = ({ strapiData }) => {
           )
         )}
       </div>
-    </Layout>
+    </>
   );
 };
 

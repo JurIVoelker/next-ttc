@@ -1,4 +1,3 @@
-import Layout from "../components/Layout/Layout";
 import { getRequest, getStrapiImage, strapiUrl } from "../utils/strapi";
 import Image from "next/image";
 import styles from "./index.module.scss";
@@ -34,7 +33,7 @@ interface HomePageProps {
 
 const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
   return (
-    <Layout>
+    <>
       {/* Willkommenstext + Bild */}
       <div className={styles.welcomeContainer}>
         <div className={styles.welcomeText}>
@@ -96,7 +95,7 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
       >
         Mehr Artikel anzeigen
       </Link>
-    </Layout>
+    </>
   );
 };
 

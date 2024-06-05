@@ -1,7 +1,6 @@
 import React from "react";
 import { getRequest, getStrapiImage, strapiUrl } from "../../utils/strapi";
 import { Article, Articles } from "../../types/globalTypes";
-import Layout from "../../components/Layout/Layout";
 import styles from "./aktuellesDetailPage.module.scss";
 import { Gallery } from "react-grid-gallery";
 import TextWrap from "../../components/TextWrap/TextWrap";
@@ -24,7 +23,7 @@ const AktuellesDetailPage: React.FC<AktuellesDetailPageProps> = ({
     });
   }
   return (
-    <Layout>
+    <>
       <h1 style={{ marginBottom: "8px" }}>{postData.attributes.titel}</h1>
       <span className={styles.date}>
         {postData.attributes.datum.split("-").reverse().join(".")}
@@ -43,7 +42,7 @@ const AktuellesDetailPage: React.FC<AktuellesDetailPageProps> = ({
           />
         </div>
       )}
-    </Layout>
+    </>
   );
 };
 

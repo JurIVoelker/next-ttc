@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout/Layout";
 import { Button } from "react-aria-components";
 import styles from "./Login.module.scss";
 import AriaTextField from "../components/AriaTextField/AriaTextField";
@@ -42,48 +41,46 @@ const Login = () => {
   }, []);
 
   return (
-    <Layout>
-      <div className={styles.pageContainer}>
-        {!isToken && (
-          <>
-            <h1>Einloggen</h1>
-            <AriaTextField
-              errorMessage={errorMessage}
-              value={password}
-              setValue={setPassword}
-              label="Passwort"
-              type="password"
-            ></AriaTextField>
-            <Button
-              className={styles.button}
-              onPress={() => {
-                setSending(true);
-                handleLogin();
-              }}
-              isDisabled={isSending}
-            >
-              {!isSending && "Einloggen"}
-              {isSending && <PulseLoader color="white" />}
-            </Button>
-          </>
-        )}
-        {isToken && (
-          <>
-            <h1>Ausloggen</h1>
-            <p>Du bist angemeldet. Möchtest du dich abmelden?</p>
-            <Button
-              className={styles.button}
-              onPress={() => {
-                localStorage.removeItem("jwt");
-                setToken(false);
-              }}
-            >
-              Ausloggen
-            </Button>
-          </>
-        )}
-      </div>
-    </Layout>
+    <div className={styles.pageContainer}>
+      {!isToken && (
+        <>
+          <h1>Einloggen</h1>
+          <AriaTextField
+            errorMessage={errorMessage}
+            value={password}
+            setValue={setPassword}
+            label="Passwort"
+            type="password"
+          ></AriaTextField>
+          <Button
+            className={styles.button}
+            onPress={() => {
+              setSending(true);
+              handleLogin();
+            }}
+            isDisabled={isSending}
+          >
+            {!isSending && "Einloggen"}
+            {isSending && <PulseLoader color="white" />}
+          </Button>
+        </>
+      )}
+      {isToken && (
+        <>
+          <h1>Ausloggen</h1>
+          <p>Du bist angemeldet. Möchtest du dich abmelden?</p>
+          <Button
+            className={styles.button}
+            onPress={() => {
+              localStorage.removeItem("jwt");
+              setToken(false);
+            }}
+          >
+            Ausloggen
+          </Button>
+        </>
+      )}
+    </div>
   );
 };
 

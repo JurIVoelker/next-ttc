@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { createArticle, editArticle, getRequest } from "../../utils/strapi";
+import React, { useState } from "react";
+import { editArticle, getRequest } from "../../utils/strapi";
 import { Articles } from "../../types/globalTypes";
-import Layout from "../../components/Layout/Layout";
 import TabOverview from "../../components/Article/TabOverview";
 import { parseDate } from "@internationalized/date";
 
@@ -53,7 +52,7 @@ const EditPage = ({ postData }) => {
 
   const isValid = title !== "" && !!date && text !== emptyTextAreaContent;
   return (
-    <Layout>
+    <>
       <TabOverview
         isSending={isSending}
         handleConfirm={handleConfirm}
@@ -76,7 +75,7 @@ const EditPage = ({ postData }) => {
         uploadProgress={uploadProgress}
         tabs={["Text", "Vorschau"]}
       />
-    </Layout>
+    </>
   );
 };
 

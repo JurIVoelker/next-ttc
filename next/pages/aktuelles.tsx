@@ -1,9 +1,8 @@
-import { Button, DialogTrigger, Link } from "react-aria-components";
+import { Link } from "react-aria-components";
 import { Articles } from "../types/globalTypes";
 import { getRequest, getStrapiImage } from "../utils/strapi";
 import Card from "../components/Card/Card";
 import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout/Layout";
 import styles from "./aktuelles.module.scss";
 
 const PAGE_SIZE = 12;
@@ -33,7 +32,7 @@ const Aktuelles: React.FC<AktuellesProps> = ({ articles, strapiData }) => {
   }, []);
 
   return (
-    <Layout>
+    <>
       <h1 style={{ marginBottom: "12px" }}>
         {strapiData?.data?.attributes?.aktuellesTitel}
       </h1>
@@ -59,7 +58,7 @@ const Aktuelles: React.FC<AktuellesProps> = ({ articles, strapiData }) => {
           );
         })}
       </div>
-    </Layout>
+    </>
   );
 };
 

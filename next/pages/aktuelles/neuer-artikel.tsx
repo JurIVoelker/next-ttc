@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Layout from "../../components/Layout/Layout";
 import { createArticle } from "../../utils/strapi";
 import TabOverview from "../../components/Article/TabOverview";
 
@@ -51,7 +50,7 @@ const NewPage = () => {
   const isValid = title !== "" && !!date && text !== emptyTextAreaContent;
 
   return (
-    <Layout>
+    <>
       <TabOverview
         isSending={isSending}
         handleConfirm={handleConfirm}
@@ -73,7 +72,7 @@ const NewPage = () => {
         errorMessage={errorMessage}
         uploadProgress={uploadProgress}
       />
-    </Layout>
+    </>
   );
 };
 
