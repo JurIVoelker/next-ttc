@@ -205,14 +205,7 @@ const LinkSelect = ({ options, label }) => {
         style={{ position: "relative" }}
         {...focusWithinProps}
       >
-        <Select
-          aria-label="Verein"
-          isOpen={isOpen}
-          onOpenChange={setOpen}
-          onSelectionChange={(e) => {
-            console.log(e);
-          }}
-        >
+        <Select aria-label="Verein" isOpen={isOpen} onOpenChange={setOpen}>
           <Button
             onFocus={() => {
               if (!isOpen) {
@@ -255,7 +248,7 @@ const MobileLinks = ({ options, label }) => {
       {label}
       <div className={styles.mobileLinks}>
         {options.map((option) => (
-          <Link href={option.href}>{option.name}</Link>
+          <Link href={option.href} key={option.name}>{option.name}</Link>
         ))}
       </div>
     </>

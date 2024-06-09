@@ -11,7 +11,6 @@ export const metadata = {
 };
 
 export default function Layout({ children, global }) {
-  console.log(global);
   return (
     <div className={inter.className}>
       <>
