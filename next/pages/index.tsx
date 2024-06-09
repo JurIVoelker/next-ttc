@@ -1,4 +1,4 @@
-import { getRequest, getStrapiImage, strapiUrl } from "../utils/strapi";
+import { getRequest, getStrapiImage } from "../utils/strapi";
 import Image from "next/image";
 import styles from "./index.module.scss";
 import Card from "../components/Card/Card";
@@ -63,7 +63,7 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
               <Card
                 title={link.titel}
                 description={link.beschreibung}
-                imageUrl={strapiUrl + link.vorschauBild.data.attributes.url}
+                imageUrl={getStrapiImage(link.vorschauBild)}
               ></Card>
             </Link>
           );
@@ -81,9 +81,7 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
               <Card
                 title={link.attributes.titel}
                 description={link.attributes.kurzBeschreibung}
-                imageUrl={
-                  strapiUrl + link.attributes.vorschauBild.data.attributes.url
-                }
+                imageUrl={getStrapiImage(link.attributes.vorschauBild)}
               ></Card>
             </Link>
           );
