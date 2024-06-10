@@ -16,8 +16,9 @@ export default function MyApp({ Component, pageProps, globalFooterData }) {
 MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
   try {
+    const strapiUrl = process.env.STRAPI_URL_LOCAL;
     const response = await axios.get(
-      "http://localhost:1337/api/global?populate=*"
+      `${strapiUrl}/api/global?populate=*`
     );
     const { joolaLogo, ttcKlingenmuensterLogo } = response.data.data.attributes;
     return {
