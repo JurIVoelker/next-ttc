@@ -1,5 +1,4 @@
 import { getRequest, getStrapiImage } from "../utils/strapi";
-import Image from "next/image";
 import styles from "./index.module.scss";
 import Card from "../components/Card/Card";
 import React from "react";
@@ -40,7 +39,7 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
           <h1>{strapiData?.data?.attributes?.willkommenTitel}</h1>
           <p>{strapiData?.data?.attributes?.willkommenText}</p>
         </div>
-        <Image
+        <img
           src={getStrapiImage(strapiData?.data?.attributes?.titelbild)}
           alt={
             strapiData?.data?.attributes?.titelbild?.data?.attributes

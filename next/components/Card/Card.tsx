@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./Card.module.scss";
 import React from "react";
 import { Button, DialogTrigger, Link } from "react-aria-components";
@@ -60,13 +59,13 @@ const Card: React.FC<CardProps> = ({
       )}
       <Link {...linkProps}>
         <div className={styles.card}>
-          <Image
+          <img
             src={imageUrl}
             width={300}
             height={200}
             alt={`Bildvorschau für ${title}`}
             className={styles.image}
-          ></Image>
+          />
           <div className={styles.textContent}>
             <h3>{title}</h3>
             <p>{description}</p>

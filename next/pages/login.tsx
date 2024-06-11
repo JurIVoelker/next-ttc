@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-aria-components";
-import styles from "./Login.module.scss";
+import styles from "./login.module.scss";
 import AriaTextField from "../components/AriaTextField/AriaTextField";
 import { auth } from "../utils/strapi";
 import { PulseLoader } from "react-spinners";
@@ -39,7 +39,6 @@ const Login = () => {
       setToken(false);
     }
   }, []);
-
   return (
     <div className={styles.pageContainer}>
       {!isToken && (

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./Team.module.scss";
 import ImageTextModule from "../ImageTextModule/ImageTextModule";
 import { getStrapiImage } from "../../utils/strapi";

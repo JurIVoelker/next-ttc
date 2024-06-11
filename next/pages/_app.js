@@ -1,4 +1,3 @@
-// pages/_app.js
 import "./globals.css";
 import App from "next/app";
 import axios from "axios";

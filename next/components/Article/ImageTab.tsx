@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Button } from "react-aria-components";
 import styles from "./ImageTab.module.scss";
 import AriaImageDropzone from "../AriaImageDropzone/AriaImageDropzone";
@@ -37,7 +36,7 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
                   }}
                   key={image.name || image.attributes.url}
                 >
-                  <Image
+                  <img
                     src={imageUrl}
                     alt="Hinzugefügte Bilder"
                     width={100}
@@ -58,7 +57,7 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
           {preview && (
             <div className={styles.previewWrapper}>
               <p>Artikel-Vorschau-Bild:</p>
-              <Image
+              <img
                 src={URL.createObjectURL(preview)}
                 width={100}
                 height={100}
