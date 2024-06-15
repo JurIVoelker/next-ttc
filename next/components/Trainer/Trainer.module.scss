@@ -3,6 +3,9 @@
 .wrapper {
   display: flex;
   gap: 2em;
+  @include size-s {
+    flex-direction: column;
+  }
   .textContent {
     display: flex;
     flex-direction: column;
@@ -22,5 +25,8 @@
     width: 300px;
     height: 400px;
     border-radius: $border-radius;
+    @include size-s {
+      width: 100%;
+    }
   }
 }
