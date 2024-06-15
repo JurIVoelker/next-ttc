@@ -1,7 +1,6 @@
 import { getRequest, getStrapiImage } from "../../utils/strapi";
 import styles from "./kontakt.module.scss";
 import { StrapiImage } from "../../types/globalTypes";
-import Image from "next/image";
 
 interface ImressumPageProps {
   strapiData: {
@@ -21,7 +20,7 @@ const Kontakt: React.FC<ImressumPageProps> = ({ strapiData }) => {
     <>
       <h1>{titel}</h1>
       <p>{text}</p>
-      <Image
+      <img
         className={styles.image}
         src={getStrapiImage(bild)}
         alt="E-Mail-Adresse"

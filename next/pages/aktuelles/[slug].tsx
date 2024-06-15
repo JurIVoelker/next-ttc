@@ -1,5 +1,5 @@
 import React from "react";
-import { getRequest, getStrapiImage, strapiUrl } from "../../utils/strapi";
+import { getRequest, getStrapiImage } from "../../utils/strapi";
 import { Article, Articles } from "../../types/globalTypes";
 import styles from "./aktuellesDetailPage.module.scss";
 import { Gallery } from "react-grid-gallery";

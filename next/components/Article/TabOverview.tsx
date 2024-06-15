@@ -53,7 +53,7 @@ const TabOverview = ({
           >
             <TabList aria-label="Inhalt tabs" className={styles.tabList}>
               {tabs.map((tab) => (
-                <Tab id={tab} className={styles.tabSection}>
+                <Tab id={tab} key={tab} className={styles.tabSection}>
                   {tab}
                 </Tab>
               ))}

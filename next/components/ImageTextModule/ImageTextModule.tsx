@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./ImageTextModule.module.scss";
 import { ReactNode } from "react";
 import { Tag } from "../../types/globalTypes";
@@ -24,7 +23,7 @@ const ImageTextModule: React.FC<ImageTextModuleProps> = ({
         imagePosition === "left" ? "" : styles.right
       }`}
     >
-      <Image src={imgSrc} height={500} width={500} alt="" />
+      <img src={imgSrc} height={500} width={500} alt="" />
       <div className={styles.contentContainer}>
         {children}
         <div className={styles.tags}>

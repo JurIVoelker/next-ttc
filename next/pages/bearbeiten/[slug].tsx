@@ -37,8 +37,8 @@ const EditPage = ({ postData }) => {
     };
     editArticle(body, postData.id).then((res) => {
       setIsSending(false);
-      if (res.error) {
-        if (res.error === "slug must be unique") {
+      if ((res as any).error) {
+        if ((res as any) === "slug must be unique") {
           setErrorMessage(
             `Bitte wähle einen anderen Titel! "${title}" ist bereits vergeben!`
           );

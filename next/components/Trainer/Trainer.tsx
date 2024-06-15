@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { TrainerType } from "../../types/globalTypes";
 import getAge from "../../utils/getAge";
 import { getStrapiImage } from "../../utils/strapi";
@@ -42,7 +41,7 @@ const Trainer: React.FC<TrainerComponentProps> = ({ trainerProps }) => {
   ];
   return (
     <div className={styles.wrapper}>
-      <Image
+      <img
         src={getStrapiImage(bild)}
         width={300}
         height={200}
