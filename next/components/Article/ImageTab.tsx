@@ -41,6 +41,7 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
                     alt="Hinzugefügte Bilder"
                     width={100}
                     height={100}
+                    loading="lazy"
                   />
                   <p>{image.name || image.attributes.name}</p>
                 </Button>
@@ -62,6 +63,7 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
                 width={100}
                 height={100}
                 alt="Vorschaubild"
+                loading="lazy"
               />
             </div>
           )}

@@ -48,6 +48,7 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
           }
           width={1000}
           height={500}
+          loading="lazy"
         />
       </div>
 

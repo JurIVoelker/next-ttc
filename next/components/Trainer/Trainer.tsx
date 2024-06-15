@@ -47,6 +47,7 @@ const Trainer: React.FC<TrainerComponentProps> = ({ trainerProps }) => {
         height={200}
         className={styles.image}
         alt="Bild vom Trainer"
+        loading="lazy"
       />
       <div className={styles.textContent}>
         <h2>{name}</h2>

@@ -23,7 +23,7 @@ const ImageTextModule: React.FC<ImageTextModuleProps> = ({
         imagePosition === "left" ? "" : styles.right
       }`}
     >
-      <img src={imgSrc} height={500} width={500} alt="" />
+      <img src={imgSrc} height={500} width={500} alt="" loading="lazy" />
       <div className={styles.contentContainer}>
         {children}
         <div className={styles.tags}>

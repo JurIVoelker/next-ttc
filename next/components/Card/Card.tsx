@@ -65,6 +65,7 @@ const Card: React.FC<CardProps> = ({
             height={200}
             alt={`Bildvorschau für ${title}`}
             className={styles.image}
+            loading="lazy"
           />
           <div className={styles.textContent}>
             <h3>{title}</h3>

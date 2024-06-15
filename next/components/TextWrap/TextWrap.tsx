@@ -11,6 +11,7 @@ const TextWrap = ({ image, text, textType = "text" }) => {
           height={300}
           alt=""
           className={styles.image}
+          loading="lazy"
         />
         {textType === "text" && <p>{text}</p>}
         {textType === "html" && (
