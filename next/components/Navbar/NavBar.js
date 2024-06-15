@@ -11,7 +11,7 @@ import {
   Select,
   SubmenuTrigger,
 } from "react-aria-components";
-import { useFocus, useFocusWithin, useHover } from "react-aria";
+import { useFocusWithin, useHover } from "react-aria";
 import { useRef, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
