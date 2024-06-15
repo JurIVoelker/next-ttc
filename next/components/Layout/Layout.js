@@ -12,14 +12,12 @@ export const metadata = {
 
 export default function Layout({ children, global }) {
   return (
-    <div className={inter.className}>
-      <>
-        <NavBar />
-        <main className={styles.container}>
-          <div className={styles.contentWrapper}>{children}</div>
-        </main>
-        <Footer global={global} />
-      </>
+    <div className={`${inter.className} ${styles.wrapper}`}>
+      <NavBar />
+      <main className={styles.container}>
+        <div className={styles.contentWrapper}>{children}</div>
+      </main>
+      <Footer global={global} />
     </div>
   );
 }
