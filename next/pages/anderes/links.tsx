@@ -29,23 +29,29 @@ const Links: React.FC<LinksPageProps> = ({ strapiData }) => {
       <h1>{titel}</h1>
       <div className={styles.content}>
         <h2>TT-Links</h2>
-        {ttLinks.map((link) => (
-          <Link href={link.link} target="_blank" key={link.name}>
-            {link.name}
-          </Link>
-        ))}
+        <div>
+          {ttLinks.map((link) => (
+            <Link href={link.link} target="_blank" key={link.name}>
+              {link.name}
+            </Link>
+          ))}
+        </div>
         <h2>TT-Vereine</h2>
-        {ttVereine.map((link) => (
-          <Link href={link.link} target="_blank" key={link.name}>
-            {link.name}
-          </Link>
-        ))}
+        <div>
+          {ttVereine.map((link) => (
+            <Link href={link.link} target="_blank" key={link.name}>
+              {link.name}
+            </Link>
+          ))}
+        </div>
         <h2>Klingenmünster</h2>
-        {klingenmuenster.map((link) => (
-          <Link href={link.link} target="_blank" key={link.name}>
-            {link.name}
-          </Link>
-        ))}
+        <div>
+          {klingenmuenster.map((link) => (
+            <Link href={link.link} target="_blank" key={link.name}>
+              {link.name}
+            </Link>
+          ))}
+        </div>
       </div>
     </>
   );
