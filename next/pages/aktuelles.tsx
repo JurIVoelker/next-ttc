@@ -71,6 +71,6 @@ export const getStaticProps = async () => {
   const aktuellesData = await getRequest("akutelles-page?populate=deep");
   return {
     props: { articles: articles, strapiData: aktuellesData },
-    revalidate: 600,
+    revalidate: 10,
   };
 };
