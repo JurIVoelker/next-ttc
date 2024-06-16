@@ -104,5 +104,5 @@ export const getStaticProps = async (context: Context) => {
   const post = await getRequest(
     `articles?filters[slug][$eq]=${slug}&populate=deep`
   );
-  return { props: { postData: post.data[0] } };
+  return { props: { postData: post.data[0] }, revalidate: 1 };
 };

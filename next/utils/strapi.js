@@ -65,7 +65,7 @@ export async function createArticle(body, images, previewImage, setProgress) {
     }
 
     const { day, month, year } = body.datum;
-    const date = new Date(year, month - 1, day);
+    const date = new Date(year, month - 1, day + 1);
 
     const reqBody = {
       titel: body.titel,
