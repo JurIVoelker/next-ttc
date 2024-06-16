@@ -1,12 +1,22 @@
 import { Button, DropZone, FileTrigger, Text } from "react-aria-components";
 import type { FileDropItem } from "react-aria";
-import { useState } from "react";
 import React from "react";
 import styles from "./AriaImageDropzone.module.scss";
 
 export default function AriaImageDropzone({ files, setFiles, ...props }) {
   const handleNewFiles = (selectedFiles) => {
-    setFiles((prev) => [...prev, ...selectedFiles]);
+    const promises = [];
+    const _images = [];
+    selectedFiles.forEach((image) => {
+      if (image?.kind) {
+        promises.push(image.getFile());
+      } else {
+        _images.push(image);
+      }
+    })
+    Promise.all(promises).then((res) => {
+      setFiles((prev) => [...prev, ...res, ..._images]);
+    })
   };
 
   return (

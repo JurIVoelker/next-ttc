@@ -8,9 +8,7 @@ import Image from "next/image";
 
 export const ImageTab = ({ images, setImages, preview, setPreview }) => {
   const handleSelectImage = (image) => {
-    const promises = [];
-    console.log(image);
-    // setPreview(image);
+    setPreview(image);
   };
   return (
     <>
