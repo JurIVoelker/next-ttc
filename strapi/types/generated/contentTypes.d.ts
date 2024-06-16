@@ -1101,6 +1101,39 @@ export interface ApiLinksPageLinksPage extends Schema.SingleType {
   };
 }
 
+export interface ApiMannschaftenHerrenPageMannschaftenHerrenPage
+  extends Schema.SingleType {
+  collectionName: 'mannschaften_herren_pages';
+  info: {
+    singularName: 'mannschaften-herren-page';
+    pluralName: 'mannschaften-herren-pages';
+    displayName: 'Mannschaften Herren Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titel: Attribute.String;
+    mannschaften: Attribute.Component<'content.mannschaften', true>;
+    altBild: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::mannschaften-herren-page.mannschaften-herren-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::mannschaften-herren-page.mannschaften-herren-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiMannschaftenJugendPageMannschaftenJugendPage
   extends Schema.SingleType {
   collectionName: 'mannschaften_jugend_pages';
@@ -1116,6 +1149,7 @@ export interface ApiMannschaftenJugendPageMannschaftenJugendPage
   attributes: {
     titel: Attribute.String;
     mannschaften: Attribute.Component<'content.mannschaft', true>;
+    altBild: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1300,6 +1334,7 @@ declare module '@strapi/types' {
       'api::impressum-page.impressum-page': ApiImpressumPageImpressumPage;
       'api::kontakt-page.kontakt-page': ApiKontaktPageKontaktPage;
       'api::links-page.links-page': ApiLinksPageLinksPage;
+      'api::mannschaften-herren-page.mannschaften-herren-page': ApiMannschaftenHerrenPageMannschaftenHerrenPage;
       'api::mannschaften-jugend-page.mannschaften-jugend-page': ApiMannschaftenJugendPageMannschaftenJugendPage;
       'api::start-page.start-page': ApiStartPageStartPage;
       'api::trainer-page.trainer-page': ApiTrainerPageTrainerPage;

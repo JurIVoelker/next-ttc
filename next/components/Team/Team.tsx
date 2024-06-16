@@ -2,10 +2,15 @@ import styles from "./Team.module.scss";
 import ImageTextModule from "../ImageTextModule/ImageTextModule";
 import { getStrapiImage } from "../../utils/strapi";
 
-const Team = ({ image, players, title, myTischtennisLink, imagePosition }) => {
-  const altImageUrl =
-    "http://127.0.0.1:1337/uploads/6_MP_2023_07_24_IMG_8024_446c4d1f9a.jpg";
-  const imgSrc = image ? getStrapiImage(image) : altImageUrl;
+const Team = ({
+  image,
+  players,
+  title,
+  myTischtennisLink,
+  imagePosition,
+  altImage,
+}) => {
+  const imgSrc = image ? getStrapiImage(image) : getStrapiImage(altImage);
   return (
     <ImageTextModule
       imgSrc={imgSrc}

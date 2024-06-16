@@ -1,10 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "mannschaften_jugend_pages",
+  "collectionName": "mannschaften_herren_pages",
   "info": {
-    "singularName": "mannschaften-jugend-page",
-    "pluralName": "mannschaften-jugend-pages",
-    "displayName": "Mannschaften Jugend Page",
+    "singularName": "mannschaften-herren-page",
+    "pluralName": "mannschaften-herren-pages",
+    "displayName": "Mannschaften Herren Page",
     "description": ""
   },
   "options": {
@@ -18,18 +18,17 @@
     "mannschaften": {
       "type": "component",
       "repeatable": true,
-      "component": "content.mannschaft"
+      "component": "content.mannschaften"
     },
     "altBild": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ]
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

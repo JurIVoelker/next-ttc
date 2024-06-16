@@ -41,6 +41,7 @@ const ImageTextModule: React.FC<ImageTextModuleProps> = ({
                     key={tag.id}
                     className={`${styles.tag} ${styles.link}`}
                     href={tag.url}
+                    target="_blank"
                   >
                     {content}
                   </Link>

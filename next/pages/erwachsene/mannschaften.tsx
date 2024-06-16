@@ -25,6 +25,7 @@ interface StrapiData {
     attributes: {
       titel: string;
       mannschaften: Mannschaft[];
+      altBild: StrapiImage;
     };
   };
 }
@@ -36,15 +37,17 @@ interface Mannschaft {
 }
 
 const Mannschaften: React.FC<MannschaftenProps> = ({ strapiData, players }) => {
+  const { titel, mannschaften, altBild } = strapiData.data.attributes;
   return (
     <>
-      <h1>{strapiData?.data?.attributes?.titel}</h1>
+      <h1>{titel}</h1>
       {players.map((team, index) => {
-        const image = strapiData?.data?.attributes?.mannschaften?.find(
+        const image = mannschaften.find(
           (strapiTeam) => strapiTeam.name === team.team
         );
         return (
           <Team
+            altImage={altBild}
             key={index}
             image={image?.bild}
             myTischtennisLink={team.leagueLink}
@@ -62,7 +65,7 @@ export default Mannschaften;
 
 export async function getStaticProps() {
   const mannschaftenData = await getRequest(
-    "mannschaften-jugend-page?populate=deep"
+    "mannschaften-herren-page?populate=deep"
   );
 
   const teams = await getAllTeams(); // Get all teams from mytischtennis page
