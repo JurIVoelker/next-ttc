@@ -4,6 +4,8 @@ import Card from "../components/Card/Card";
 import React from "react";
 import Link from "next/link";
 import { Article, StrapiImage } from "../types/globalTypes";
+import imageLoader from "../utils/imageLoader";
+import Image from "next/image";
 
 interface LinkCard {
   beschreibung: string;
@@ -39,7 +41,7 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
           <h1>{strapiData?.data?.attributes?.willkommenTitel}</h1>
           <p>{strapiData?.data?.attributes?.willkommenText}</p>
         </div>
-        <img
+        <Image
           src={getStrapiImage(strapiData?.data?.attributes?.titelbild)}
           alt={
             strapiData?.data?.attributes?.titelbild?.data?.attributes
@@ -48,7 +50,7 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
           }
           width={1000}
           height={500}
-          loading="lazy"
+          loader={imageLoader}
         />
       </div>
 
