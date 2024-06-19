@@ -5,21 +5,18 @@ import styles from "./AriaImageDropzone.module.scss";
 
 export default function AriaImageDropzone({ files, setFiles, ...props }) {
   const handleNewFiles = (selectedFiles) => {
-    Promise.all(
-      selectedFiles.map((file) => {
-        if (typeof selectedFiles?.kind) {
-          file.getFile().then((res) => {
-            return res;
-          });
-        } else {
-          return file;
-        }
-      })
-    ).then((res) => {
-      console.log(res);
+    const promises = [];
+    const _images = [];
+    selectedFiles.forEach((image) => {
+      if (image?.kind) {
+        promises.push(image.getFile());
+      } else {
+        _images.push(image);
+      }
     });
-
-    // setFiles((prev) => [...prev, ...selectedFiles]);
+    Promise.all(promises).then((res) => {
+      setFiles((prev) => [...prev, ...res, ..._images]);
+    });
   };
 
   return (

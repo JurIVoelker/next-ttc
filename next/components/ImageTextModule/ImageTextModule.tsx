@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 import { Tag } from "../../types/globalTypes";
 import { getFontAweseomeIcon } from "../../utils/getIcons";
 import Link from "next/link";
+import imageLoader from "../../utils/imageLoader";
+import Image from "next/image";
 
 interface ImageTextModuleProps {
   children: ReactNode;
@@ -23,7 +25,7 @@ const ImageTextModule: React.FC<ImageTextModuleProps> = ({
         imagePosition === "left" ? "" : styles.right
       }`}
     >
-      <img src={imgSrc} height={500} width={500} alt="" loading="lazy" />
+      <Image src={imgSrc} height={500} width={500} alt="" loader={imageLoader} />
       <div className={styles.contentContainer}>
         {children}
         <div className={styles.tags}>

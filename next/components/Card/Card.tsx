@@ -7,6 +7,8 @@ import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import AriaModal from "../AriaModal/AriaModal";
 import { deleteArticle } from "../../utils/strapi";
 import { useRouter } from "next/router";
+import imageLoader from "../../utils/imageLoader";
+import Image from "next/image";
 
 interface CardProps {
   imageUrl: string;
@@ -59,13 +61,13 @@ const Card: React.FC<CardProps> = ({
       )}
       <Link {...linkProps}>
         <div className={styles.card}>
-          <img
+          <Image
             src={imageUrl}
             width={300}
             height={200}
             alt={`Bildvorschau für ${title}`}
             className={styles.image}
-            loading="lazy"
+            loader={imageLoader}
           />
           <div className={styles.textContent}>
             <h3>{title}</h3>

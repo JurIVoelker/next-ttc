@@ -2,6 +2,9 @@ import { Button } from "react-aria-components";
 import styles from "./ImageTab.module.scss";
 import AriaImageDropzone from "../AriaImageDropzone/AriaImageDropzone";
 import { getStrapiImage } from "../../utils/strapi";
+import imageLoader from "../../utils/imageLoader";
+import Image from "next/image";
+
 
 export const ImageTab = ({ images, setImages, preview, setPreview }) => {
   const handleSelectImage = (image) => {
@@ -36,13 +39,13 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
                   }}
                   key={image.name || image.attributes.url}
                 >
-                  <img
+                  <Image
                     src={imageUrl}
                     alt="Hinzugefügte Bilder"
                     width={100}
                     height={100}
-                    loading="lazy"
-                  />
+                    loader={imageLoader}
+/>
                   <p>{image.name || image.attributes.name}</p>
                 </Button>
               );
@@ -58,12 +61,12 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
           {preview && (
             <div className={styles.previewWrapper}>
               <p>Artikel-Vorschau-Bild:</p>
-              <img
+              <Image
                 src={URL.createObjectURL(preview)}
                 width={100}
                 height={100}
                 alt="Vorschaubild"
-                loading="lazy"
+                loader={imageLoader}
               />
             </div>
           )}
