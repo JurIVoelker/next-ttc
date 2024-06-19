@@ -1,7 +1,7 @@
 import { z } from "zod";
 import axios from "axios";
 
-const publicStrapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL_PUBLIC;
+export const publicStrapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL_PUBLIC;
 
 export async function getRequest(route) {
   try {

@@ -1,9 +1,12 @@
 import { Link } from "react-aria-components";
 import { Articles } from "../types/globalTypes";
-import { getRequest, getStrapiImage } from "../utils/strapi";
+import { getRequest, getStrapiImage, publicStrapiUrl } from "../utils/strapi";
 import Card from "../components/Card/Card";
 import React, { useEffect, useState } from "react";
 import styles from "./aktuelles.module.scss";
+import Pagination from "../components/Pagination/Pagination";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 const PAGE_SIZE = 12;
 const INITIAL_PAGE = 1;
@@ -18,18 +21,44 @@ interface StrapiData {
 }
 
 interface AktuellesProps {
-  articles: Articles;
+  initialArticles: Articles;
   strapiData: StrapiData;
 }
 
-const Aktuelles: React.FC<AktuellesProps> = ({ articles, strapiData }) => {
+const Aktuelles: React.FC<AktuellesProps> = ({
+  initialArticles,
+  strapiData,
+}) => {
   const [jwt, setJwt] = useState<boolean | string>(false);
+  const { isReady, push, query } = useRouter();
+  const [articles, setArticles] = useState(initialArticles);
+
+  const currentPage =
+    parseInt(typeof query.seite !== "string" ? "1" : query.seite) || -1;
+  const maxPages = initialArticles.meta.pagination.pageCount;
+
+  async function fetchServices() {
+    const services = await axios.get(
+      `${publicStrapiUrl}/api/articles?pagination[page]=${currentPage}&pagination[pageSize]=${PAGE_SIZE}&populate=deep&sort[0]=datum:desc`
+    );
+    return services.data;
+  }
 
   useEffect(() => {
     if (typeof localStorage !== "undefined") {
       setJwt(localStorage.getItem("jwt"));
     }
-  }, []);
+    if (!isReady) return;
+    if (currentPage > maxPages) handleChangePage(maxPages);
+    if (currentPage < INITIAL_PAGE) handleChangePage(INITIAL_PAGE);
+    fetchServices().then((res) => {
+      setArticles(res);
+    });
+  }, [isReady, currentPage]);
+
+  const handleChangePage = (page: number) => {
+    push(`/aktuelles?seite=${page}`);
+  };
 
   return (
     <>
@@ -43,7 +72,7 @@ const Aktuelles: React.FC<AktuellesProps> = ({ articles, strapiData }) => {
         </Link>
       )}
       <div className={styles.cardCollection}>
-        {articles.data.map((article, index) => {
+        {articles?.data?.map((article, index) => {
           return (
             <Card
               key={index}
@@ -54,10 +83,15 @@ const Aktuelles: React.FC<AktuellesProps> = ({ articles, strapiData }) => {
               isEditable={!!jwt}
               slug={article.attributes.slug}
               id={article.id}
-            ></Card>
+            />
           );
         })}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        maxPages={maxPages}
+        handleChangePage={handleChangePage}
+      />
     </>
   );
 };
@@ -70,7 +104,7 @@ export const getStaticProps = async () => {
   );
   const aktuellesData = await getRequest("akutelles-page?populate=deep");
   return {
-    props: { articles: articles, strapiData: aktuellesData },
+    props: { initialArticles: articles, strapiData: aktuellesData },
     revalidate: 10,
   };
 };

@@ -15,6 +15,11 @@ export interface Article {
 
 export interface Articles {
   data: Article[];
+  meta: {
+    pagination: {
+      pageCount: number;
+    };
+  };
 }
 
 export interface StrapiImage {
