@@ -4,7 +4,8 @@
   "info": {
     "singularName": "training-erwachsene-page",
     "pluralName": "training-erwachsene-pages",
-    "displayName": "Training Erwachsene Page"
+    "displayName": "Training Erwachsene Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -18,19 +19,25 @@
       "type": "string"
     },
     "bild": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "trainingszeiten": {
       "type": "component",
       "repeatable": true,
       "component": "content.trainingszeit"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "galerie-page",
     "pluralName": "galerie-pages",
-    "displayName": "Galerie Page"
+    "displayName": "Galerie Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -15,14 +16,20 @@
       "type": "string"
     },
     "bilder": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.seo"
     }
   }
 }

@@ -19,6 +19,11 @@
       "type": "component",
       "repeatable": true,
       "component": "content.text-image-module"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }

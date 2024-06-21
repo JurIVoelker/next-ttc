@@ -794,6 +794,7 @@ export interface ApiAkutellesPageAkutellesPage extends Schema.SingleType {
     singularName: 'akutelles-page';
     pluralName: 'akutelles-pages';
     displayName: 'Akutelles Page';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -801,6 +802,7 @@ export interface ApiAkutellesPageAkutellesPage extends Schema.SingleType {
   attributes: {
     aktuellesTitel: Attribute.String;
     aktuellesText: Attribute.Text;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -898,6 +900,7 @@ export interface ApiDownloadPageDownloadPage extends Schema.SingleType {
   attributes: {
     titel: Attribute.String;
     downloads: Attribute.DynamicZone<['content.file', 'link.link']>;
+    seo: Attribute.Component<'shared.seo', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -921,6 +924,7 @@ export interface ApiGaleriePageGaleriePage extends Schema.SingleType {
     singularName: 'galerie-page';
     pluralName: 'galerie-pages';
     displayName: 'Galerie Page';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -928,6 +932,7 @@ export interface ApiGaleriePageGaleriePage extends Schema.SingleType {
   attributes: {
     titel: Attribute.String;
     bilder: Attribute.Media;
+    seo: Attribute.Component<'shared.seo', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -989,6 +994,7 @@ export interface ApiHallePageHallePage extends Schema.SingleType {
   attributes: {
     titel: Attribute.String;
     hallen: Attribute.Component<'content.text-image-module', true>;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1117,6 +1123,7 @@ export interface ApiMannschaftenHerrenPageMannschaftenHerrenPage
     titel: Attribute.String;
     mannschaften: Attribute.Component<'content.mannschaften', true>;
     altBild: Attribute.Media;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1150,6 +1157,7 @@ export interface ApiMannschaftenJugendPageMannschaftenJugendPage
     titel: Attribute.String;
     mannschaften: Attribute.Component<'content.mannschaft', true>;
     altBild: Attribute.Media;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1186,6 +1194,7 @@ export interface ApiStartPageStartPage extends Schema.SingleType {
     mehrTitel: Attribute.String;
     titelbild: Attribute.Media;
     events: Attribute.Component<'content.event'>;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1217,6 +1226,7 @@ export interface ApiTrainerPageTrainerPage extends Schema.SingleType {
   attributes: {
     titel: Attribute.String;
     trainer: Attribute.Component<'content.trainer', true>;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1241,6 +1251,7 @@ export interface ApiTrainingErwachsenePageTrainingErwachsenePage
     singularName: 'training-erwachsene-page';
     pluralName: 'training-erwachsene-pages';
     displayName: 'Training Erwachsene Page';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1250,6 +1261,7 @@ export interface ApiTrainingErwachsenePageTrainingErwachsenePage
     text: Attribute.String;
     bild: Attribute.Media;
     trainingszeiten: Attribute.Component<'content.trainingszeit', true>;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1289,6 +1301,7 @@ export interface ApiTrainingJugendPageTrainingJugendPage
       'content.trainingszeit',
       true
     >;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

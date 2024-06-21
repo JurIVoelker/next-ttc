@@ -4,7 +4,8 @@
   "info": {
     "singularName": "akutelles-page",
     "pluralName": "akutelles-pages",
-    "displayName": "Akutelles Page"
+    "displayName": "Akutelles Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -16,6 +17,11 @@
     },
     "aktuellesText": {
       "type": "text"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }

@@ -41,6 +41,11 @@
       "type": "component",
       "repeatable": false,
       "component": "content.event"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }

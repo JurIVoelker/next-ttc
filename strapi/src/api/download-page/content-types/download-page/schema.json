@@ -21,6 +21,11 @@
         "content.file",
         "link.link"
       ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.seo"
     }
   }
 }

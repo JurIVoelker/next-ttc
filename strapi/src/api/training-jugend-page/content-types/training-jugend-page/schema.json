@@ -39,6 +39,11 @@
       "type": "component",
       "repeatable": true,
       "component": "content.trainingszeit"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }
