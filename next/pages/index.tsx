@@ -71,11 +71,15 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
       {/* Events, falls angegeben */}
       {isEventVisible && (
         <>
-          <h2 className={styles.heading}>Kommende Veranstaltungen</h2>
-          <ImageTextModule imgSrc={getStrapiImage(eventImage)}>
-            <h3 className={styles.heading}>{eventTitle}</h3>
-            {parse(eventContent)}
-          </ImageTextModule>
+          <div className={styles.eventContainer}>
+            <h2 className={styles.heading}>Kommende Veranstaltungen</h2>
+            <ImageTextModule imgSrc={getStrapiImage(eventImage)}>
+              <div>
+                <h3 className={styles.heading}>{eventTitle}</h3>
+                {parse(eventContent)}
+              </div>
+            </ImageTextModule>
+          </div>
         </>
       )}
 

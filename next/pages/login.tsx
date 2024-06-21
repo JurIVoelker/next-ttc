@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-aria-components";
+import { Button, Form } from "react-aria-components";
 import styles from "./login.module.scss";
 import AriaTextField from "../components/AriaTextField/AriaTextField";
 import { auth } from "../utils/strapi";
@@ -43,25 +43,30 @@ const Login = () => {
     <div className={styles.pageContainer}>
       {!isToken && (
         <>
-          <h1>Einloggen</h1>
-          <AriaTextField
-            errorMessage={errorMessage}
-            value={password}
-            setValue={setPassword}
-            label="Passwort"
-            type="password"
-          ></AriaTextField>
-          <Button
-            className={styles.button}
-            onPress={() => {
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
               setSending(true);
               handleLogin();
             }}
-            isDisabled={isSending}
           >
-            {!isSending && "Einloggen"}
-            {isSending && <PulseLoader color="white" />}
-          </Button>
+            <h1>Einloggen</h1>
+            <AriaTextField
+              errorMessage={errorMessage}
+              value={password}
+              setValue={setPassword}
+              label="Passwort"
+              type="password"
+            ></AriaTextField>
+            <Button
+              className={styles.button}
+              isDisabled={isSending}
+              type="submit"
+            >
+              {!isSending && "Einloggen"}
+              {isSending && <PulseLoader color="white" />}
+            </Button>
+          </Form>
         </>
       )}
       {isToken && (
