@@ -1,0 +1,28 @@
+@import "../Global/theme.scss";
+
+$start-color: #f0f0f0;
+$middle-color: #fcfcfc;
+.card {
+  position: relative;
+  height: 380px;
+  border-radius: $border-radius;
+  // background-color: white;
+
+  background: linear-gradient(
+    90deg,
+    $start-color 70%,
+    $middle-color 85%,
+    $start-color 100%
+  );
+  background-size: 200% 100%;
+  animation: loading 2s infinite cubic-bezier(0.6, 0.5, 0.5, 0.5);
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
