@@ -15,6 +15,11 @@
   h2 {
     margin-bottom: 16px;
   }
+  a {
+    color: $primary-dark;
+    font-weight: 700;
+    text-decoration: underline;
+  }
   .contentContainer {
     flex-shrink: 0;
     width: 450px;

@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_content_events",
+  "info": {
+    "displayName": "event",
+    "icon": "question",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "inhalt": {
+      "type": "blocks"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

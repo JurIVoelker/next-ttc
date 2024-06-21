@@ -1,5 +1,19 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface ContentEvent extends Schema.Component {
+  collectionName: 'components_content_events';
+  info: {
+    displayName: 'event';
+    icon: 'question';
+    description: '';
+  };
+  attributes: {
+    titel: Attribute.String;
+    inhalt: Attribute.Blocks;
+    image: Attribute.Media;
+  };
+}
+
 export interface ContentFile extends Schema.Component {
   collectionName: 'components_content_files';
   info: {
@@ -143,6 +157,7 @@ export interface TagsLink extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'content.event': ContentEvent;
       'content.file': ContentFile;
       'content.mannschaft': ContentMannschaft;
       'content.mannschaften': ContentMannschaften;

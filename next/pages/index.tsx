@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Article, StrapiImage } from "../types/globalTypes";
 import imageLoader from "../utils/imageLoader";
 import Image from "next/image";
+import ImageTextModule from "../components/ImageTextModule/ImageTextModule";
+import { parse } from "../utils/parseRichText";
 
 interface LinkCard {
   beschreibung: string;
@@ -24,6 +26,11 @@ interface StrapiData {
     mehrErfahrenLinks: LinkCard[];
     mehrTitel: string;
     aktuellesTitel: string;
+    events: {
+      titel: String;
+      inhalt: object;
+      image: StrapiImage;
+    };
   };
 }
 
@@ -33,6 +40,13 @@ interface HomePageProps {
 }
 
 const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
+  const {
+    titel: eventTitle,
+    image: eventImage,
+    inhalt: eventContent,
+  } = strapiData?.data?.attributes?.events;
+  const isEventVisible = eventTitle && eventImage && eventContent;
+
   return (
     <>
       {/* Willkommenstext + Bild */}
@@ -53,6 +67,17 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
           loader={imageLoader}
         />
       </div>
+
+      {/* Events, falls angegeben */}
+      {isEventVisible && (
+        <>
+          <h2 className={styles.heading}>Kommende Veranstaltungen</h2>
+          <ImageTextModule imgSrc={getStrapiImage(eventImage)}>
+            <h3 className={styles.heading}>{eventTitle}</h3>
+            {parse(eventContent)}
+          </ImageTextModule>
+        </>
+      )}
 
       {/* Mehr über unseren Verein */}
       <h2 style={{ marginBottom: "16px" }}>

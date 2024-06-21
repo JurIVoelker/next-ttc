@@ -1185,6 +1185,7 @@ export interface ApiStartPageStartPage extends Schema.SingleType {
     aktuellesTitel: Attribute.String;
     mehrTitel: Attribute.String;
     titelbild: Attribute.Media;
+    events: Attribute.Component<'content.event'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

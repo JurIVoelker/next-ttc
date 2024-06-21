@@ -36,6 +36,11 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "events": {
+      "type": "component",
+      "repeatable": false,
+      "component": "content.event"
     }
   }
 }
