@@ -1,7 +1,6 @@
 import React from "react";
 
 export function parse(json, prevType, level) {
-  console.log(json);
   return json.map((element, index) => {
     const newLevel = level ? level + 1 : 1;
     if (element.type === "heading") {
