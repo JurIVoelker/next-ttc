@@ -142,10 +142,12 @@ const NavBar = () => {
                     <MenuItem
                       key={item.name}
                       onAction={() => {
-                        push(item.href);
+                        if (item.href) push(item.href);
                       }}
                     >
-                      <Link className={styles.menuItem}>{item.name}</Link>
+                      <Link className={styles.menuItem} href="">
+                        {item.name}
+                      </Link>
                     </MenuItem>
                   );
                 }
