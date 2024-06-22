@@ -31,6 +31,7 @@
 
 .popover {
   z-index: 100;
+  pointer-events: auto;
   position: fixed !important;
   max-height: 100vh !important;
   top: 0 !important;
@@ -71,7 +72,7 @@
       .menuItem {
         z-index: 104;
         padding: 0.5em;
-        display: inline-block;
+        display: block;
         border-radius: $border-radius;
         font-family: Inter;
         color: $text-on-dark;
