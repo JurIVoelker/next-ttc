@@ -13,6 +13,7 @@ import {
 } from "react-aria-components";
 import { useFocusWithin, useHover } from "react-aria";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,6 +23,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
+  const { push } = useRouter();
+
   let items = [
     { id: "start", name: "Start", href: "/" },
     {
@@ -120,11 +123,7 @@ const NavBar = () => {
                 if (item.children) {
                   return (
                     <SubmenuTrigger>
-                      <MenuItem
-                        className={styles.menuItem}
-                        key={item.name}
-                        href={item.href && item.href}
-                      >
+                      <MenuItem key={item.name} className={styles.menuItem}>
                         {item.name}
                         <FontAwesomeIcon icon={faChevronRight} />
                       </MenuItem>
@@ -141,11 +140,12 @@ const NavBar = () => {
                 } else {
                   return (
                     <MenuItem
-                      className={styles.menuItem}
                       key={item.name}
-                      href={item.href && item.href}
+                      onAction={() => {
+                        push(item.href);
+                      }}
                     >
-                      {item.name}
+                      <Link className={styles.menuItem}>{item.name}</Link>
                     </MenuItem>
                   );
                 }
@@ -248,7 +248,9 @@ const MobileLinks = ({ options, label }) => {
       {label}
       <div className={styles.mobileLinks}>
         {options.map((option) => (
-          <Link href={option.href} key={option.name}>{option.name}</Link>
+          <Link href={option.href} key={option.name}>
+            {option.name}
+          </Link>
         ))}
       </div>
     </>
