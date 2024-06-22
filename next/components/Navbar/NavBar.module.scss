@@ -72,6 +72,7 @@
       }
       .menuItem {
         z-index: 100 !important;
+        pointer-events: all;
         padding: 0.5em;
         display: block;
         border-radius: $border-radius;
