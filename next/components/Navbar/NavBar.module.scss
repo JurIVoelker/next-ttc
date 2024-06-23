@@ -30,8 +30,7 @@
 }
 
 .popover {
-  z-index: 100 !important;
-  pointer-events: all !important;
+  z-index: 100;
   position: fixed !important;
   max-height: 100vh !important;
   top: 0 !important;
@@ -55,8 +54,7 @@
     }
   }
   .menuWrapper {
-    pointer-events: auto !important;
-    z-index: 100 !important;
+    z-index: 100;
     outline: none !important;
     margin-left: 30px;
     margin-top: 80px;
@@ -71,7 +69,7 @@
         margin-left: 1em;
       }
       .menuItem {
-        z-index: 100 !important;
+        z-index: 100;
         pointer-events: all;
         padding: 0.5em;
         display: block;

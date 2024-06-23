@@ -101,7 +101,18 @@ const NavBar = () => {
 
   return (
     <div className={styles.navContainer}>
-      <MenuTrigger isOpen={isMenuVisible} onOpenChange={setMenuVisible}>
+      <MenuTrigger
+        isOpen={isMenuVisible}
+        onOpenChange={(prev) => {
+          if (!prev) {
+            setTimeout(() => {
+              setMenuVisible(false);
+            }, 10);
+          } else {
+            setMenuVisible(true);
+          }
+        }}
+      >
         <div className={styles.buttonContainer}>
           <Button aria-label="Menü">
             <FontAwesomeIcon icon={faBars} />
