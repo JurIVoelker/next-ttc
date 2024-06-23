@@ -113,7 +113,7 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
                 title={link.attributes.titel}
                 description={link.attributes.kurzBeschreibung}
                 imageUrl={getStrapiImage(link.attributes.vorschauBild)}
-              ></Card>
+              />
             </Link>
           );
         })}

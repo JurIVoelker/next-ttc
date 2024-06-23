@@ -103,14 +103,10 @@ const NavBar = () => {
     <div className={styles.navContainer}>
       <MenuTrigger
         isOpen={isMenuVisible}
-        onOpenChange={(prev) => {
-          if (!prev) {
-            setTimeout(() => {
-              setMenuVisible(false);
-            }, 10);
-          } else {
-            setMenuVisible(true);
-          }
+        onOpenChange={() => {
+          setTimeout(() => {
+            setMenuVisible((prev) => !prev);
+          }, 10);
         }}
       >
         <div className={styles.buttonContainer}>
@@ -152,13 +148,10 @@ const NavBar = () => {
                   return (
                     <MenuItem
                       key={item.name}
-                      onAction={() => {
-                        if (item.href) push(item.href);
-                      }}
+                      href={item.href}
+                      className={styles.menuItem}
                     >
-                      <Link className={styles.menuItem} href="">
-                        {item.name}
-                      </Link>
+                      {item.name}
                     </MenuItem>
                   );
                 }
