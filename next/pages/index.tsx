@@ -44,7 +44,7 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
     titel: eventTitle,
     image: eventImage,
     inhalt: eventContent,
-  } = strapiData?.data?.attributes?.events;
+  } = strapiData?.data?.attributes?.events || {};
   const isEventVisible = eventTitle && eventImage && eventContent;
 
   return (
