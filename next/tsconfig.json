@@ -13,6 +13,12 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "middleware.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "middleware.js",
+    "pages/api/send-confirmation-mail.js"
+  ],
   "exclude": ["node_modules"]
 }
