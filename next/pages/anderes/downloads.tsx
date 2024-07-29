@@ -2,6 +2,7 @@ import Link from "next/link";
 import { StrapiImage } from "../../types/globalTypes";
 import { getRequest, getStrapiImage } from "../../utils/strapi";
 import styles from "./downloads.module.scss";
+import LineUp from "../../components/Export/LineUp/LineUp";
 
 interface DownloadsPageProps {
   strapiData: {
@@ -40,6 +41,7 @@ const Downloads: React.FC<DownloadsPageProps> = ({ strapiData }) => {
             </Link>
           )
         )}
+        <LineUp />
       </div>
     </>
   );

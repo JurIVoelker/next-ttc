@@ -1,0 +1,61 @@
+@font-face {
+  font-family: "LGC";
+  src: url("/LGC-bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LGC";
+  src: url("/LGC-light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LGC";
+  src: url("/LGC-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.container {
+  width: 1080px;
+  height: 1350px;
+  outline: 4px solid black;
+  background-color: #2a6083;
+  padding: 128px 64px;
+  h1 {
+    font-size: 72px;
+    color: white;
+    margin-bottom: 96px;
+    text-align: center;
+    font-weight: 400;
+    letter-spacing: calc(1rem * 0.075);
+    font-family: "LGC", sans-serif;
+  }
+  .players {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    .player {
+      display: flex;
+      justify-content: space-between;
+      background-color: #ffffff2c;
+      background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.125) 0%,
+        rgba(255, 255, 255, 0.15) 75%
+      );
+      padding: 0.25rem 2rem;
+      border-radius: 100px;
+      p {
+        font-family: "LGC", sans-serif;
+        letter-spacing: calc(1rem * 0.075);
+        color: white;
+        font-size: 48px;
+        font-weight: 200;
+      }
+    }
+  }
+}
