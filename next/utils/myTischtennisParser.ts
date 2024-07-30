@@ -58,7 +58,6 @@ async function getPlayers(team: TeamProps, showDoubles = false) {
       balance: balance || null,
     };
   });
-
   if (!showDoubles)
     parsedPlayers = parsedPlayers.filter((player) => player.placement);
 
@@ -71,7 +70,6 @@ async function getPlayers(team: TeamProps, showDoubles = false) {
 }
 
 export const filterMainPlayers = (teams) => {
-  const romanRegex = /^(C|XC|L?X{0,3}(IX|IV|V?I{0,3}))$/;
   return teams.map((team) => {
     const teamNumber = getTeamNumber(team.team);
     return {
