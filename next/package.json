@@ -19,7 +19,6 @@
     "@tiptap/react": "^2.3.2",
     "@tiptap/starter-kit": "^2.3.2",
     "axios": "^1.6.8",
-    "canvag": "^1.0.3",
     "next": "14.2.3",
     "node-html-parser": "6.1.13",
     "react": "^18",
