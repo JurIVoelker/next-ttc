@@ -1,16 +1,18 @@
+import { Canvg } from "canvg";
 import Link from "next/link";
 import { StrapiImage } from "../../types/globalTypes";
 import { getRequest, getStrapiImage } from "../../utils/strapi";
 import styles from "./downloads.module.scss";
 import LineUp from "../../components/Export/LineUp/LineUp";
+import ReactDOMServer from "react-dom/server";
 
 import {
   filterMainPlayers,
   getAllTeams,
   getPlayersFromTeams,
 } from "../../utils/myTischtennisParser";
-import { Button } from "react-aria-components";
 import { createRef, useEffect, useRef, useState } from "react";
+import { Button } from "react-aria-components";
 
 interface DownloadsPageProps {
   strapiData: {
@@ -60,9 +62,17 @@ const Downloads: React.FC<DownloadsPageProps> = ({
     mainPlayers.forEach((team, i) => {
       exportComponentAsJPEG(refs.current[i], {
         fileName: team.team || "export",
-        html2CanvasOptions: { x: 33 },
+        html2CanvasOptions: {
+          backgroundColor: "white",
+          height: 1350,
+          width: 1080,
+        },
       });
     });
+  };
+
+  const handleExport = () => {
+    exportSvgToPng(<LineUp />, 1080, 1350);
   };
 
   useEffect(() => {
@@ -88,7 +98,10 @@ const Downloads: React.FC<DownloadsPageProps> = ({
             </Link>
           )
         )}
-        {isLoggedIn && (
+        <Button onPress={handleExport}>download</Button>
+        <LineUp />
+
+        {/* {isLoggedIn && (
           <>
             <h2>Aufstellungen herunterladen</h2>
             <div className={styles.lineups}>
@@ -126,7 +139,7 @@ const Downloads: React.FC<DownloadsPageProps> = ({
               ))}
             </div>
           </>
-        )}
+        )} */}
       </div>
     </>
   );
@@ -151,3 +164,37 @@ export const getStaticProps = async () => {
   const mainPlayers = filterMainPlayers(filteredPlayers);
   return { props: { strapiData: linksPage, mainPlayers: mainPlayers } };
 };
+
+function exportSvgToPng(svgComponent, width, height) {
+  // Render the SVG component to a string
+  const svgString = ReactDOMServer.renderToStaticMarkup(svgComponent);
+  console.log(svgString);
+  // Create a new canvas element
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+
+  // Create an image element and set its source to the serialized SVG data
+  const img = new Image();
+  const svgBlob = new Blob([svgString], { type: "image/svg+xml" });
+  const url = URL.createObjectURL(svgBlob);
+  img.src = url;
+
+  img.onload = () => {
+    // Draw the SVG image onto the canvas
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Convert the canvas content to a PNG data URL
+    const pngDataUrl = canvas.toDataURL("image/png");
+
+    // Create a link to download the PNG
+    const link = document.createElement("a");
+    link.href = pngDataUrl;
+    link.download = "exported-image.png";
+    link.click();
+
+    // Cleanup
+    URL.revokeObjectURL(url);
+  };
+}
