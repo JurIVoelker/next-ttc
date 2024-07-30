@@ -3,14 +3,15 @@ import { StrapiImage } from "../../types/globalTypes";
 import { getRequest, getStrapiImage } from "../../utils/strapi";
 import styles from "./downloads.module.scss";
 import LineUp from "../../components/Export/LineUp/LineUp";
+import { exportSvgToPng } from "../../utils/imageUtils";
 
 import {
   filterMainPlayers,
   getAllTeams,
   getPlayersFromTeams,
 } from "../../utils/myTischtennisParser";
-import { Button } from "react-aria-components";
 import { createRef, useEffect, useRef, useState } from "react";
+import { Button } from "react-aria-components";
 
 interface DownloadsPageProps {
   strapiData: {
@@ -38,30 +39,19 @@ const Downloads: React.FC<DownloadsPageProps> = ({
   const { downloads, titel } = strapiData.data.attributes;
   const [isLoggedIn, setLoggedIn] = useState(false);
 
-  const refs = useRef(mainPlayers.map(() => createRef()));
-
-  const handleDownload = async (ref, team) => {
-    if (!ref?.current) {
-      return console.log("ref is null");
-    }
-    const { exportComponentAsJPEG } = await import(
-      "react-component-export-image"
-    );
-    exportComponentAsJPEG(ref, {
-      fileName: team.team || "export",
-      html2CanvasOptions: { x: 33 },
-    });
-  };
-
-  const handleDownloadAll = async () => {
-    const { exportComponentAsJPEG } = await import(
-      "react-component-export-image"
-    );
-    mainPlayers.forEach((team, i) => {
-      exportComponentAsJPEG(refs.current[i], {
-        fileName: team.team || "export",
-        html2CanvasOptions: { x: 33 },
-      });
+  const handleExport = () => {
+    console.log(mainPlayers[0]);
+    mainPlayers.forEach((team) => {
+      exportSvgToPng(
+        <LineUp
+          players={team.players}
+          teamName={team.team}
+          league={team.league}
+        />,
+        1080,
+        1350,
+        "fileName"
+      );
     });
   };
 
@@ -89,43 +79,13 @@ const Downloads: React.FC<DownloadsPageProps> = ({
           )
         )}
         {isLoggedIn && (
-          <>
-            <h2>Aufstellungen herunterladen</h2>
-            <div className={styles.lineups}>
-              {mainPlayers.map((team, i) => (
-                <Button
-                  onPress={() => {
-                    handleDownload(refs.current[i], team);
-                  }}
-                  key={i}
-                >
-                  {team.team}
-                </Button>
-              ))}
-            </div>
-
-            <Button onPress={handleDownloadAll}>Alle herunterladen</Button>
-
-            <div
-              style={{
-                position: "absolute",
-                opacity: "0",
-                zIndex: "-9999",
-                height: "0px",
-                overflow: "hidden",
-              }}
-            >
-              {mainPlayers.map((team, i) => (
-                <LineUp
-                  ref={refs.current[i]}
-                  teamName={team.team}
-                  key={i}
-                  players={team.players}
-                  league={team.league}
-                />
-              ))}
-            </div>
-          </>
+          <Button
+            onPress={() => {
+              handleExport();
+            }}
+          >
+            Mannschaftsaufstellung herunterladen
+          </Button>
         )}
       </div>
     </>

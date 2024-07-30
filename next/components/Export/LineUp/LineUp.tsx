@@ -1,12 +1,5 @@
-import { forwardRef } from "react";
-import styles from "./LineUp.module.scss";
-
-const defaultPlayers = [
-  { name: "Juri Völker", isLeader: true, ttr: 1085 },
-  { name: "Juri Völker", ttr: 1085 },
-  { name: "Juri Völker", ttr: 1085 },
-  { name: "Juri Völker", ttr: 1085 },
-];
+import { base64LGCLight } from "../../../utils/fontUtils";
+import { base64LGCRegular } from "../../../utils/fontUtils";
 
 interface LineUpProps {
   teamName: string;
@@ -16,35 +9,104 @@ interface LineUpProps {
     ttr: number;
   }[];
   league: string;
-  ref: any;
 }
 
-const LineUp = forwardRef(
-  (
-    {
-      teamName = "Herren VII",
-      players = defaultPlayers,
-      league = "Kreisklasse B",
-      ...props
-    }: LineUpProps,
-    ref
-  ) => {
-    return (
-      <div ref={ref} className={styles.outer} {...props}>
-        <div className={styles.container}>
-          <h1>{`${teamName} - ${league}`}</h1>
-          <div className={styles.players}>
-            {players.map((p, i) => (
-              <div key={i} className={styles.player}>
-                <p>{p.name}</p>
-                <p className={styles.ttr}>{p.ttr}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-);
+const LineUp = ({
+  teamName = "Herren VII",
+  players = [],
+  league = "Kreisklasse B",
+  ...props
+}: LineUpProps) => {
+  const svgWidth = 1080; // Adjust width as needed
+  const svgHeight = 1350; // Adjust height based on the number of players
+
+  return (
+    <svg
+      width={svgWidth}
+      height={svgHeight}
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <style>
+        {`
+            @font-face {
+              font-family: "LGC";
+              src: url("${base64LGCLight}") format("truetype");
+              font-weight: 300;
+              font-style: normal;
+            }
+            @font-face {
+              font-family: "LGC";
+              src: url("${base64LGCRegular}") format("truetype");
+              font-weight: 500;
+              font-style: normal;
+            }
+            .title { font-size: 96px; font-weight: regular; letter-spacing: calc(1rem * 0.075); font-family: LGC; font-weight: 500; }
+            .subTitle { font-size: 48px; font-weight: regular; letter-spacing: calc(1rem * 0.075); font-family: LGC; font-weight: 300; }
+            .player { font-size: 48px; font-weight: 300; font-family: LGC; }
+          `}
+      </style>
+      <rect width="100%" height="100%" fill="#2a6083" />
+
+      <text
+        x={1080 / 2}
+        y={200}
+        className="title"
+        textAnchor="middle"
+        dominant-baseline="middle"
+        fill="white"
+      >
+        {teamName}
+      </text>
+      <text
+        x={1080 / 2}
+        y={280}
+        className="subTitle"
+        textAnchor="middle"
+        dominant-baseline="middle"
+        fill="white"
+      >
+        {league}
+      </text>
+      <g>
+        {players.map((p, i) => {
+          const baseYOffset = 380;
+          return (
+            <>
+              <rect
+                width="calc(100% - 128px)"
+                fill="#4B7895"
+                rx="40"
+                ry="40"
+                height="80"
+                x="64"
+                y={baseYOffset + i * 112}
+              />
+              <text
+                x={64 + 32}
+                y={baseYOffset + i * 112 + 56}
+                fill="white"
+                className="player"
+              >
+                {p.name}
+              </text>
+              {p.ttr && (
+                <text
+                  x={980}
+                  y={baseYOffset + i * 112 + 56}
+                  fill="white"
+                  className="player"
+                  textAnchor="end"
+                >
+                  {p.ttr}
+                </text>
+              )}
+            </>
+          );
+        })}
+      </g>
+    </svg>
+  );
+};
 
 export default LineUp;
