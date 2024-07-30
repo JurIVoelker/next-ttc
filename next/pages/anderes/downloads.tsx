@@ -40,19 +40,17 @@ const Downloads: React.FC<DownloadsPageProps> = ({
   const { downloads, titel } = strapiData.data.attributes;
   const [isLoggedIn, setLoggedIn] = useState(false);
 
-  const handleExport = () => {
-    mainPlayers.forEach((team) => {
-      exportSvgToPng(
-        <LineUp
-          players={team.players}
-          teamName={team.team}
-          league={team.league}
-        />,
-        1080,
-        1350,
-        slugify(team.team)
-      );
-    });
+  const handleExport = (team) => {
+    exportSvgToPng(
+      <LineUp
+        players={team.players}
+        teamName={team.team}
+        league={team.league}
+      />,
+      1080,
+      1350,
+      slugify(team.team)
+    );
   };
 
   useEffect(() => {
@@ -79,13 +77,21 @@ const Downloads: React.FC<DownloadsPageProps> = ({
           )
         )}
         {isLoggedIn && (
-          <Button
-            onPress={() => {
-              handleExport();
-            }}
-          >
-            Mannschaftsaufstellung herunterladen
-          </Button>
+          <>
+            <h2>Mannschaftsaufstellung herunterladen</h2>
+            <div className={styles.lineups}>
+              {mainPlayers.map((team, i) => (
+                <Button
+                  onPress={() => {
+                    handleExport(team);
+                  }}
+                  key={i}
+                >
+                  {team.team}
+                </Button>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </>
@@ -100,7 +106,6 @@ export const getStaticProps = async () => {
 
   const filteredTeams = teams.filter(
     (team) => !team.league.includes("pokal") && !team.league.includes("PMM")
-    // (team.name.includes("Jungen") || team.name.includes("Mädchen")) // Nur Jugendspieler
   );
 
   const players = await getPlayersFromTeams(filteredTeams); // Get all individual players from each team
