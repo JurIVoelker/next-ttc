@@ -1,8 +1,21 @@
+@import "../../components/Global/theme.scss";
+
 .downloads {
   display: flex;
   flex-direction: column;
   gap: 1em;
   a {
     text-decoration: underline;
+  }
+  button {
+    @include button-styles;
+    min-width: 200px;
+    flex-wrap: 1;
+    flex-grow: 1;
+  }
+  .lineups {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 }
