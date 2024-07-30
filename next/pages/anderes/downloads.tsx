@@ -4,13 +4,14 @@ import { getRequest, getStrapiImage } from "../../utils/strapi";
 import styles from "./downloads.module.scss";
 import LineUp from "../../components/Export/LineUp/LineUp";
 import { exportSvgToPng } from "../../utils/imageUtils";
+import slugify from "slugify";
 
 import {
   filterMainPlayers,
   getAllTeams,
   getPlayersFromTeams,
 } from "../../utils/myTischtennisParser";
-import { createRef, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-aria-components";
 
 interface DownloadsPageProps {
@@ -40,7 +41,6 @@ const Downloads: React.FC<DownloadsPageProps> = ({
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   const handleExport = () => {
-    console.log(mainPlayers[0]);
     mainPlayers.forEach((team) => {
       exportSvgToPng(
         <LineUp
@@ -50,7 +50,7 @@ const Downloads: React.FC<DownloadsPageProps> = ({
         />,
         1080,
         1350,
-        "fileName"
+        slugify(team.team)
       );
     });
   };
