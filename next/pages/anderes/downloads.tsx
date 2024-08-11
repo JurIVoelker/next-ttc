@@ -104,9 +104,19 @@ export const getStaticProps = async () => {
   const linksPage = await getRequest(`download-page?populate=deep`);
   const teams = await getAllTeams(); // Get all teams from mytischtennis page
 
-  const filteredTeams = teams.filter(
+  const _filteredTeams = teams.filter(
     (team) => !team.league.includes("pokal") && !team.league.includes("PMM")
   );
+
+  const filteredTeams = _filteredTeams.map((data) => {
+    const split = data.link.split("/");
+    return {
+      ...data,
+      link:
+        split.splice(0, split.length - 4).join("/") +
+        "/TTC-Klingenmuenster/spielerbilanzen/vr/",
+    };
+  });
 
   const players = await getPlayersFromTeams(filteredTeams); // Get all individual players from each team
   const filteredPlayers = players.filter(
@@ -114,5 +124,11 @@ export const getStaticProps = async () => {
   ); // Remove teams without players
 
   const mainPlayers = filterMainPlayers(filteredPlayers);
-  return { props: { strapiData: linksPage, mainPlayers: mainPlayers } };
+  return {
+    props: {
+      strapiData: linksPage,
+      mainPlayers: mainPlayers,
+      firstData: filteredTeams,
+    },
+  };
 };

@@ -70,13 +70,23 @@ export async function getStaticProps() {
 
   const teams = await getAllTeams(); // Get all teams from mytischtennis page
 
-  const filteredTeams = teams.filter(
+  const _filteredTeams = teams.filter(
     // Only youth player teams
     (team) =>
       !team.league.includes("pokal") &&
       !team.league.includes("Relegation") &&
       (team.name.includes("Herren") || team.name.includes("Damen"))
   );
+
+  const filteredTeams = _filteredTeams.map((data) => {
+    const split = data.link.split("/");
+    return {
+      ...data,
+      link:
+        split.splice(0, split.length - 4).join("/") +
+        "/TTC-Klingenmuenster/spielerbilanzen/vr/",
+    };
+  });
 
   const players: PlayersProps[] = await getPlayersFromTeams(filteredTeams); // Get all individual players from each team
   const filteredPlayers = players.filter(
