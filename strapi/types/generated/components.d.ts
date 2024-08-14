@@ -11,6 +11,9 @@ export interface ContentEvent extends Schema.Component {
     titel: Attribute.String;
     inhalt: Attribute.Blocks;
     image: Attribute.Media;
+    location: Attribute.String;
+    tags: Attribute.Text;
+    date: Attribute.String;
   };
 }
 

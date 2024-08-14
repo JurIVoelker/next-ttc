@@ -14,14 +14,24 @@
       "type": "blocks"
     },
     "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "location": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "text"
+    },
+    "date": {
+      "type": "string"
     }
   }
 }

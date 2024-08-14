@@ -918,6 +918,38 @@ export interface ApiDownloadPageDownloadPage extends Schema.SingleType {
   };
 }
 
+export interface ApiEventsPageEventsPage extends Schema.SingleType {
+  collectionName: 'events_pages';
+  info: {
+    singularName: 'events-page';
+    pluralName: 'events-pages';
+    displayName: 'Events Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.String;
+    events: Attribute.Component<'content.event', true>;
+    description: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::events-page.events-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::events-page.events-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGaleriePageGaleriePage extends Schema.SingleType {
   collectionName: 'galerie_pages';
   info: {
@@ -1342,6 +1374,7 @@ declare module '@strapi/types' {
       'api::article.article': ApiArticleArticle;
       'api::datenschutz-page.datenschutz-page': ApiDatenschutzPageDatenschutzPage;
       'api::download-page.download-page': ApiDownloadPageDownloadPage;
+      'api::events-page.events-page': ApiEventsPageEventsPage;
       'api::galerie-page.galerie-page': ApiGaleriePageGaleriePage;
       'api::global.global': ApiGlobalGlobal;
       'api::halle-page.halle-page': ApiHallePageHallePage;
