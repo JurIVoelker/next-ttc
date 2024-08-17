@@ -44,7 +44,7 @@ const Event = ({ inhalt, date, location, tags, titel, image, ...props }) => {
             </div>
           )}
         </div>
-        <div className={styles.textContent}>{parse(inhalt)}</div>
+        <div className={styles.textContent}>{inhalt}</div>
         <div className={styles.tags}>
           {tagsArray.map((tag, key) => (
             <div className={styles.chip} key={key}>

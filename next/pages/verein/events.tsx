@@ -1,8 +1,8 @@
 import Event from "../../components/Event/Event";
 import { getRequest } from "../../utils/strapi";
 
-const Events = ({ strapiData }) => {
-  const { title, description, events } = strapiData;
+const Events = ({ strapiData, events }) => {
+  const { title, description } = strapiData;
   return (
     <div>
       <h1>{title}</h1>
@@ -16,14 +16,15 @@ const Events = ({ strapiData }) => {
         }}
       >
         {events.map((event) => {
-          const { id, inhalt, location, tags, titel, image, date } = event;
+          const { id, content, location, tags, title, image, date } =
+            event.attributes;
           return (
             <Event
               key={id}
-              inhalt={inhalt}
+              inhalt={content}
               location={location}
               tags={tags}
-              titel={titel}
+              titel={title}
               image={image}
               date={date}
             />
@@ -37,11 +38,13 @@ const Events = ({ strapiData }) => {
 export default Events;
 
 export async function getStaticProps() {
-  const hallePageData = await getRequest("events-page?populate=deep");
+  const strapiData = await getRequest("events-page?populate=deep");
+  const events = await getRequest("events?populate=*");
 
   return {
     props: {
-      strapiData: hallePageData.data.attributes,
+      strapiData: strapiData.data.attributes,
+      events: events.data,
     },
     revalidate: 600,
   };

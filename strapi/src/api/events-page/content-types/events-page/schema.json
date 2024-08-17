@@ -15,11 +15,6 @@
     "title": {
       "type": "string"
     },
-    "events": {
-      "type": "component",
-      "repeatable": true,
-      "component": "content.event"
-    },
     "description": {
       "type": "text"
     }
