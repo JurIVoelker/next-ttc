@@ -1175,6 +1175,36 @@ export interface ApiMannschaftenJugendPageMannschaftenJugendPage
   };
 }
 
+export interface ApiOrganisationPageOrganisationPage extends Schema.SingleType {
+  collectionName: 'organisation_pages';
+  info: {
+    singularName: 'organisation-page';
+    pluralName: 'organisation-pages';
+    displayName: 'Organisation Page';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.String;
+    organisation: Attribute.Component<'content.text-image-module', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::organisation-page.organisation-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::organisation-page.organisation-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiStartPageStartPage extends Schema.SingleType {
   collectionName: 'start_pages';
   info: {
@@ -1350,6 +1380,7 @@ declare module '@strapi/types' {
       'api::links-page.links-page': ApiLinksPageLinksPage;
       'api::mannschaften-herren-page.mannschaften-herren-page': ApiMannschaftenHerrenPageMannschaftenHerrenPage;
       'api::mannschaften-jugend-page.mannschaften-jugend-page': ApiMannschaftenJugendPageMannschaftenJugendPage;
+      'api::organisation-page.organisation-page': ApiOrganisationPageOrganisationPage;
       'api::start-page.start-page': ApiStartPageStartPage;
       'api::trainer-page.trainer-page': ApiTrainerPageTrainerPage;
       'api::training-erwachsene-page.training-erwachsene-page': ApiTrainingErwachsenePageTrainingErwachsenePage;
