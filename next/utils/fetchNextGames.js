@@ -17,7 +17,9 @@ export async function getNextGames() {
     if (date) lastDate = date;
 
     // get time
-    const time = removeNewLine(cols[1]?.innerHTML) || null;
+    let time = removeNewLine(cols[1]?.innerHTML) || null;
+    time = time?.split("<a");
+    time = time ? time[0] : "";
 
     // get league
     const league = removeNewLine(cols[3]?.innerHTML) || null;

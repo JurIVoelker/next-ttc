@@ -2,13 +2,29 @@ import GameCard from "../../components/GameCard/GameCard";
 import { getNextGames } from "../../utils/fetchNextGames";
 import styles from "./spiele.module.scss";
 const Spiele = ({ nextGames }) => {
-  console.log(nextGames);
+  const categorizedGames = [];
+  let previousGameDay = "";
+
+  nextGames.forEach((game) => {
+    if (game?.date && previousGameDay === game.date)
+      categorizedGames[categorizedGames.length - 1].push(game);
+    else categorizedGames.push([game]);
+    previousGameDay = game.date;
+  });
   return (
     <>
-      <div className={styles.games}>
-        {nextGames.map((game, i) => (
-          <GameCard {...game} key={i} />
+      <div>
+        {categorizedGames.map((games) => (
+          <div className={styles.gameDay}>
+            <h2>{games[0].date}</h2>
+            <div className={styles.games}>
+              {games.map((game, i) => (
+                <GameCard {...game} key={i} />
+              ))}
+            </div>
+          </div>
         ))}
+        {!categorizedGames?.length && <div>Keine Spiele</div>}
       </div>
     </>
   );

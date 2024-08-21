@@ -5,6 +5,7 @@ const GameCard = ({ allyTeam, date, enemyTeam, isHomeMatch, league, time }) => {
   return (
     <div className={styles.game}>
       <div className={styles.league}>{translateLeagues(league)}</div>
+      {date && time && <div className={styles.date}>{`${time} Uhr`}</div>}
       <div className={styles.teams}>
         {isHomeMatch && (
           <>
@@ -19,7 +20,6 @@ const GameCard = ({ allyTeam, date, enemyTeam, isHomeMatch, league, time }) => {
           </>
         )}
       </div>
-      {date && time && <span>{`${date} um ${time} Uhr`}</span>}
     </div>
   );
 };
