@@ -19,11 +19,11 @@ jobs:
 
       - name: set app keys env
         run: |
-          echo "APP_KEYS=${{ secrets.APP_KEYS }}" > backend/.env
-          echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> backend/.env
-          echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> backend/.env
-          echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> backend/.env
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> backend/.env
+          echo "APP_KEYS=${{ secrets.APP_KEYS }}" > strapi/.env
+          echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> strapi/.env
+          echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> strapi/.env
+          echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> strapi/.env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> strapi/.env
 
       - name: deps frontend
         run: |
