@@ -8,6 +8,9 @@ import imageLoader from "../utils/imageLoader";
 import Image from "next/image";
 import ImageTextModule from "../components/ImageTextModule/ImageTextModule";
 import { parse } from "../utils/parseRichText";
+import { getNextGames } from "../utils/fetchNextGames";
+import GameCard from "../components/GameCard/GameCard";
+import { START_PAGE_NEXT_GAMES_COUNT } from "../utils/constants";
 
 interface LinkCard {
   beschreibung: string;
@@ -26,6 +29,7 @@ interface StrapiData {
     mehrErfahrenLinks: LinkCard[];
     mehrTitel: string;
     aktuellesTitel: string;
+    newGamesTitle: string;
     events: {
       titel: String;
       inhalt: object;
@@ -37,9 +41,14 @@ interface StrapiData {
 interface HomePageProps {
   strapiData: { data: StrapiData };
   articles: { data: Article[] };
+  nextGames: any;
 }
 
-const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
+const Index: React.FC<HomePageProps> = ({
+  strapiData,
+  articles,
+  nextGames,
+}) => {
   const {
     titel: eventTitle,
     image: eventImage,
@@ -124,12 +133,21 @@ const Index: React.FC<HomePageProps> = ({ strapiData, articles }) => {
       >
         Mehr Artikel anzeigen
       </Link>
+      <h2 style={{ marginBottom: "16px", marginTop: "48px" }}>
+        {strapiData?.data?.attributes?.newGamesTitle}
+      </h2>
+      <div className={styles.games}>
+        {nextGames.map((game, i) => (
+          <GameCard {...game} key={i} />
+        ))}
+      </div>
     </>
   );
 };
 
 export async function getStaticProps() {
   const startPageData = await getRequest("start-page?populate=deep");
+  const nextGames = await getNextGames();
   const articles = await getRequest(
     "articles?pagination[page]=1&pagination[pageSize]=3&populate=deep&sort[0]=datum:desc"
   );
@@ -137,6 +155,7 @@ export async function getStaticProps() {
   return {
     props: {
       strapiData: startPageData,
+      nextGames: nextGames.splice(0, START_PAGE_NEXT_GAMES_COUNT),
       articles,
     },
     revalidate: 600,

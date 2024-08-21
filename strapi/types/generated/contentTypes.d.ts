@@ -1261,6 +1261,7 @@ export interface ApiStartPageStartPage extends Schema.SingleType {
     titelbild: Attribute.Media;
     events: Attribute.Component<'content.event'>;
     seo: Attribute.Component<'shared.seo'>;
+    newGamesTitle: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
