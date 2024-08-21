@@ -1,28 +1,31 @@
 {
-  "collectionName": "components_content_events",
+  "kind": "collectionType",
+  "collectionName": "events",
   "info": {
-    "displayName": "event",
-    "icon": "question",
-    "description": ""
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Event"
   },
-  "options": {},
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
   "attributes": {
-    "titel": {
+    "title": {
       "type": "string"
     },
-    "inhalt": {
-      "type": "blocks"
+    "content": {
+      "type": "text"
     },
     "image": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ]
+      ],
+      "type": "media",
+      "multiple": false
     },
     "location": {
       "type": "string"

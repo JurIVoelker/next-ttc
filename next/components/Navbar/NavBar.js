@@ -31,7 +31,8 @@ const NavBar = () => {
       id: "verein",
       name: "Verein",
       children: [
-        { id: "events", name: "Events", href: "/verein/events" },
+        { id: "events", name: "Events & Termine", href: "/verein/events" },
+        { id: "spiele", name: "Spiele", href: "/verein/spiele" },
         {
           id: "organisation",
           name: "Organisation",
@@ -63,18 +64,6 @@ const NavBar = () => {
           id: "mannschaften",
           name: "Mannschaften",
           href: "/jugend/mannschaften",
-        },
-      ],
-    },
-    {
-      id: "termine",
-      name: "Termine",
-      children: [
-        { id: "spiele", name: "Spiele", href: "/termine/spiele" },
-        {
-          id: "feste",
-          name: "Feste und andere Termine",
-          href: "/termine/feste-und-andere-termine",
         },
       ],
     },

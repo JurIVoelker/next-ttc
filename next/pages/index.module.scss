@@ -69,3 +69,16 @@
     object-fit: contain !important;
   }
 }
+
+.games {
+  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  @include size-m {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @include size-s {
+    display: flex;
+    flex-direction: column;
+  }
+}

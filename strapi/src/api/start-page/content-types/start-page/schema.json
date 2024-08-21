@@ -46,6 +46,9 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.seo"
+    },
+    "newGamesTitle": {
+      "type": "string"
     }
   }
 }
