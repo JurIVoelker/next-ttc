@@ -1,11 +1,23 @@
 import styles from "./GameCard.module.scss";
 import { translateLeagues } from "../../utils/translationUtils";
 
-const GameCard = ({ allyTeam, date, enemyTeam, isHomeMatch, league, time }) => {
+const GameCard = ({
+  allyTeam,
+  date,
+  enemyTeam,
+  isHomeMatch,
+  league,
+  time,
+  isShowDate = false,
+}) => {
   return (
     <div className={styles.game}>
       <div className={styles.league}>{translateLeagues(league)}</div>
-      {date && time && <div className={styles.date}>{`${time} Uhr`}</div>}
+      {date && time && (
+        <div className={styles.date}>{`${
+          isShowDate ? date + " " : ""
+        }${time} Uhr`}</div>
+      )}
       <div className={styles.teams}>
         {isHomeMatch && (
           <>

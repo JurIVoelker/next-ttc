@@ -8,7 +8,7 @@ const Spiele = ({ nextGames }) => {
   nextGames.forEach((game) => {
     if (game?.date && previousGameDay === game.date)
       categorizedGames[categorizedGames.length - 1].push(game);
-    else categorizedGames.push([game]);
+    else if (game?.allyTeam && game?.enemyTeam) categorizedGames.push([game]);
     previousGameDay = game.date;
   });
   return (
