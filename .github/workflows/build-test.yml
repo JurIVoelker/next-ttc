@@ -1,0 +1,49 @@
+name: CI - Build Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: deps backend
+        run: |
+          cd backend
+          npm install
+
+      - name: set app keys env
+        run: |
+          echo "APP_KEYS=${{ secrets.APP_KEYS }}" > backend/.env
+          echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> backend/.env
+          echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> backend/.env
+          echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> backend/.env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> backend/.env
+
+      - name: deps frontend
+        run: |
+          cd frontend
+          npm install
+
+      - name: deps root
+        run: |
+          npm install
+
+      - name: import strapi data
+        run: |
+          cd backend
+          npm run ci:import-strapi-data
+
+      - name: build backend
+        run: |
+          cd backend
+          npm run build
+
+      - name: run backend and build frontend
+        run: |
+          npm run ci
