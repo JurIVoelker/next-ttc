@@ -1,0 +1,14 @@
+@import "../Global/theme.scss";
+
+.game {
+  padding: 1rem;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  .league {
+    color: $primary-bg;
+  }
+  .teams {
+    display: flex;
+    flex-direction: column;
+  }
+}
