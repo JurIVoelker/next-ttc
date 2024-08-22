@@ -17,13 +17,20 @@ jobs:
           cd strapi
           npm install
 
-      - name: set app keys env
+      - name: set frontend env
         run: |
           echo "APP_KEYS=${{ secrets.APP_KEYS }}" > strapi/.env
           echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> strapi/.env
           echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> strapi/.env
           echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> strapi/.env
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> strapi/.env
+
+      - name: set backend env
+        run: |
+          echo "NEXT_PUBLIC_STRAPI_URL_PUBLIC=http://127.0.0.1:1337" > next/.env
+          echo "STRAPI_URL_LOCAL=http://127.0.0.1:1337" >> next/.env
+          echo "MY_TISCHTENNIS_LINK=${{ secrets.MY_TISCHTENNIS_LINK }}" >> next/.env
+          echo "MY_TISCHTENNIS_ALL_GAMES=${{ secrets.MY_TISCHTENNIS_ALL_GAMES }}" >> next/.env
 
       - name: deps frontend
         run: |
