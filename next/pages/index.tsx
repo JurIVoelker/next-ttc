@@ -138,7 +138,7 @@ const Index: React.FC<HomePageProps> = ({
       </h2>
       <div className={styles.games}>
         {nextGames.map((game, i) => (
-          <GameCard {...game} key={i} />
+          <GameCard {...game} key={i} isShowDate />
         ))}
       </div>
     </>
