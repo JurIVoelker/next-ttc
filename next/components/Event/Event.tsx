@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Event = ({ inhalt, date, location, tags, titel, image, ...props }) => {
-  const tagsArray = tags.split("\n");
+  const tagsArray = typeof tags === "string" ? tags.split("\n") : [];
 
   const isImage = !!image?.data;
 
