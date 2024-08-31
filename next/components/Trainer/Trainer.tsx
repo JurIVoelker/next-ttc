@@ -3,7 +3,6 @@ import { TrainerType } from "../../types/globalTypes";
 import getAge from "../../utils/getAge";
 import { getStrapiImage, SIZES_TRAINER } from "../../utils/strapi";
 import styles from "./Trainer.module.scss";
-import imageLoader from "../../utils/imageLoader";
 import { StrapiImage } from "../StrapiImage/StrapiImage";
 
 interface TrainerComponentProps {

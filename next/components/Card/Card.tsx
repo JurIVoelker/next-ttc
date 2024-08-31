@@ -7,7 +7,6 @@ import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import AriaModal from "../AriaModal/AriaModal";
 import { deleteArticle, SIZES_CARD } from "../../utils/strapi";
 import { useRouter } from "next/router";
-import imageLoader from "../../utils/imageLoader";
 import Image from "next/image";
 import { StrapiImage } from "../StrapiImage/StrapiImage";
 

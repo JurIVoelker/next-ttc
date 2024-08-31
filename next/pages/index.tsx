@@ -4,7 +4,6 @@ import Card from "../components/Card/Card";
 import React from "react";
 import Link from "next/link";
 import { Article, StrapiImage as StrapiImageProps } from "../types/globalTypes";
-import imageLoader from "../utils/imageLoader";
 import Image from "next/image";
 import ImageTextModule from "../components/ImageTextModule/ImageTextModule";
 import { parse } from "../utils/parseRichText";
