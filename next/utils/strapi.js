@@ -38,6 +38,8 @@ export const SIZES_START_IMAGE =
 
 export const SIZES_TRAINER = "(max-width: 768px) 700px, 300px";
 
+export const SIZES_EVENT = "(max-width: 768px) 700px, 400px";
+
 export async function auth(password) {
   const body = { identifier: "test", password: password };
 

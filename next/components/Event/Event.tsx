@@ -5,7 +5,7 @@ import {
   faLocationPin,
 } from "@fortawesome/free-solid-svg-icons";
 import { StrapiImage } from "../StrapiImage/StrapiImage";
-import { SIZES_TRAINER } from "../../utils/strapi";
+import { SIZES_EVENT, SIZES_TRAINER } from "../../utils/strapi";
 
 const Event = ({ inhalt, date, location, tags, titel, image, ...props }) => {
   const tagsArray = typeof tags === "string" ? tags.split("\n") : [];
@@ -17,7 +17,7 @@ const Event = ({ inhalt, date, location, tags, titel, image, ...props }) => {
       {...props}
       className={`${styles.eventWrapper} ${!isImage ? styles.noImage : ""}`}
     >
-      {isImage && <StrapiImage img={image.data} sizes={SIZES_TRAINER} />}
+      {isImage && <StrapiImage img={image.data} sizes={SIZES_EVENT} />}
       <div className={styles.content}>
         <h2 className={styles.heading}>{titel}</h2>
         <div className={styles.infoChips}>
