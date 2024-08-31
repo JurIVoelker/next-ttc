@@ -93,11 +93,11 @@ const Aktuelles: React.FC<AktuellesProps> = ({
                 key={index}
                 title={article.attributes.titel}
                 description={article.attributes.kurzBeschreibung}
-                imageUrl={getStrapiImage(article.attributes.vorschauBild)}
                 date={article.attributes.datum}
                 isEditable={!!jwt}
                 slug={article.attributes.slug}
                 id={article.id}
+                image={article.attributes.vorschauBild.data}
               />
             );
           })}

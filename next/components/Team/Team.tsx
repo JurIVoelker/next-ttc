@@ -1,6 +1,5 @@
 import styles from "./Team.module.scss";
 import ImageTextModule from "../ImageTextModule/ImageTextModule";
-import { getStrapiImage } from "../../utils/strapi";
 
 const Team = ({
   image,
@@ -10,11 +9,12 @@ const Team = ({
   imagePosition,
   altImage,
 }) => {
-  const imgSrc = image ? getStrapiImage(image) : getStrapiImage(altImage);
+  const img = image ? image : altImage;
   return (
     <ImageTextModule
-      imgSrc={imgSrc}
+      image={img}
       imagePosition={imagePosition}
+      className={styles.imageTextModule}
       tags={[
         {
           icon: "link",

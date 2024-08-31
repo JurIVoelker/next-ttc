@@ -2,7 +2,6 @@ import { getRequest, getStrapiImage } from "../../utils/strapi";
 import styles from "./kontakt.module.scss";
 import { StrapiImage } from "../../types/globalTypes";
 import Image from "next/image";
-import imageLoader from "../../utils/imageLoader";
 
 interface ImressumPageProps {
   strapiData: {
@@ -28,8 +27,7 @@ const Kontakt: React.FC<ImressumPageProps> = ({ strapiData }) => {
         alt="E-Mail-Adresse"
         width={200}
         height={50}
-        loader={imageLoader}
-/>
+      />
     </>
   );
 };

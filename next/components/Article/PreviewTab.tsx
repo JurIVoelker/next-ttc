@@ -39,14 +39,11 @@ export const PreviewTab = ({
             <h3 style={{ marginBottom: "16px" }}>Vorschau</h3>
             <Card
               description={shortenedText}
-              imageUrl={
-                preview.data
-                  ? getStrapiImage(preview)
-                  : URL.createObjectURL(preview)
-              }
+              imageUrl={preview.data ? undefined : URL.createObjectURL(preview)}
               title={title}
               date={formattedDate}
-            ></Card>
+              image={preview.data ? preview.data : undefined}
+            />
           </>
         )}
       </div>

@@ -107,12 +107,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 32px;
+  gap: 48px;
   @include size-s {
     display: none;
   }
   @include size-m {
-    gap: 0px;
+    gap: 16px;
   }
 }
 .menuVisible {
