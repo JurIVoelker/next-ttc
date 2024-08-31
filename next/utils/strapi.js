@@ -30,6 +30,14 @@ export const getStrapiImage = (object) => {
 export const sizesDefault =
   "(max-width: 500px) 245px, (max-width: 750px) 500px, (max-width: 1000px) 750px, 1000w";
 
+export const SIZES_CARD =
+  "(max-width: 436px) 407px, (max-width: 768px) 688px, (max-width: 992px) 430px, 378px";
+
+export const SIZES_START_IMAGE =
+  "(max-width: 768px) 686px, (max-width: 992px) 981px, 690px";
+
+export const SIZES_TRAINER = "(max-width: 768px) 700px, 300px";
+
 export async function auth(password) {
   const body = { identifier: "test", password: password };
 

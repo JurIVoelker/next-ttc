@@ -4,6 +4,7 @@ import { Tag } from "../../types/globalTypes";
 import { getFontAweseomeIcon } from "../../utils/getIcons";
 import Link from "next/link";
 import { StrapiImage } from "../StrapiImage/StrapiImage";
+import { SIZES_START_IMAGE } from "../../utils/strapi";
 
 interface ImageTextModuleProps {
   children: ReactNode;
@@ -26,7 +27,9 @@ const ImageTextModule: React.FC<ImageTextModuleProps> = ({
         imagePosition === "left" ? "" : styles.right
       } ${className ? className : ""}`}
     >
-      {image?.data && <StrapiImage img={image?.data} />}
+      {image?.data && (
+        <StrapiImage img={image?.data} sizes={SIZES_START_IMAGE} />
+      )}
       <div className={styles.contentContainer}>
         {children}
         <div className={styles.tags}>

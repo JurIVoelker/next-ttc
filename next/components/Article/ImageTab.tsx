@@ -1,8 +1,6 @@
 import { Button } from "react-aria-components";
 import styles from "./ImageTab.module.scss";
 import AriaImageDropzone from "../AriaImageDropzone/AriaImageDropzone";
-import { getStrapiImage } from "../../utils/strapi";
-import imageLoader from "../../utils/imageLoader";
 import Image from "next/image";
 import { StrapiImage } from "../StrapiImage/StrapiImage";
 

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import AriaModal from "../AriaModal/AriaModal";
-import { deleteArticle } from "../../utils/strapi";
+import { deleteArticle, SIZES_CARD } from "../../utils/strapi";
 import { useRouter } from "next/router";
 import imageLoader from "../../utils/imageLoader";
 import Image from "next/image";
@@ -75,7 +75,11 @@ const Card: React.FC<CardProps> = ({
           )}
 
           {image?.attributes && (
-            <StrapiImage img={image} alt="Hinzugefügte Bilder" />
+            <StrapiImage
+              img={image}
+              alt="Hinzugefügte Bilder"
+              sizes={SIZES_CARD}
+            />
           )}
 
           <div className={styles.textContent}>
