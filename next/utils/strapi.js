@@ -27,6 +27,9 @@ export const getStrapiImage = (object) => {
   return url;
 };
 
+export const sizesDefault =
+  "(max-width: 500px) 245px, (max-width: 750px) 500px, (max-width: 1000px) 750px, 1000w";
+
 export async function auth(password) {
   const body = { identifier: "test", password: password };
 

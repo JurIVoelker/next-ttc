@@ -1,13 +1,10 @@
-import Image from "next/image";
-import { parse } from "../../utils/parseRichText";
 import styles from "./Events.module.scss";
-import { getStrapiImage } from "../../utils/strapi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCalendar,
   faCalendarAlt,
   faLocationPin,
 } from "@fortawesome/free-solid-svg-icons";
+import { StrapiImage } from "../StrapiImage/StrapiImage";
 
 const Event = ({ inhalt, date, location, tags, titel, image, ...props }) => {
   const tagsArray = typeof tags === "string" ? tags.split("\n") : [];
@@ -19,15 +16,7 @@ const Event = ({ inhalt, date, location, tags, titel, image, ...props }) => {
       {...props}
       className={`${styles.eventWrapper} ${!isImage ? styles.noImage : ""}`}
     >
-      {isImage && (
-        <Image
-          src={getStrapiImage(image)}
-          width={image.data.attributes.width}
-          height={image.data.attributes.height}
-          alt={image?.data?.attributes?.alt || "Bild von dem Event"}
-        />
-      )}
-
+      {isImage && <StrapiImage img={image.data} />}
       <div className={styles.content}>
         <h2 className={styles.heading}>{titel}</h2>
         <div className={styles.infoChips}>

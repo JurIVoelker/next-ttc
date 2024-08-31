@@ -28,7 +28,7 @@ const Halle: React.FC<HalleProps> = ({ strapiData }) => {
       {strapiData.data.attributes.hallen.map((halle, index) => {
         return (
           <ImageTextModule
-            imgSrc={getStrapiImage(halle.bild)}
+            image={halle.bild}
             key={halle.id}
             imagePosition={index % 2 === 0 ? "left" : "right"}
             tags={halle.tags}

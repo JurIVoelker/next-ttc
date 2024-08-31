@@ -9,9 +9,10 @@ import { deleteArticle } from "../../utils/strapi";
 import { useRouter } from "next/router";
 import imageLoader from "../../utils/imageLoader";
 import Image from "next/image";
+import { StrapiImage } from "../StrapiImage/StrapiImage";
 
 interface CardProps {
-  imageUrl: string;
+  imageUrl?: string;
   title: string;
   description: string;
   isShowMoreVisible?: boolean;
@@ -19,6 +20,7 @@ interface CardProps {
   isEditable?: boolean;
   slug?: string;
   id?: number;
+  image?: any;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -29,6 +31,7 @@ const Card: React.FC<CardProps> = ({
   isEditable,
   slug,
   id,
+  image,
 }) => {
   const { push } = useRouter();
 
@@ -61,14 +64,20 @@ const Card: React.FC<CardProps> = ({
       )}
       <Link {...linkProps}>
         <div className={styles.card}>
-          <Image
-            src={imageUrl}
-            width={300}
-            height={200}
-            alt={`Bildvorschau für ${title}`}
-            className={styles.image}
-            loader={imageLoader}
-          />
+          {imageUrl && (
+            <Image
+              src={imageUrl}
+              width={300}
+              height={200}
+              alt={`Bildvorschau für ${title}`}
+              className={styles.image}
+            />
+          )}
+
+          {image?.attributes && (
+            <StrapiImage img={image} alt="Hinzugefügte Bilder" />
+          )}
+
           <div className={styles.textContent}>
             <h3>{title}</h3>
             <p>{description}</p>

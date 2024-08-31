@@ -3,29 +3,30 @@ import { ReactNode } from "react";
 import { Tag } from "../../types/globalTypes";
 import { getFontAweseomeIcon } from "../../utils/getIcons";
 import Link from "next/link";
-import imageLoader from "../../utils/imageLoader";
-import Image from "next/image";
+import { StrapiImage } from "../StrapiImage/StrapiImage";
 
 interface ImageTextModuleProps {
   children: ReactNode;
-  imgSrc: string;
   imagePosition?: "left" | "right";
   tags?: Tag[];
+  image: any;
+  className?: string;
 }
 
 const ImageTextModule: React.FC<ImageTextModuleProps> = ({
   children,
-  imgSrc,
+  image,
   imagePosition = "left",
   tags,
+  className,
 }) => {
   return (
     <div
       className={`${styles.wrapper} ${
         imagePosition === "left" ? "" : styles.right
-      }`}
+      } ${className ? className : ""}`}
     >
-      <Image src={imgSrc} height={500} width={500} alt="" loader={imageLoader} />
+      {image?.data && <StrapiImage img={image?.data} />}
       <div className={styles.contentContainer}>
         {children}
         <div className={styles.tags}>

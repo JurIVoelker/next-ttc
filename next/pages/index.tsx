@@ -3,7 +3,7 @@ import styles from "./index.module.scss";
 import Card from "../components/Card/Card";
 import React from "react";
 import Link from "next/link";
-import { Article, StrapiImage } from "../types/globalTypes";
+import { Article, StrapiImage as StrapiImageProps } from "../types/globalTypes";
 import imageLoader from "../utils/imageLoader";
 import Image from "next/image";
 import ImageTextModule from "../components/ImageTextModule/ImageTextModule";
@@ -11,13 +11,14 @@ import { parse } from "../utils/parseRichText";
 import { getNextGames } from "../utils/fetchNextGames";
 import GameCard from "../components/GameCard/GameCard";
 import { START_PAGE_NEXT_GAMES_COUNT } from "../utils/constants";
+import { StrapiImage } from "../components/StrapiImage/StrapiImage";
 
 interface LinkCard {
   beschreibung: string;
   id: number;
   route: string;
   titel: string;
-  vorschauBild: StrapiImage;
+  vorschauBild: StrapiImageProps;
 }
 
 interface StrapiData {
@@ -25,7 +26,7 @@ interface StrapiData {
   attributes: {
     willkommenTitel: string;
     willkommenText: string;
-    titelbild: StrapiImage;
+    titelbild: StrapiImageProps;
     mehrErfahrenLinks: LinkCard[];
     mehrTitel: string;
     aktuellesTitel: string;
@@ -33,7 +34,7 @@ interface StrapiData {
     events: {
       titel: String;
       inhalt: object;
-      image: StrapiImage;
+      image: StrapiImageProps;
     };
   };
 }
@@ -64,17 +65,7 @@ const Index: React.FC<HomePageProps> = ({
           <h1>{strapiData?.data?.attributes?.willkommenTitel}</h1>
           <p>{strapiData?.data?.attributes?.willkommenText}</p>
         </div>
-        <Image
-          src={getStrapiImage(strapiData?.data?.attributes?.titelbild)}
-          alt={
-            strapiData?.data?.attributes?.titelbild?.data?.attributes
-              ?.alternativeText || "Bild auf Startseite"
-            // Falls ein Alternativtext in Strapi angegeben wurde, wird dieser genommen, ansonsten "Bild auf Startseite"
-          }
-          width={1000}
-          height={500}
-          loader={imageLoader}
-        />
+        <StrapiImage img={strapiData?.data?.attributes?.titelbild.data} />
       </div>
 
       {/* Events, falls angegeben */}
@@ -82,7 +73,7 @@ const Index: React.FC<HomePageProps> = ({
         <>
           <div className={styles.eventContainer}>
             <h2 className={styles.heading}>Kommende Veranstaltungen</h2>
-            <ImageTextModule imgSrc={getStrapiImage(eventImage)}>
+            <ImageTextModule image={eventImage}>
               <div>
                 <h3 className={styles.heading}>{eventTitle}</h3>
                 {parse(eventContent)}
@@ -103,8 +94,8 @@ const Index: React.FC<HomePageProps> = ({
               <Card
                 title={link.titel}
                 description={link.beschreibung}
-                imageUrl={getStrapiImage(link.vorschauBild)}
-              ></Card>
+                image={link.vorschauBild.data}
+              />
             </Link>
           );
         })}
@@ -121,7 +112,7 @@ const Index: React.FC<HomePageProps> = ({
               <Card
                 title={link.attributes.titel}
                 description={link.attributes.kurzBeschreibung}
-                imageUrl={getStrapiImage(link.attributes.vorschauBild)}
+                image={link.attributes.vorschauBild.data}
               />
             </Link>
           );

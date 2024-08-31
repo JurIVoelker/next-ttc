@@ -1,20 +1,11 @@
-import Image from "next/image";
-import imageLoader from "../../utils/imageLoader";
-import { getStrapiImage } from "../../utils/strapi";
 import styles from "./TextWrap.module.scss";
+import { StrapiImage } from "../StrapiImage/StrapiImage";
 
 const TextWrap = ({ image, text, textType = "text" }) => {
   return (
     <>
       <div className={styles.textWrapper}>
-        <Image
-          src={getStrapiImage(image)}
-          width={500}
-          height={300}
-          alt=""
-          className={styles.image}
-          loader={imageLoader}
-        />
+        <StrapiImage img={image.data} className={styles.image} />
         {textType === "text" && <p>{text}</p>}
         {textType === "html" && (
           <div

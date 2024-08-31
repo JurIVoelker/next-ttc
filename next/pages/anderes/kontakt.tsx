@@ -28,8 +28,7 @@ const Kontakt: React.FC<ImressumPageProps> = ({ strapiData }) => {
         alt="E-Mail-Adresse"
         width={200}
         height={50}
-        loader={imageLoader}
-/>
+      />
     </>
   );
 };

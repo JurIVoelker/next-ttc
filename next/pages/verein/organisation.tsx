@@ -10,7 +10,7 @@ const Organisation = ({ strapiData }) => {
       <h1>{title}</h1>
       {organisation.map((o, i) => (
         <ImageTextModule
-          imgSrc={getStrapiImage(o.bild)}
+          image={o.bild}
           imagePosition={i % 2 === 0 ? "left" : "right"}
         >
           <div>

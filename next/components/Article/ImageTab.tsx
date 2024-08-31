@@ -4,7 +4,7 @@ import AriaImageDropzone from "../AriaImageDropzone/AriaImageDropzone";
 import { getStrapiImage } from "../../utils/strapi";
 import imageLoader from "../../utils/imageLoader";
 import Image from "next/image";
-
+import { StrapiImage } from "../StrapiImage/StrapiImage";
 
 export const ImageTab = ({ images, setImages, preview, setPreview }) => {
   const handleSelectImage = (image) => {
@@ -21,12 +21,6 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
         {images.length > 0 && (
           <div className={styles.imageGrid}>
             {images.map((image) => {
-              let imageUrl;
-              if (image.attributes) {
-                imageUrl = getStrapiImage(image);
-              } else {
-                imageUrl = URL.createObjectURL(image);
-              }
               return (
                 <Button
                   className={`${styles.imageContainer} ${
@@ -39,13 +33,21 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
                   }}
                   key={image.name || image.attributes.url}
                 >
-                  <Image
-                    src={imageUrl}
-                    alt="Hinzugefügte Bilder"
-                    width={100}
-                    height={100}
-                    loader={imageLoader}
-/>
+                  {image.attributes && (
+                    <StrapiImage
+                      img={image.attributes}
+                      alt="Hinzugefügte Bilder"
+                    />
+                  )}
+                  {!image.attributes && (
+                    <Image
+                      src={URL.createObjectURL(image)}
+                      alt="Hinzugefügte Bilder"
+                      width={100}
+                      height={100}
+                    />
+                  )}
+
                   <p>{image.name || image.attributes.name}</p>
                 </Button>
               );
@@ -66,7 +68,6 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
                 width={100}
                 height={100}
                 alt="Vorschaubild"
-                loader={imageLoader}
               />
             </div>
           )}

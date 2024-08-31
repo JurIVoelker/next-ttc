@@ -4,6 +4,7 @@ import getAge from "../../utils/getAge";
 import { getStrapiImage } from "../../utils/strapi";
 import styles from "./Trainer.module.scss";
 import imageLoader from "../../utils/imageLoader";
+import { StrapiImage } from "../StrapiImage/StrapiImage";
 
 interface TrainerComponentProps {
   trainerProps: TrainerType;
@@ -43,13 +44,10 @@ const Trainer: React.FC<TrainerComponentProps> = ({ trainerProps }) => {
   ];
   return (
     <div className={styles.wrapper}>
-      <Image
-        src={getStrapiImage(bild)}
-        width={300}
-        height={200}
+      <StrapiImage
+        img={bild.data}
         className={styles.image}
         alt="Bild vom Trainer"
-        loader={imageLoader}
       />
       <div className={styles.textContent}>
         <h2>{name}</h2>
