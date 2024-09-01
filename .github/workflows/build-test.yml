@@ -27,10 +27,10 @@ jobs:
 
       - name: set backend env
         run: |
-          echo "NEXT_PUBLIC_STRAPI_URL_PUBLIC=http://127.0.0.1:1337" > next/.env
-          echo "STRAPI_URL_LOCAL=http://127.0.0.1:1337" >> next/.env
-          echo "MY_TISCHTENNIS_LINK=${{ secrets.MY_TISCHTENNIS_LINK }}" >> next/.env
-          echo "MY_TISCHTENNIS_ALL_GAMES=${{ secrets.MY_TISCHTENNIS_ALL_GAMES }}" >> next/.env
+          echo "NEXT_PUBLIC_STRAPI_URL_PUBLIC=http://127.0.0.1:1337" > frontend/.env
+          echo "STRAPI_URL_LOCAL=http://127.0.0.1:1337" >> frontend/.env
+          echo "MY_TISCHTENNIS_LINK=${{ secrets.MY_TISCHTENNIS_LINK }}" >> frontend/.env
+          echo "MY_TISCHTENNIS_ALL_GAMES=${{ secrets.MY_TISCHTENNIS_ALL_GAMES }}" >> frontend/.env
 
       - name: deps frontend
         run: |
