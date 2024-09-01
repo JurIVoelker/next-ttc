@@ -38,8 +38,7 @@ jobs:
           npm install
 
       - name: deps root
-        run: |
-          npm install
+        run: npm install
 
       - name: import strapi data
         run: |
@@ -52,5 +51,4 @@ jobs:
           npm run build
 
       - name: run backend and build frontend
-        run: |
-          npm run ci
+        run: npm run ci
