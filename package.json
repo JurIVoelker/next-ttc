@@ -5,7 +5,7 @@
   "scripts": {
     "ci": "npm-run-all --parallel --race ci:build-frontend ci:start-backend",
     "ci:build-frontend": "wait-on http://127.0.0.1:1337 && cd frontend && npm run build",
-    "ci:prep": "cd backend && npm run backend export -- --no-encrypt --only content,config --file strapi-export-ci",
+    "ci:prep": "cd backend && npm run strapi export -- --no-encrypt --only content,config --file strapi-export-ci",
     "ci:start-backend": "cd backend && npm run start",
     "dev": "concurrently -p \"[{name}]\" -n \"Strapi,NextJs\" -c \"blue.bold,green.bold\" \"npm run dev-strapi\" \"npm run dev-next\"",
     "dev-next": "wait-on http://127.0.0.1:1337 && cd frontend && npm run dev",
