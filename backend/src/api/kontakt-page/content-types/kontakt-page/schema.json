@@ -1,0 +1,32 @@
+{
+  "kind": "singleType",
+  "collectionName": "kontakt_pages",
+  "info": {
+    "singularName": "kontakt-page",
+    "pluralName": "kontakt-pages",
+    "displayName": "Kontakt Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "bild": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

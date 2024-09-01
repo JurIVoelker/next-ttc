@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "akutelles_pages",
+  "info": {
+    "singularName": "akutelles-page",
+    "pluralName": "akutelles-pages",
+    "displayName": "Akutelles Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "aktuellesTitel": {
+      "type": "string"
+    },
+    "aktuellesText": {
+      "type": "text"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

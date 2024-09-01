@@ -1,0 +1,17 @@
+@import "../Global/theme.scss";
+
+.paginationWrapper {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  button {
+    padding: 0.75em !important;
+    @include button-styles;
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+}

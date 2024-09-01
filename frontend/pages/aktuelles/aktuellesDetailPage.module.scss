@@ -1,0 +1,15 @@
+@import "../../components/Global/theme.scss";
+.date {
+  background-color: $primary-bg;
+  color: white;
+  padding: 8px 16px;
+  border-radius: $border-radius;
+  display: inline-block;
+  margin-bottom: 32px;
+}
+
+.gallery {
+  clear: both;
+  position: relative;
+  top: 32px;
+}

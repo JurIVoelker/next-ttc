@@ -1,0 +1,15 @@
+.wrapper {
+  padding-bottom: 3px;
+  .container {
+    overflow: hidden !important;
+    padding: 118px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 414px);
+    .contentWrapper {
+      max-width: 1200px;
+      width: 90vw;
+    }
+  }
+}

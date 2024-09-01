@@ -1,0 +1,38 @@
+@import "../Global/theme.scss";
+
+.container {
+  margin-bottom: 1em;
+  padding: 1em;
+  border-radius: $border-radius;
+  max-width: 400px;
+  @include size-s {
+    max-width: none;
+  }
+  &.info {
+    background-color: rgba($primary-bg, 0.15);
+    color: $primary-dark;
+  }
+  &.warning {
+    background-color: $warning-bg;
+    color: $warning-color;
+  }
+  &.success {
+    background-color: $success-bg;
+    color: $success-color;
+  }
+  .headingWrapper {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5em;
+    align-items: center;
+    margin-bottom: 0.5em;
+    h5 {
+      font-size: 1em;
+      line-height: 1.5em;
+    }
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

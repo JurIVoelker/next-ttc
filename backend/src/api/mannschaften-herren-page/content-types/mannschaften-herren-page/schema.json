@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "mannschaften_herren_pages",
+  "info": {
+    "singularName": "mannschaften-herren-page",
+    "pluralName": "mannschaften-herren-pages",
+    "displayName": "Mannschaften Herren Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "mannschaften": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.mannschaften"
+    },
+    "altBild": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

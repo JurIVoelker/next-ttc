@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "trainer_pages",
+  "info": {
+    "singularName": "trainer-page",
+    "pluralName": "trainer-pages",
+    "displayName": "Trainer Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "trainer": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.trainer"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

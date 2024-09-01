@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "datenschutz_pages",
+  "info": {
+    "singularName": "datenschutz-page",
+    "pluralName": "datenschutz-pages",
+    "displayName": "Datenschutz Page"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "datenschutz": {
+      "type": "blocks"
+    }
+  }
+}

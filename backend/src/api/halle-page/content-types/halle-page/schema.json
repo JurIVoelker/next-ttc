@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "halle_pages",
+  "info": {
+    "singularName": "halle-page",
+    "pluralName": "halle-pages",
+    "displayName": "Halle Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "hallen": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.text-image-module"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

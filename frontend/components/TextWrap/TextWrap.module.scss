@@ -1,0 +1,30 @@
+@import "../Global/theme.scss";
+
+.textWrapper {
+  p {
+    line-height: 150% !important;
+  }
+  display: block;
+  .image {
+    float: left;
+    border-radius: $border-radius;
+    height: 350px;
+    margin-right: 20px;
+    object-fit: cover;
+    width: auto;
+    max-width: 600px;
+    @include size-s {
+      float: none;
+      margin-bottom: 16px;
+      width: 100%;
+      height: auto;
+    }
+  }
+  ul {
+    position: relative;
+    left: 24px;
+  }
+}
+.contentWrapper {
+  line-height: 150%;
+}

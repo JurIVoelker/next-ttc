@@ -1,0 +1,19 @@
+@import "../../components/Global/theme.scss";
+.cardContainer {
+  width: 370px;
+  margin-top: 32px;
+}
+
+.errorList {
+  color: $error;
+  margin-left: 32px;
+  margin-top: 8px;
+}
+
+.error {
+  background-color: $error;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+}

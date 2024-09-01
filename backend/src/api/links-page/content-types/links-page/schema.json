@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "links_pages",
+  "info": {
+    "singularName": "links-page",
+    "pluralName": "links-pages",
+    "displayName": "Links Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "ttLinks": {
+      "displayName": "link",
+      "type": "component",
+      "repeatable": true,
+      "component": "link.link"
+    },
+    "ttVereine": {
+      "type": "component",
+      "repeatable": true,
+      "component": "link.link"
+    },
+    "klingenmuenster": {
+      "type": "component",
+      "repeatable": true,
+      "component": "link.link"
+    }
+  }
+}

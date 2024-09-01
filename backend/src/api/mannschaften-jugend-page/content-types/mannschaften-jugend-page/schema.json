@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "mannschaften_jugend_pages",
+  "info": {
+    "singularName": "mannschaften-jugend-page",
+    "pluralName": "mannschaften-jugend-pages",
+    "displayName": "Mannschaften Jugend Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "mannschaften": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.mannschaft"
+    },
+    "altBild": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

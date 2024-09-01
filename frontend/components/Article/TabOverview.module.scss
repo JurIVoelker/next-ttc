@@ -1,0 +1,65 @@
+@import "../../components/Global/theme.scss";
+$inner-radius: calc($border-radius - 2px);
+
+.tabs {
+  .tabList {
+    border-radius: $border-radius;
+    background-color: $light-gray;
+    display: flex;
+    width: fit-content;
+    border: 2px solid $light-gray;
+    gap: 2px;
+    @include size-s {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .tabSection {
+      @include size-s {
+        text-align: center;
+      }
+      &:first-child {
+        border-radius: $inner-radius 0 0 $inner-radius;
+      }
+      &:last-child {
+        border-radius: 0 $inner-radius $border-radius 0;
+      }
+      background-color: white;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: 0.1s ease-out;
+      &[data-selected] {
+        background-color: $primary-bg;
+        color: white;
+      }
+    }
+  }
+}
+
+.buttonGroup {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  @include size-s {
+    justify-content: center;
+    .continueButton,
+    .abortButton {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  .continueButton {
+    @include button-styles;
+  }
+
+  .abortButton {
+    @include button-styles("outline");
+  }
+}
+
+.button {
+  margin-top: 16px;
+  display: inline-block;
+  @include button-styles;
+}
