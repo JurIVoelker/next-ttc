@@ -14,16 +14,16 @@ jobs:
 
       - name: deps backend
         run: |
-          cd strapi
+          cd backend
           npm install
 
       - name: set frontend env
         run: |
-          echo "APP_KEYS=${{ secrets.APP_KEYS }}" > strapi/.env
-          echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> strapi/.env
-          echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> strapi/.env
-          echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> strapi/.env
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> strapi/.env
+          echo "APP_KEYS=${{ secrets.APP_KEYS }}" > backend/.env
+          echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> backend/.env
+          echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> backend/.env
+          echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> backend/.env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> backend/.env
 
       - name: set backend env
         run: |
@@ -34,7 +34,7 @@ jobs:
 
       - name: deps frontend
         run: |
-          cd next
+          cd backend
           npm install
 
       - name: deps root
@@ -42,12 +42,12 @@ jobs:
 
       - name: import strapi data
         run: |
-          cd strapi
+          cd backend
           npm run ci:import-strapi-data
 
       - name: build backend
         run: |
-          cd strapi
+          cd backend
           npm run build
 
       - name: run backend and build frontend
