@@ -1,3 +1,5 @@
+import { StrapiImagesType, StrapiImageType } from "./strapiTypes";
+
 export interface Article {
   id: number;
   attributes: {
@@ -5,9 +7,9 @@ export interface Article {
     kurzBeschreibung: string;
     text: string;
     titel: string;
-    vorschauBild: StrapiImage;
+    vorschauBild: StrapiImageType;
     slug: string;
-    bilder: StrapiImages;
+    bilder: StrapiImagesType;
   };
 }
 
@@ -18,21 +20,6 @@ export interface Articles {
       pageCount: number;
     };
   };
-}
-
-export interface StrapiImage {
-  data: {
-    attributes: {
-      url: string;
-      alternativeText: string;
-    };
-  };
-}
-
-export interface StrapiImages {
-  data: [
-    { id: number; attributes: { url: string; height: number; width: number } }
-  ];
 }
 
 export interface Tag {
@@ -66,7 +53,7 @@ export interface Player {
 
 export interface TrainerType {
   aufschlagTraining: string;
-  bild: StrapiImage;
+  bild: StrapiImageType;
   fairness: string;
   geburtsDatum: string;
   id: number;
