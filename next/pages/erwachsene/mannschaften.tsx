@@ -1,5 +1,6 @@
 import Team from "../../components/Team/Team";
-import { Player, PlayersProps, StrapiImage } from "../../types/globalTypes";
+import { Player, PlayersProps } from "../../types/globalTypes";
+import { MannschaftenPageType } from "../../types/strapiTypes";
 import {
   filterMainPlayers,
   getAllTeams,
@@ -7,37 +8,11 @@ import {
 } from "../../utils/myTischtennisParser";
 import { getRequest } from "../../utils/strapi";
 
-interface MannschaftenProps {
-  strapiData: StrapiData;
-  players: PlayerProps[];
-}
-
-interface PlayerProps {
-  league: string;
-  leagueLink: string;
-  team: string;
-  players: Player[];
-}
-
-interface StrapiData {
-  data: {
-    id: number;
-    attributes: {
-      titel: string;
-      mannschaften: Mannschaft[];
-      altBild: StrapiImage;
-    };
-  };
-}
-
-interface Mannschaft {
-  id: number;
-  name: string;
-  bild: StrapiImage;
-}
-
-const Mannschaften: React.FC<MannschaftenProps> = ({ strapiData, players }) => {
-  const { titel, mannschaften, altBild } = strapiData.data.attributes;
+const Mannschaften: React.FC<MannschaftenPageType> = ({
+  strapiData,
+  players,
+}) => {
+  const { titel, mannschaften, altBild } = strapiData.attributes;
   return (
     <>
       <h1>{titel}</h1>
@@ -96,7 +71,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      strapiData: mannschaftenData,
+      strapiData: mannschaftenData.data,
       players: mainPlayers, // Remove teams without players
     },
     revalidate: 600,

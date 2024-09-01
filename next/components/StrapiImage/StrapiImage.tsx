@@ -1,43 +1,14 @@
 import Image from "next/image";
 import { sizesDefault, getStrapiImage } from "../../utils/strapi";
 import { useState } from "react";
+import { StrapiImageProps } from "../../types/componentTypes";
 
-interface StrapiImageProps {
-  img: {
-    attributes: StrapiImageAttributes;
-  };
-  alt?: string;
-  sizes?: string;
-  className?: string;
-  priority?: boolean;
-}
-
-interface StrapiImageAttributes {
-  width: number;
-  height: number;
-  url: string;
-  formats: {
-    large: {
-      url: string;
-    };
-    small: {
-      url: string;
-    };
-    thumbnail: {
-      url: string;
-    };
-    medium: {
-      url: string;
-    };
-  };
-}
-
-export const StrapiImage = ({
+export const StrapiImage: React.FC<StrapiImageProps> = ({
   img,
   alt = "bild",
   sizes = sizesDefault,
   ...props
-}: StrapiImageProps) => {
+}) => {
   const [isLoading, setLoading] = useState(true);
 
   if (!img?.attributes)

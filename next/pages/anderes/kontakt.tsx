@@ -1,22 +1,10 @@
 import { getRequest, getStrapiImage } from "../../utils/strapi";
 import styles from "./kontakt.module.scss";
-import { StrapiImage } from "../../types/globalTypes";
 import Image from "next/image";
+import { KontaktPageProps } from "../../types/pageTypes";
 
-interface ImressumPageProps {
-  strapiData: {
-    data: {
-      attributes: {
-        titel: string;
-        text: string;
-        bild: StrapiImage;
-      };
-    };
-  };
-}
-
-const Kontakt: React.FC<ImressumPageProps> = ({ strapiData }) => {
-  const { titel, text, bild } = strapiData.data.attributes;
+const Kontakt: React.FC<KontaktPageProps> = ({ strapiData }) => {
+  const { titel, text, bild } = strapiData.attributes;
   return (
     <>
       <h1>{titel}</h1>
@@ -36,5 +24,5 @@ export default Kontakt;
 
 export const getStaticProps = async () => {
   const imprintPage = await getRequest(`kontakt-page?populate=deep`);
-  return { props: { strapiData: imprintPage } };
+  return { props: { strapiData: imprintPage.data } };
 };

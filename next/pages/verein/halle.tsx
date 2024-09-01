@@ -1,31 +1,12 @@
 import ImageTextModule from "../../components/ImageTextModule/ImageTextModule";
-import { StrapiImage, Tag } from "../../types/globalTypes";
-import { getRequest, getStrapiImage } from "../../utils/strapi";
+import { HallePageProps } from "../../types/pageTypes";
+import { getRequest } from "../../utils/strapi";
 
-interface HalleProps {
-  strapiData: {
-    data: {
-      id: number;
-      attributes: {
-        titel: string;
-        hallen: Halle[];
-      };
-    };
-  };
-}
-interface Halle {
-  bild: StrapiImage;
-  id: number;
-  text: string;
-  titel: string;
-  tags: Tag[];
-}
-
-const Halle: React.FC<HalleProps> = ({ strapiData }) => {
+const Halle: React.FC<HallePageProps> = ({ strapiData }) => {
   return (
     <>
-      <h1>{strapiData.data.attributes.titel}</h1>
-      {strapiData.data.attributes.hallen.map((halle, index) => {
+      <h1>{strapiData.attributes.titel}</h1>
+      {strapiData.attributes.hallen.map((halle, index) => {
         return (
           <ImageTextModule
             image={halle.bild}
@@ -49,7 +30,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      strapiData: hallePageData,
+      strapiData: hallePageData.data,
     },
     revalidate: 600,
   };

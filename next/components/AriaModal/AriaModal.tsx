@@ -1,14 +1,4 @@
-import {
-  Button,
-  Dialog,
-  DialogTrigger,
-  Heading,
-  Input,
-  Label,
-  Modal,
-  ModalOverlay,
-  TextField,
-} from "react-aria-components";
+import { Button, Dialog, Modal, ModalOverlay } from "react-aria-components";
 
 import styles from "./AriaModal.module.scss";
 

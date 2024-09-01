@@ -1,33 +1,13 @@
 import Training from "../../components/Training/Trainig";
-import { StrapiImage } from "../../types/globalTypes";
+import { JugendTraininPageProps } from "../../types/pageTypes";
 import { getRequest } from "../../utils/strapi";
 
-interface TrainingsZeit {
-  id: number;
-  wochentag: string;
-  zeit: string;
-}
-
-interface JugendProps {
-  strapiData: {
-    data: {
-      attributes: {
-        anfaengerTraining: TrainingsZeit[];
-        fortgeschrittenenTraining: TrainingsZeit[];
-        bild: StrapiImage;
-        text: string;
-        titel: string;
-      };
-    };
-  };
-}
-
-const Jugend: React.FC<JugendProps> = ({ strapiData }) => {
+const Jugend: React.FC<JugendTraininPageProps> = ({ strapiData }) => {
   const trainDates = [
-    { title: "Anfänger", data: strapiData.data.attributes.anfaengerTraining },
+    { title: "Anfänger", data: strapiData.attributes.anfaengerTraining },
     {
       title: "Fortgeschrittene",
-      data: strapiData.data.attributes.fortgeschrittenenTraining,
+      data: strapiData.attributes.fortgeschrittenenTraining,
     },
   ];
 
@@ -35,9 +15,9 @@ const Jugend: React.FC<JugendProps> = ({ strapiData }) => {
     <>
       <Training
         trainDates={trainDates}
-        title={strapiData.data.attributes.titel}
-        image={strapiData.data.attributes.bild}
-        text={strapiData.data.attributes.text}
+        title={strapiData.attributes.titel}
+        image={strapiData.attributes.bild}
+        text={strapiData.attributes.text}
       />
     </>
   );
@@ -52,7 +32,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      strapiData: jugendTrainingData,
+      strapiData: jugendTrainingData.data,
     },
     revalidate: 600,
   };

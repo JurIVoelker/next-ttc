@@ -1,17 +1,7 @@
 import { getRequest } from "../../utils/strapi";
 import { parse } from "../../utils/parseRichText";
 import styles from "./impressum.module.scss";
-
-interface DatenschutzPageProps {
-  strapiData: {
-    data: {
-      attributes: {
-        titel: string;
-        datenschutz: object;
-      };
-    };
-  };
-}
+import { DatenschutzPageProps } from "../../types/pageTypes";
 
 const Datenschutz: React.FC<DatenschutzPageProps> = ({ strapiData }) => {
   const { titel, datenschutz } = strapiData.data.attributes;

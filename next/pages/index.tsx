@@ -1,48 +1,15 @@
-import { getRequest, getStrapiImage, SIZES_START_IMAGE } from "../utils/strapi";
+import { getRequest, SIZES_START_IMAGE } from "../utils/strapi";
 import styles from "./index.module.scss";
 import Card from "../components/Card/Card";
 import React from "react";
 import Link from "next/link";
-import { Article, StrapiImage as StrapiImageProps } from "../types/globalTypes";
-import Image from "next/image";
 import ImageTextModule from "../components/ImageTextModule/ImageTextModule";
 import { parse } from "../utils/parseRichText";
 import { getNextGames } from "../utils/fetchNextGames";
 import GameCard from "../components/GameCard/GameCard";
 import { START_PAGE_NEXT_GAMES_COUNT } from "../utils/constants";
 import { StrapiImage } from "../components/StrapiImage/StrapiImage";
-
-interface LinkCard {
-  beschreibung: string;
-  id: number;
-  route: string;
-  titel: string;
-  vorschauBild: StrapiImageProps;
-}
-
-interface StrapiData {
-  id: number;
-  attributes: {
-    willkommenTitel: string;
-    willkommenText: string;
-    titelbild: StrapiImageProps;
-    mehrErfahrenLinks: LinkCard[];
-    mehrTitel: string;
-    aktuellesTitel: string;
-    newGamesTitle: string;
-    events: {
-      titel: String;
-      inhalt: object;
-      image: StrapiImageProps;
-    };
-  };
-}
-
-interface HomePageProps {
-  strapiData: { data: StrapiData };
-  articles: { data: Article[] };
-  nextGames: any;
-}
+import { HomePageProps } from "../types/pageTypes";
 
 const Index: React.FC<HomePageProps> = ({
   strapiData,
@@ -53,7 +20,7 @@ const Index: React.FC<HomePageProps> = ({
     titel: eventTitle,
     image: eventImage,
     inhalt: eventContent,
-  } = strapiData?.data?.attributes?.events || {};
+  } = strapiData?.attributes?.events || {};
   const isEventVisible = eventTitle && eventImage && eventContent;
 
   return (
@@ -61,11 +28,11 @@ const Index: React.FC<HomePageProps> = ({
       {/* Willkommenstext + Bild */}
       <div className={styles.welcomeContainer}>
         <div className={styles.welcomeText}>
-          <h1>{strapiData?.data?.attributes?.willkommenTitel}</h1>
-          <p>{strapiData?.data?.attributes?.willkommenText}</p>
+          <h1>{strapiData?.attributes?.willkommenTitel}</h1>
+          <p>{strapiData?.attributes?.willkommenText}</p>
         </div>
         <StrapiImage
-          img={strapiData?.data?.attributes?.titelbild.data}
+          img={strapiData?.attributes?.titelbild.data}
           sizes={SIZES_START_IMAGE}
         />
       </div>
@@ -87,10 +54,10 @@ const Index: React.FC<HomePageProps> = ({
 
       {/* Mehr über unseren Verein */}
       <h2 style={{ marginBottom: "16px" }}>
-        {strapiData?.data?.attributes?.mehrTitel}
+        {strapiData?.attributes?.mehrTitel}
       </h2>
       <div className={styles.cardCollection}>
-        {strapiData?.data?.attributes.mehrErfahrenLinks.map((link, index) => {
+        {strapiData?.attributes.mehrErfahrenLinks.map((link, index) => {
           return (
             <Link href={link.route} key={index}>
               <Card
@@ -105,7 +72,7 @@ const Index: React.FC<HomePageProps> = ({
 
       {/* Aktuelles */}
       <h2 style={{ marginBottom: "16px", marginTop: "48px" }}>
-        {strapiData?.data?.attributes?.aktuellesTitel}
+        {strapiData?.attributes?.aktuellesTitel}
       </h2>
       <div className={styles.cardCollection}>
         {articles.data.map((link, index) => {
@@ -127,7 +94,7 @@ const Index: React.FC<HomePageProps> = ({
         Mehr Artikel anzeigen
       </Link>
       <h2 style={{ marginBottom: "16px", marginTop: "48px" }}>
-        {strapiData?.data?.attributes?.newGamesTitle}
+        {strapiData?.attributes?.newGamesTitle}
       </h2>
       <div className={styles.games}>
         {nextGames.map((game, i) => (
@@ -147,7 +114,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      strapiData: startPageData,
+      strapiData: startPageData.data,
       nextGames: nextGames.splice(0, START_PAGE_NEXT_GAMES_COUNT),
       articles,
     },

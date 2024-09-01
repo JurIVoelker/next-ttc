@@ -1,25 +1,15 @@
 import Trainer from "../../components/Trainer/Trainer";
 import { TrainerType } from "../../types/globalTypes";
+import { TrainerPageProps } from "../../types/pageTypes";
 import { getRequest } from "../../utils/strapi";
 import styles from "./trainer.module.scss";
 
-interface TrainerProps {
-  strapiData: {
-    data: {
-      attributes: {
-        titel: string;
-        trainer: TrainerType[];
-      };
-    };
-  };
-}
-
-const TrainerPage: React.FC<TrainerProps> = ({ strapiData }) => {
+const TrainerPage: React.FC<TrainerPageProps> = ({ strapiData }) => {
   return (
     <>
-      <h1>{strapiData.data.attributes.titel}</h1>
+      <h1>{strapiData.attributes.titel}</h1>
       <div className={styles.trainer}>
-        {strapiData.data.attributes.trainer.map((trainer) => (
+        {strapiData.attributes.trainer.map((trainer) => (
           <Trainer key={trainer.name} trainerProps={trainer} />
         ))}
       </div>
@@ -34,7 +24,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      strapiData: trainerData,
+      strapiData: trainerData.data,
     },
     revalidate: 600,
   };

@@ -1,38 +1,20 @@
 import Training from "../../components/Training/Trainig";
 import { StrapiImage } from "../../types/globalTypes";
+import { ErwachseneTrainingPageProps } from "../../types/pageTypes";
 import { getRequest } from "../../utils/strapi";
 
-interface TrainingsZeit {
-  id: number;
-  wochentag: string;
-  zeit: string;
-}
-
-interface ErwachseneProps {
-  strapiData: {
-    data: {
-      attributes: {
-        trainingszeiten: TrainingsZeit[];
-        bild: StrapiImage;
-        text: string;
-        titel: string;
-      };
-    };
-  };
-}
-
-const Erwachsene: React.FC<ErwachseneProps> = ({ strapiData }) => {
+const Erwachsene: React.FC<ErwachseneTrainingPageProps> = ({ strapiData }) => {
   const trainDates = [
-    { title: "Erwachsene", data: strapiData.data.attributes.trainingszeiten },
+    { title: "Erwachsene", data: strapiData.attributes.trainingszeiten },
   ];
 
   return (
     <>
       <Training
         trainDates={trainDates}
-        title={strapiData.data.attributes.titel}
-        image={strapiData.data.attributes.bild}
-        text={strapiData.data.attributes.text}
+        title={strapiData.attributes.titel}
+        image={strapiData.attributes.bild}
+        text={strapiData.attributes.text}
       />
     </>
   );
@@ -47,7 +29,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      strapiData: erwachseneTrainingData,
+      strapiData: erwachseneTrainingData.data,
     },
     revalidate: 600,
   };

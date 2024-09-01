@@ -8,25 +8,12 @@ import Pagination from "../components/Pagination/Pagination";
 import { useRouter } from "next/router";
 import axios from "axios";
 import CardSkeletons from "../components/Card/CardSkeleton";
+import { AktuellesPageProps } from "../types/pageTypes";
 
 const PAGE_SIZE = 12;
 const INITIAL_PAGE = 1;
 
-interface StrapiData {
-  data: {
-    attributes: {
-      aktuellesTitel: string;
-      aktuellesText: string;
-    };
-  };
-}
-
-interface AktuellesProps {
-  initialArticles: Articles;
-  strapiData: StrapiData;
-}
-
-const Aktuelles: React.FC<AktuellesProps> = ({
+const Aktuelles: React.FC<AktuellesPageProps> = ({
   initialArticles,
   strapiData,
 }) => {
@@ -76,9 +63,9 @@ const Aktuelles: React.FC<AktuellesProps> = ({
   return (
     <>
       <h1 style={{ marginBottom: "12px" }}>
-        {strapiData?.data?.attributes?.aktuellesTitel}
+        {strapiData?.attributes?.aktuellesTitel}
       </h1>
-      <p>{strapiData?.data?.attributes?.aktuellesText}</p>
+      <p>{strapiData?.attributes?.aktuellesText}</p>
       {jwt && (
         <Link className={styles.newArticle} href="/aktuelles/neuer-artikel">
           Neuen Artikel schreiben
@@ -118,8 +105,9 @@ export const getStaticProps = async () => {
     `articles?pagination[page]=${INITIAL_PAGE}&pagination[pageSize]=${PAGE_SIZE}&populate=deep&sort[0]=datum:desc`
   );
   const aktuellesData = await getRequest("akutelles-page?populate=deep");
+
   return {
-    props: { initialArticles: articles, strapiData: aktuellesData },
+    props: { initialArticles: articles, strapiData: aktuellesData.data },
     revalidate: 10,
   };
 };

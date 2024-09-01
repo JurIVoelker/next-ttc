@@ -4,7 +4,6 @@ import styles from "./organisation.module.scss";
 
 const Organisation = ({ strapiData }) => {
   const { title, organisation } = strapiData;
-  console.log(organisation);
   return (
     <div>
       <h1>{title}</h1>

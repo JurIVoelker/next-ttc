@@ -1,20 +1,9 @@
 import { Gallery } from "react-grid-gallery";
-import { StrapiImages } from "../types/globalTypes";
 import { getRequest, getStrapiImage } from "../utils/strapi";
+import { GaleriePageProps } from "../types/pageTypes";
 
-interface StrapiData {
-  strapiData: {
-    data: {
-      attributes: {
-        titel: string;
-        bilder: StrapiImages;
-      };
-    };
-  };
-}
-
-const Galerie: React.FC<StrapiData> = ({ strapiData }) => {
-  const { bilder, titel } = strapiData.data.attributes;
+const Galerie: React.FC<GaleriePageProps> = ({ strapiData }) => {
+  const { bilder, titel } = strapiData.attributes;
   let images: { src: string; width: number; height: number }[];
   if (bilder?.data) {
     images = bilder.data.map((image) => {
@@ -37,8 +26,9 @@ export default Galerie;
 
 export const getStaticProps = async () => {
   const galerieData = await getRequest(`galerie-page?populate=deep`);
+
   return {
-    props: { strapiData: galerieData },
+    props: { strapiData: galerieData.data },
     revalidate: 600,
   };
 };

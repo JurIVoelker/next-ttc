@@ -4,12 +4,9 @@ import { Article, Articles } from "../../types/globalTypes";
 import styles from "./aktuellesDetailPage.module.scss";
 import { Gallery } from "react-grid-gallery";
 import TextWrap from "../../components/TextWrap/TextWrap";
+import { AktuellesDetailsPageProps } from "../../types/pageTypes";
 
-interface AktuellesDetailPageProps {
-  postData: Article;
-}
-
-const AktuellesDetailPage: React.FC<AktuellesDetailPageProps> = ({
+const AktuellesDetailPage: React.FC<AktuellesDetailsPageProps> = ({
   postData,
 }) => {
   let images: { src: string; width: number; height: number }[];

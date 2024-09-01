@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { StrapiImage } from "../../types/globalTypes";
 import { getRequest, getStrapiImage } from "../../utils/strapi";
 import styles from "./downloads.module.scss";
 import LineUp from "../../components/Export/LineUp/LineUp";
@@ -13,31 +12,13 @@ import {
 } from "../../utils/myTischtennisParser";
 import { useEffect, useState } from "react";
 import { Button } from "react-aria-components";
-
-interface DownloadsPageProps {
-  strapiData: {
-    data: {
-      attributes: {
-        downloads: download[];
-        titel: string;
-      };
-    };
-  };
-  mainPlayers: any;
-}
-
-interface download {
-  __component: "content.file" | "link.link";
-  datei?: StrapiImage;
-  link?: string;
-  name: string;
-}
+import { DownloadsPageProps } from "../../types/pageTypes";
 
 const Downloads: React.FC<DownloadsPageProps> = ({
   strapiData,
   mainPlayers,
 }) => {
-  const { downloads, titel } = strapiData.data.attributes;
+  const { downloads, titel } = strapiData.attributes;
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   const handleExport = (team) => {
@@ -126,7 +107,7 @@ export const getStaticProps = async () => {
   const mainPlayers = filterMainPlayers(filteredPlayers);
   return {
     props: {
-      strapiData: linksPage,
+      strapiData: linksPage.data,
       mainPlayers: mainPlayers,
       firstData: filteredTeams,
     },
