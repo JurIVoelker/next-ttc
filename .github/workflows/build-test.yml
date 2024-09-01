@@ -34,7 +34,7 @@ jobs:
 
       - name: deps frontend
         run: |
-          cd backend
+          cd frontend
           npm install
 
       - name: deps root
