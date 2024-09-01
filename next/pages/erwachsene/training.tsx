@@ -1,5 +1,4 @@
 import Training from "../../components/Training/Trainig";
-import { StrapiImage } from "../../types/globalTypes";
 import { ErwachseneTrainingPageProps } from "../../types/pageTypes";
 import { getRequest } from "../../utils/strapi";
 
