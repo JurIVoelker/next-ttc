@@ -21,6 +21,7 @@
     "@strapi/plugin-seo": "^1.9.8",
     "@strapi/plugin-users-permissions": "4.24.0",
     "@strapi/strapi": "4.24.0",
+    "ajv": "^8.17.1",
     "better-sqlite3": "8.6.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
