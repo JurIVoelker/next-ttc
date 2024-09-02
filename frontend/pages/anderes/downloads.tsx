@@ -13,6 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "react-aria-components";
 import { DownloadsPageProps } from "../../types/pageTypes";
+import GameResults from "../../components/Export/GameResults/GameResults";
 
 const Downloads: React.FC<DownloadsPageProps> = ({
   strapiData,
@@ -75,6 +76,7 @@ const Downloads: React.FC<DownloadsPageProps> = ({
           </>
         )}
       </div>
+      <GameResults style={{ scale: "0.8" }} />
     </>
   );
 };
