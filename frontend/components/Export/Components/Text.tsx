@@ -12,12 +12,15 @@ export const Text = ({
   const variants = {
     regular: {
       className: "text",
+      fontOffset: 56,
     },
     small: {
       className: "text-small",
+      fontOffset: 52,
     },
     "small-accent": {
       className: "text-small-accent",
+      fontOffset: 52,
     },
   };
 
@@ -40,7 +43,7 @@ export const Text = ({
   return (
     <text
       {...anchorProps[anchor]}
-      y={offset + index * margin + 52}
+      y={offset + index * margin + selectedVariant.fontOffset}
       fill="white"
       className={selectedVariant.className}
       {...props}

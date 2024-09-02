@@ -5,11 +5,11 @@ import React from "react";
 import Link from "next/link";
 import ImageTextModule from "../components/ImageTextModule/ImageTextModule";
 import { parse } from "../utils/parseRichText";
-import { getNextGames } from "../utils/fetchNextGames";
 import GameCard from "../components/GameCard/GameCard";
 import { START_PAGE_NEXT_GAMES_COUNT } from "../utils/constants";
 import { StrapiImage } from "../components/StrapiImage/StrapiImage";
 import { HomePageProps } from "../types/pageTypes";
+import { getNextGames } from "../utils/myTischtennisParser";
 
 const Index: React.FC<HomePageProps> = ({
   strapiData,

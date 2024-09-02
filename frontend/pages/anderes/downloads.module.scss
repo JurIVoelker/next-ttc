@@ -12,6 +12,9 @@
     min-width: 200px;
     flex-wrap: 1;
     flex-grow: 1;
+    &.disabled {
+      background-color: $text-gray;
+    }
   }
   .lineups {
     display: flex;

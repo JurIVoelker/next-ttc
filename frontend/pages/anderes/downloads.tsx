@@ -4,10 +4,11 @@ import styles from "./downloads.module.scss";
 import LineUp from "../../components/Export/LineUp/LineUp";
 import { exportSvgToPng } from "../../utils/imageUtils";
 import slugify from "slugify";
-
 import {
   filterMainPlayers,
   getAllTeams,
+  getFinshedGroupedGames,
+  getGroupedGames,
   getPlayersFromTeams,
 } from "../../utils/myTischtennisParser";
 import { useEffect, useState } from "react";
@@ -18,11 +19,15 @@ import GameResults from "../../components/Export/GameResults/GameResults";
 const Downloads: React.FC<DownloadsPageProps> = ({
   strapiData,
   mainPlayers,
+  gameGroups,
+  allGameGroups,
 }) => {
   const { downloads, titel } = strapiData.attributes;
   const [isLoggedIn, setLoggedIn] = useState(false);
 
-  const handleExport = (team) => {
+  console.log(allGameGroups);
+
+  const handleExportTeam = (team) => {
     exportSvgToPng(
       <LineUp
         players={team.players}
@@ -32,6 +37,25 @@ const Downloads: React.FC<DownloadsPageProps> = ({
       1080,
       1350,
       slugify(team.team)
+    );
+  };
+
+  const handleExportGameGroup = (gameGroup) => {
+    const startDateRange = gameGroup[0].date;
+    const endDateRange = gameGroup[gameGroup.length - 1].date;
+    exportSvgToPng(
+      <GameResults
+        dateFrom={startDateRange}
+        dateTo={endDateRange}
+        games={gameGroup.map((game) => {
+          const homeTeam = game.isHomeMatch ? game.allyTeam : game.enemyTeam;
+          const guestTeam = game.isHomeMatch ? game.enemyTeam : game.allyTeam;
+          return { homeTeam, guestTeam, result: game.result };
+        })}
+      />,
+      1080,
+      1920,
+      slugify(`${startDateRange} - ${endDateRange}`)
     );
   };
 
@@ -65,7 +89,7 @@ const Downloads: React.FC<DownloadsPageProps> = ({
               {mainPlayers.map((team, i) => (
                 <Button
                   onPress={() => {
-                    handleExport(team);
+                    handleExportTeam(team);
                   }}
                   key={i}
                 >
@@ -73,10 +97,31 @@ const Downloads: React.FC<DownloadsPageProps> = ({
                 </Button>
               ))}
             </div>
+            <h2>Spielergebnisse herunterladen</h2>
+            <div className={styles.lineups}>
+              {allGameGroups.map((gameGroup, i) =>
+                i < gameGroups.length ? (
+                  <Button
+                    onPress={() => {
+                      handleExportGameGroup(gameGroup);
+                    }}
+                    key={i}
+                  >
+                    {`${gameGroup[0]?.date} - ${
+                      gameGroup[gameGroup.length - 1]?.date
+                    }`}
+                  </Button>
+                ) : (
+                  <button className={styles.disabled} disabled>{`${
+                    gameGroup[0]?.date
+                  } - ${gameGroup[gameGroup.length - 1]?.date}`}</button>
+                )
+              )}
+            </div>
           </>
         )}
       </div>
-      <GameResults style={{ scale: "0.8" }} />
+      {/*  */}
     </>
   );
 };
@@ -107,11 +152,16 @@ export const getStaticProps = async () => {
   ); // Remove teams without players
 
   const mainPlayers = filterMainPlayers(filteredPlayers);
+
+  const gameGroups = await getFinshedGroupedGames(10);
+  const allGameGroups = await getGroupedGames(10);
+
   return {
     props: {
       strapiData: linksPage.data,
-      mainPlayers: mainPlayers,
-      firstData: filteredTeams,
+      mainPlayers,
+      gameGroups,
+      allGameGroups,
     },
   };
 };
