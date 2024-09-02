@@ -4,15 +4,15 @@
   "private": true,
   "scripts": {
     "ci": "npm-run-all --parallel --race ci:build-frontend ci:start-backend",
-    "ci:build-frontend": "wait-on http://127.0.0.1:1337 && cd frontend && npm run build",
-    "ci:prep": "cd backend && npm run strapi export -- --no-encrypt --only content,config --file strapi-export-ci",
-    "ci:start-backend": "cd backend && npm run start",
-    "dev": "concurrently -p \"[{name}]\" -n \"Strapi,NextJs\" -c \"blue.bold,green.bold\" \"npm run dev-strapi\" \"npm run dev-next\"",
-    "dev-next": "wait-on http://127.0.0.1:1337 && cd frontend && npm run dev",
-    "dev-strapi": "cd backend && npm run develop",
-    "production": "concurrently -p \"[{name}]\" -n \"Strapi,NextJs\" -c \"blue.bold,green.bold\" \"npm run production:strapi\" \"npm run production:next\"",
-    "production:strapi": "cd backend && npm run build && npm run start",
-    "production:next": "wait-on https://api.ttc-klingenmuenster.de/admin && cd frontend && npm run build && npm run start"
+    "ci:build-frontend": "wait-on http://127.0.0.1:1337 && cd frontend && bun run build",
+    "ci:prep": "cd backend && bun run strapi export -- --no-encrypt --only content,config --file strapi-export-ci",
+    "ci:start-backend": "cd backend && bun run start",
+    "dev": "concurrently -p \"[{name}]\" -n \"Strapi,NextJs\" -c \"blue.bold,green.bold\" \"bun run dev-strapi\" \"bun run dev-next\"",
+    "dev-next": "wait-on http://127.0.0.1:1337 && cd frontend && bun run dev",
+    "dev-strapi": "cd backend && bun run develop",
+    "production": "concurrently -p \"[{name}]\" -n \"Strapi,NextJs\" -c \"blue.bold,green.bold\" \"bun run production:strapi\" \"bun run production:next\"",
+    "production:strapi": "cd backend && bun run build && bun run start",
+    "production:next": "wait-on https://api.ttc-klingenmuenster.de/admin && cd frontend && bun run build && bun run start"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

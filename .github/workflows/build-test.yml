@@ -7,48 +7,54 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
+    environment: ci
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
       - name: deps backend
         run: |
           cd backend
-          npm install
+          bun install
 
       - name: set frontend env
         run: |
-          echo "APP_KEYS=${{ secrets.APP_KEYS }}" > backend/.env
-          echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> backend/.env
-          echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> backend/.env
-          echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> backend/.env
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> backend/.env
+          echo "APP_KEYS=appkey1,appkey2" > backend/.env
+          echo "API_TOKEN_SALT=toBeModified" >> backend/.env
+          echo "ADMIN_JWT_SECRET=toBeModified" >> backend/.env
+          echo "TRANSFER_TOKEN_SALT=toBeModified" >> backend/.env
+          echo "JWT_SECRET=toBeModified" >> backend/.env
 
       - name: set backend env
         run: |
           echo "NEXT_PUBLIC_STRAPI_URL_PUBLIC=http://127.0.0.1:1337" > frontend/.env
           echo "STRAPI_URL_LOCAL=http://127.0.0.1:1337" >> frontend/.env
-          echo "MY_TISCHTENNIS_LINK=${{ secrets.MY_TISCHTENNIS_LINK }}" >> frontend/.env
-          echo "MY_TISCHTENNIS_ALL_GAMES=${{ secrets.MY_TISCHTENNIS_ALL_GAMES }}" >> frontend/.env
+          echo "MY_TISCHTENNIS_LINK=https://www.mytischtennis.de/clicktt/PTTV/24-25/verein/118/TTC-Klingenmuenster/mannschaften/?contesttype=ligen" >> frontend/.env
+          echo "MY_TISCHTENNIS_ALL_GAMES=https://www.mytischtennis.de/clicktt/PTTV/24-25/verein/118/TTC-Klingenmuenster/spielplan/" >> frontend/.env
 
       - name: deps frontend
         run: |
           cd frontend
-          npm install
+          bun install
 
       - name: deps root
-        run: npm install
+        run: bun install
 
       - name: import strapi data
         run: |
           cd backend
-          npm run ci:import-strapi-data
+          bun run ci:import-strapi-data
 
       - name: build backend
         run: |
           cd backend
-          npm run build
+          bun run build
 
       - name: run backend and build frontend
-        run: npm run ci
+        run: bun run ci
