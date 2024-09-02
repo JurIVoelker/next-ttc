@@ -25,8 +25,6 @@ const Downloads: React.FC<DownloadsPageProps> = ({
   const { downloads, titel } = strapiData.attributes;
   const [isLoggedIn, setLoggedIn] = useState(false);
 
-  console.log(allGameGroups);
-
   const handleExportTeam = (team) => {
     exportSvgToPng(
       <LineUp
