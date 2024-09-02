@@ -1,5 +1,4 @@
-import { base64LGCLight } from "../../../utils/fontUtils";
-import { base64LGCRegular } from "../../../utils/fontUtils";
+import { GENERAL_STYLES } from "../exportConstants";
 
 interface LineUpProps {
   teamName: string;
@@ -27,25 +26,7 @@ const LineUp = ({
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <style>
-        {`
-            @font-face {
-              font-family: "LGC";
-              src: url("${base64LGCLight}") format("truetype");
-              font-weight: 300;
-              font-style: normal;
-            }
-            @font-face {
-              font-family: "LGC";
-              src: url("${base64LGCRegular}") format("truetype");
-              font-weight: 500;
-              font-style: normal;
-            }
-            .title { font-size: 96px; font-weight: regular; letter-spacing: calc(1rem * 0.075); font-family: LGC; font-weight: 500; }
-            .subTitle { font-size: 48px; font-weight: regular; letter-spacing: calc(1rem * 0.075); font-family: LGC; font-weight: 300; }
-            .player { font-size: 48px; font-weight: 300; font-family: LGC; }
-          `}
-      </style>
+      <style>{GENERAL_STYLES}</style>
       <rect width="100%" height="100%" fill="#2a6083" />
 
       <text
@@ -86,7 +67,7 @@ const LineUp = ({
                 x={64 + 32}
                 y={baseYOffset + i * 112 + 56}
                 fill="white"
-                className="player"
+                className="text"
               >
                 {p.name}
               </text>
@@ -95,7 +76,7 @@ const LineUp = ({
                   x={980}
                   y={baseYOffset + i * 112 + 56}
                   fill="white"
-                  className="player"
+                  className="text"
                   textAnchor="end"
                 >
                   {p.ttr}
