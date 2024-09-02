@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "strapi build",
-    "ci:import-strapi-data": "bun run strapi import -- --force -f strapi-export-ci.tar.gz",
+    "ci:import-strapi-data": "bun run strapi import --force -f strapi-export-ci.tar.gz",
     "deploy:frontend": "node deploy-frontend.js",
     "develop": "strapi develop",
     "start": "strapi start",
