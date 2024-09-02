@@ -1,4 +1,4 @@
-import { LinkCardProps } from "./componentTypes";
+import { GameType, LinkCardProps, TeamType } from "./componentTypes";
 import { Article, Articles, Tag, TrainerType } from "./globalTypes";
 import {
   DownloadType,
@@ -70,7 +70,9 @@ export interface DownloadsPageProps {
       titel: string;
     };
   };
-  mainPlayers: any;
+  mainPlayers: TeamType[];
+  gameGroups: GameType[][];
+  allGameGroups: GameType[][];
 }
 
 export interface ImpressumPageProps {

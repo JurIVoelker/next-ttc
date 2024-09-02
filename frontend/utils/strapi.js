@@ -4,11 +4,10 @@ import { getAuthHeader } from "../utils/authUtils";
 
 export const publicStrapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL_PUBLIC;
 
-export async function getRequest(route) {
+export async function getRequest(route, options) {
   try {
-    const strapiUrl = process.env.STRAPI_URL_LOCAL;
     const data = await axios
-      .get(`${strapiUrl}/api/${route}`)
+      .get(`${publicStrapiUrl}/api/${route}`, options)
       .then((res) => res.data);
     return data;
   } catch (error) {

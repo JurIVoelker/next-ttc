@@ -1,5 +1,5 @@
 import GameCard from "../../components/GameCard/GameCard";
-import { getNextGames } from "../../utils/fetchNextGames";
+import { getNextGames } from "../../utils/myTischtennisParser";
 import styles from "./spiele.module.scss";
 const Spiele = ({ nextGames }) => {
   const categorizedGames = [];

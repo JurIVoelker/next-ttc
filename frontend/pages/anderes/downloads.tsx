@@ -4,24 +4,28 @@ import styles from "./downloads.module.scss";
 import LineUp from "../../components/Export/LineUp/LineUp";
 import { exportSvgToPng } from "../../utils/imageUtils";
 import slugify from "slugify";
-
 import {
   filterMainPlayers,
   getAllTeams,
+  getFinshedGroupedGames,
+  getGroupedGames,
   getPlayersFromTeams,
 } from "../../utils/myTischtennisParser";
-import { useEffect, useState } from "react";
 import { Button } from "react-aria-components";
 import { DownloadsPageProps } from "../../types/pageTypes";
+import GameResults from "../../components/Export/GameResults/GameResults";
+import { useIsAuthorized } from "../../hooks/authHooks";
 
 const Downloads: React.FC<DownloadsPageProps> = ({
   strapiData,
   mainPlayers,
+  gameGroups,
+  allGameGroups,
 }) => {
   const { downloads, titel } = strapiData.attributes;
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const isAuthorized = useIsAuthorized();
 
-  const handleExport = (team) => {
+  const handleExportTeam = (team) => {
     exportSvgToPng(
       <LineUp
         players={team.players}
@@ -34,11 +38,24 @@ const Downloads: React.FC<DownloadsPageProps> = ({
     );
   };
 
-  useEffect(() => {
-    typeof localStorage !== "undefined" &&
-      localStorage.getItem("jwt") &&
-      setLoggedIn(true);
-  }, []);
+  const handleExportGameGroup = (gameGroup) => {
+    const startDateRange = gameGroup[0].date;
+    const endDateRange = gameGroup[gameGroup.length - 1].date;
+    exportSvgToPng(
+      <GameResults
+        dateFrom={startDateRange}
+        dateTo={endDateRange}
+        games={gameGroup.map((game) => {
+          const homeTeam = game.isHomeMatch ? game.allyTeam : game.enemyTeam;
+          const guestTeam = game.isHomeMatch ? game.enemyTeam : game.allyTeam;
+          return { homeTeam, guestTeam, result: game.result };
+        })}
+      />,
+      1080,
+      1920,
+      slugify(`${startDateRange} - ${endDateRange}`)
+    );
+  };
 
   return (
     <>
@@ -57,14 +74,14 @@ const Downloads: React.FC<DownloadsPageProps> = ({
             </Link>
           )
         )}
-        {isLoggedIn && (
+        {isAuthorized && (
           <>
             <h2>Mannschaftsaufstellung herunterladen</h2>
             <div className={styles.lineups}>
               {mainPlayers.map((team, i) => (
                 <Button
                   onPress={() => {
-                    handleExport(team);
+                    handleExportTeam(team);
                   }}
                   key={i}
                 >
@@ -72,9 +89,31 @@ const Downloads: React.FC<DownloadsPageProps> = ({
                 </Button>
               ))}
             </div>
+            <h2>Spielergebnisse herunterladen</h2>
+            <div className={styles.lineups}>
+              {allGameGroups.map((gameGroup, i) =>
+                i < gameGroups.length ? (
+                  <Button
+                    onPress={() => {
+                      handleExportGameGroup(gameGroup);
+                    }}
+                    key={i}
+                  >
+                    {`${gameGroup[0]?.date} - ${
+                      gameGroup[gameGroup.length - 1]?.date
+                    }`}
+                  </Button>
+                ) : (
+                  <button className={styles.disabled} disabled>{`${
+                    gameGroup[0]?.date
+                  } - ${gameGroup[gameGroup.length - 1]?.date}`}</button>
+                )
+              )}
+            </div>
           </>
         )}
       </div>
+      {/*  */}
     </>
   );
 };
@@ -105,11 +144,16 @@ export const getStaticProps = async () => {
   ); // Remove teams without players
 
   const mainPlayers = filterMainPlayers(filteredPlayers);
+
+  const gameGroups = await getFinshedGroupedGames(10);
+  const allGameGroups = await getGroupedGames(10);
+
   return {
     props: {
       strapiData: linksPage.data,
-      mainPlayers: mainPlayers,
-      firstData: filteredTeams,
+      mainPlayers,
+      gameGroups,
+      allGameGroups,
     },
   };
 };
