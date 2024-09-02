@@ -118,11 +118,8 @@ function romanToInt(roman) {
   return total;
 }
 
-export async function getNextGames(_games) {
-  let games = _games;
-  if (!_games) {
-    games = await getAllGames();
-  }
+export async function getNextGames() {
+  const games = await getAllGames();
   const gamesWithDate = games.filter((game) => !!game?.date);
 
   // Remove all games that have passed
