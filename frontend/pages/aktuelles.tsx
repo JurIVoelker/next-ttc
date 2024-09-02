@@ -1,6 +1,5 @@
 import { Link } from "react-aria-components";
-import { Articles } from "../types/globalTypes";
-import { getRequest, getStrapiImage, publicStrapiUrl } from "../utils/strapi";
+import { getRequest, publicStrapiUrl } from "../utils/strapi";
 import Card from "../components/Card/Card";
 import React, { useEffect, useState } from "react";
 import styles from "./aktuelles.module.scss";
