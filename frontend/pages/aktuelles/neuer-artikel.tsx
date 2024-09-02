@@ -24,7 +24,7 @@ const NewPage = () => {
 
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setIsSending(true);
     const body = {
       titel: title,
@@ -32,19 +32,14 @@ const NewPage = () => {
       datum: date,
       text: text,
     };
-    createArticle(body, images, previewImage, setUploadProgress).then((res) => {
+    try {
+      await createArticle(body, images, previewImage, setUploadProgress);
       setIsSending(false);
-      if (res.error) {
-        if (res.error === "slug must be unique") {
-          setErrorMessage(
-            `Bitte wähle einen anderen Titel! "${title}" ist bereits vergeben!`
-          );
-        }
-      } else {
-        setErrorMessage("");
-        setSuccess(true);
-      }
-    });
+      setSuccess(true);
+    } catch (error) {
+      setErrorMessage(error?.message || "fehler");
+      setIsSending(false);
+    }
   };
 
   const isValid = title !== "" && !!date && text !== emptyTextAreaContent;
