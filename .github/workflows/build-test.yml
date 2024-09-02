@@ -20,7 +20,7 @@ jobs:
       - name: deps backend
         run: |
           cd backend
-          npm install
+          bun install
 
       - name: set frontend env
         run: |
@@ -40,20 +40,20 @@ jobs:
       - name: deps frontend
         run: |
           cd frontend
-          npm install
+          bun install
 
       - name: deps root
-        run: npm install
+        run: bun install
 
       - name: import strapi data
         run: |
           cd backend
-          npm run ci:import-strapi-data
+          bun run ci:import-strapi-data
 
       - name: build backend
         run: |
           cd backend
-          npm run build
+          bun run build
 
       - name: run backend and build frontend
-        run: npm run ci
+        run: bun run ci
