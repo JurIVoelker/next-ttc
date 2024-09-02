@@ -1,5 +1,6 @@
 import { z } from "zod";
 import axios from "axios";
+import { getAuthHeader } from "../utils/authUtils";
 
 export const publicStrapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL_PUBLIC;
 
@@ -60,80 +61,81 @@ export async function auth(password) {
   return false;
 }
 
+function validateArticle(body) {
+  const validate = ArticlesSchema.safeParse(body);
+
+  if (!validate.success) {
+    const errors = validate.error.issues;
+    throw new Error(
+      typeof errors !== "string" ? JSON.stringify(errors) : errors
+    );
+  }
+}
+
 export async function createArticle(body, images, previewImage, setProgress) {
-  if (typeof localStorage !== "undefined") {
-    const jwt = localStorage.getItem("jwt");
-    const validate = ArticlesSchema.safeParse(body);
+  // Validate input
+  if (validateArticle(body));
 
-    if (!validate.success) {
-      const errors = validate.error.issues;
-      return { error: errors };
-    }
-    const slug = getSlug(body.titel);
+  // Check if slug is defined
+  const slug = getSlug(body.titel);
+  if (!slug) throw new Error(`Fehler beim erstellen der Route: ${slug}`);
 
-    if (!slug) {
-      return res
-        .status(400)
-        .json({ message: `Fehler beim erstellen der Route: ${slug}` });
-    }
+  // Extract date
+  const { day, month, year } = body.datum;
+  const date = new Date(year, month - 1, day + 1);
 
-    const { day, month, year } = body.datum;
-    const date = new Date(year, month - 1, day + 1);
+  // Request body
+  const reqBody = {
+    titel: body.titel,
+    kurzBeschreibung: body.kurzBeschreibung,
+    datum: date,
+    text: body.text,
+    slug: slug,
+  };
 
-    const reqBody = {
-      titel: body.titel,
-      kurzBeschreibung: body.kurzBeschreibung,
-      datum: date,
-      text: body.text,
-      slug: slug,
-    };
+  try {
+    // Upload article
+    const response = await axios.post(
+      publicStrapiUrl + "/api/articles",
+      {
+        data: reqBody,
+      },
+      getAuthHeader()
+    );
 
-    try {
-      const response = await axios.post(
-        publicStrapiUrl + "/api/articles",
-        {
-          data: reqBody,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        }
-      );
+    // Upload images
+    const articleId = response.data.data.id;
+    const uploadPromises = images.map((image) => {
+      return uploadArticleImage(image, articleId, "bilder")
+        .then(() => {
+          setProgress((prev) => prev + 1);
+        })
+        .catch((e) => {
+          return "error", e; // Todo logging
+        });
+    });
 
-      const articleId = response.data.data.id;
-
-      const uploadPromises = images.map((image) => {
-        return uploadArticleImage(image, articleId, "bilder", jwt)
-          .then(() => {
-            setProgress((prev) => prev + 1);
-          })
-          .catch((e) => {
-            return "error", e; // Todo logging
-          });
-      });
-
-      uploadPromises.push(
-        uploadArticleImage(previewImage, articleId, "vorschauBild", jwt)
-          .then(() => {
-            setProgress((prev) => prev + 1);
-          })
-          .catch((e) => {
-            return "error", e; // Todo logging
-          })
-      );
-      await Promise.all(uploadPromises);
-      return { message: "success" };
-    } catch (error) {
-      if (error?.response?.data?.error?.details?.errors) {
-        if (
-          error?.response?.data?.error?.details?.errors[0].path[0] === "slug"
-        ) {
-          return { error: "slug must be unique" };
-        }
+    uploadPromises.push(
+      uploadArticleImage(previewImage, articleId, "vorschauBild")
+        .then(() => {
+          setProgress((prev) => prev + 1);
+        })
+        .catch((e) => {
+          return "error", e; // Todo logging
+        })
+    );
+    await Promise.all(uploadPromises);
+  } catch (error) {
+    if (error?.response?.data?.error?.details?.errors) {
+      if (error?.response?.data?.error?.details?.errors[0].path[0] === "slug") {
+        throw new Error(
+          `Bitte wähle einen anderen Titel! "${body.titel}" ist bereits vergeben!`
+        );
       }
-      console.error("Error making POST request:", error.response);
     }
+    throw new Error(
+      error?.message || "Ein unerwarteter Fehler ist aufgetreten"
+    );
   }
 }
 
@@ -189,7 +191,7 @@ const getSlug = (string) => {
   return slug;
 };
 
-async function uploadArticleImage(file, refId, field, jwt) {
+async function uploadArticleImage(file, refId, field) {
   const formData = new FormData();
   formData.append("ref", "api::article.article");
   formData.append("refId", refId);
@@ -199,11 +201,7 @@ async function uploadArticleImage(file, refId, field, jwt) {
   const imageUpload = await axios.post(
     publicStrapiUrl + "/api/upload",
     formData,
-    {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    }
+    getAuthHeader()
   );
   return imageUpload;
 }
