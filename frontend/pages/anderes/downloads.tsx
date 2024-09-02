@@ -11,10 +11,10 @@ import {
   getGroupedGames,
   getPlayersFromTeams,
 } from "../../utils/myTischtennisParser";
-import { useEffect, useState } from "react";
 import { Button } from "react-aria-components";
 import { DownloadsPageProps } from "../../types/pageTypes";
 import GameResults from "../../components/Export/GameResults/GameResults";
+import { useIsAuthorized } from "../../hooks/authHooks";
 
 const Downloads: React.FC<DownloadsPageProps> = ({
   strapiData,
@@ -23,7 +23,7 @@ const Downloads: React.FC<DownloadsPageProps> = ({
   allGameGroups,
 }) => {
   const { downloads, titel } = strapiData.attributes;
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const isAuthorized = useIsAuthorized();
 
   const handleExportTeam = (team) => {
     exportSvgToPng(
@@ -57,12 +57,6 @@ const Downloads: React.FC<DownloadsPageProps> = ({
     );
   };
 
-  useEffect(() => {
-    typeof localStorage !== "undefined" &&
-      localStorage.getItem("jwt") &&
-      setLoggedIn(true);
-  }, []);
-
   return (
     <>
       <h1>{titel}</h1>
@@ -80,7 +74,7 @@ const Downloads: React.FC<DownloadsPageProps> = ({
             </Link>
           )
         )}
-        {isLoggedIn && (
+        {isAuthorized && (
           <>
             <h2>Mannschaftsaufstellung herunterladen</h2>
             <div className={styles.lineups}>
