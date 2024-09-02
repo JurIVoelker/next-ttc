@@ -31,18 +31,52 @@
       background-color: transparent;
       border: none;
       padding: 4px;
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      cursor: pointer;
+      &[data-hovered] {
+        transition: 150ms ease-in-out;
+        color: $text-gray;
+      }
     }
   }
+
   .calendarGrid {
     width: 100%;
     margin-top: 16px;
-    th,
-    td {
-      padding: 8px 12px;
+    // th,
+    // td {
+    //   padding: 8px 12px;
+    //   text-align: center;
+    // }
+    // td [aria-disabled] {
+    //   color: $text-gray;
+    // }
+    // td [data-selected] {
+    //   background-color: $primary-bg;
+    //   border-radius: 0.5rem;
+    // }
+    .cell {
+      $cell-size: 2.5rem;
+      width: $cell-size;
+      height: $cell-size;
       text-align: center;
-    }
-    td [aria-disabled] {
-      color: $text-gray;
+      line-height: $cell-size;
+      cursor: pointer;
+      &[data-hovered] {
+        background-color: $secondary-bg;
+        border-radius: 0.5rem;
+      }
+      &[data-selected] {
+        background-color: $primary-bg;
+        color: $text-on-dark;
+        border-radius: 0.5rem;
+      }
+      &[data-disabled] {
+        color: $text-gray;
+      }
     }
   }
 }

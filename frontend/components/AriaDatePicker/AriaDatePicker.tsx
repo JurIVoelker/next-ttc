@@ -17,7 +17,11 @@ import {
 import styles from "./AriaDatePicker.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendar,
+  faCaretLeft,
+  faCaretRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const AriaDatePicker = ({ className, date, setDate }) => {
   return (
@@ -37,12 +41,16 @@ const AriaDatePicker = ({ className, date, setDate }) => {
         <Dialog>
           <Calendar>
             <header className={styles.headerSection}>
-              <Button slot="previous">◀</Button>
+              <Button slot="previous">
+                <FontAwesomeIcon icon={faCaretLeft} />
+              </Button>
               <Heading />
-              <Button slot="next">▶</Button>
+              <Button slot="next">
+                <FontAwesomeIcon icon={faCaretRight} />
+              </Button>
             </header>
             <CalendarGrid className={styles.calendarGrid}>
-              {(date) => <CalendarCell date={date} />}
+              {(date) => <CalendarCell date={date} className={styles.cell} />}
             </CalendarGrid>
           </Calendar>
         </Dialog>
