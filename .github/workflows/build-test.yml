@@ -7,6 +7,7 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
+    environment: ci
 
     steps:
       - name: Checkout code
@@ -24,11 +25,11 @@ jobs:
 
       - name: set frontend env
         run: |
-          echo "APP_KEYS=${{ secrets.APP_KEYS }}" > backend/.env
-          echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> backend/.env
-          echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> backend/.env
-          echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> backend/.env
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> backend/.env
+          echo "APP_KEYS=appkey1,appkey2" > backend/.env
+          echo "API_TOKEN_SALT=toBeModified" >> backend/.env
+          echo "ADMIN_JWT_SECRET=toBeModified" >> backend/.env
+          echo "TRANSFER_TOKEN_SALT=toBeModified" >> backend/.env
+          echo "JWT_SECRET=toBeModified" >> backend/.env
 
       - name: set backend env
         run: |
