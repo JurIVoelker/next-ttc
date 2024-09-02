@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "strapi build",
-    "ci:import-strapi-data": "npm run strapi import -- --force -f strapi-export-ci.tar.gz",
+    "ci:import-strapi-data": "bun run strapi import -- --force -f strapi-export-ci.tar.gz",
     "deploy:frontend": "node deploy-frontend.js",
     "develop": "strapi develop",
     "start": "strapi start",
@@ -29,8 +29,7 @@
     "styled-components": "5.3.3"
   },
   "engines": {
-    "node": ">=18.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
+    "node": ">=18.0.0 <=20.x.x"
   },
   "strapi": {
     "uuid": "ffa83cc0-0f56-4a70-abf4-4bcaf47af27a"
