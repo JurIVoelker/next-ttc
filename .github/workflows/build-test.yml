@@ -3,6 +3,7 @@ name: CI - Build Test
 on:
   push:
   pull_request_target:
+    types: [opened, synchronize, reopened]
 
 jobs:
   build-test:
