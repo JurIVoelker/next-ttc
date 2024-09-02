@@ -56,6 +56,7 @@ const Aktuelles: React.FC<AktuellesPageProps> = ({
   }, [isReady, currentPage]);
 
   const handleChangePage = (page: number) => {
+    window.scrollTo(0, 0);
     setLoading(true);
     push(`/aktuelles?seite=${page}`);
   };
