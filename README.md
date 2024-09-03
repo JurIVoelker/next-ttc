@@ -12,7 +12,7 @@ bun run dev
 
 ## Env files:
 
-/strapi/.env
+### /backend/.env
 
 ```bash
 HOST=0.0.0.0
@@ -24,7 +24,7 @@ TRANSFER_TOKEN_SALT=tobemodified
 JWT_SECRET=tobemodified
 ```
 
-/next/.env.local
+### /frontend/.env.local
 
 ```bash
 # for testing on local machine
