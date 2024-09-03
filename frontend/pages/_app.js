@@ -6,7 +6,7 @@ import Layout from "../components/Layout/Layout";
 import Seo from "../components/Seo/Seo";
 export default function MyApp({ Component, pageProps, globalFooterData }) {
   const seo = pageProps?.strapiData?.data?.attributes?.seo;
-  const aktuellesTitle = pageProps?.postData.attributes?.titel;
+  const aktuellesTitle = pageProps?.postData?.attributes?.titel;
 
   return (
     <>
