@@ -13,7 +13,6 @@ import {
 } from "react-aria-components";
 import { useFocusWithin, useHover } from "react-aria";
 import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -23,8 +22,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
-  const { push } = useRouter();
-
   let items = [
     { id: "start", name: "Start", href: "/" },
     {
@@ -234,20 +231,6 @@ const LinkSelect = ({ options, label }) => {
           </div>
         </Select>
       </span>
-    </>
-  );
-};
-const MobileLinks = ({ options, label }) => {
-  return (
-    <>
-      {label}
-      <div className={styles.mobileLinks}>
-        {options.map((option) => (
-          <Link href={option.href} key={option.name}>
-            {option.name}
-          </Link>
-        ))}
-      </div>
     </>
   );
 };

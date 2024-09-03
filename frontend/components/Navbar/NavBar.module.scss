@@ -36,11 +36,17 @@
   max-height: 100vh !important;
   top: 0 !important;
   left: 0 !important;
-  background-color: rgba($text-on-bright, 0.8);
-  backdrop-filter: blur(15px) grayscale(0.5);
+  background-color: $primary-bg-hover;
   display: flex;
   width: 100vw;
+  overflow: hidden;
   height: calc(100vh);
+  &[data-entering] {
+    animation: open 200ms ease-out forwards;
+  }
+  &[data-exiting] {
+    animation: open 1000s ease-out forwards;
+  }
   .exitButton {
     position: absolute;
     padding: 1em;
@@ -178,5 +184,14 @@
         background-color: rgba(255, 255, 255, 0.267);
       }
     }
+  }
+}
+
+@keyframes open {
+  from {
+    width: 0vw;
+  }
+  to {
+    width: 100vw;
   }
 }
