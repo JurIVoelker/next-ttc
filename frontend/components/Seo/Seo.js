@@ -20,7 +20,8 @@ const Seo = ({ seo, title }) => {
         <>
           <title>
             {isAktuellesPage
-              ? "Aktuelles | TTC Klingenmünster"
+              ? `${title} | TTC Klingenmünster` ||
+                "Aktuelles | TTC Klingenmünster"
               : "TTC Klingenmünster"}
           </title>
           <meta
