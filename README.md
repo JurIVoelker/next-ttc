@@ -5,14 +5,14 @@ coming soon
 ## Development:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 => starts next on localhost:3000 and strapi on localhost:1337
 
 ## Env files:
 
-/strapi/.env
+### /backend/.env
 
 ```bash
 HOST=0.0.0.0
@@ -24,7 +24,7 @@ TRANSFER_TOKEN_SALT=tobemodified
 JWT_SECRET=tobemodified
 ```
 
-/next/.env.local
+### /frontend/.env.local
 
 ```bash
 # for testing on local machine
