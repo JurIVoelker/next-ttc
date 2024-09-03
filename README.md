@@ -5,7 +5,7 @@ coming soon
 ## Development:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 => starts next on localhost:3000 and strapi on localhost:1337
