@@ -42,7 +42,6 @@
   width: 100vw;
   overflow: hidden;
   height: calc(100vh);
-  max-width: 25rem;
   &[data-entering] {
     animation: open 200ms ease-out forwards;
   }
