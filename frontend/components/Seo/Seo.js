@@ -8,6 +8,10 @@ const Seo = ({ seo, title }) => {
   const isAktuellesPage =
     pathName.split("/").length === 3 && pathName.split("/")[1] === "aktuelles";
 
+  const seoTitle = isAktuellesPage
+    ? `${title} | TTC Klingenmünster` || "Aktuelles | TTC Klingenmünster"
+    : "TTC Klingenmünster";
+
   return (
     <Head>
       {metaTitle && (
@@ -18,20 +22,8 @@ const Seo = ({ seo, title }) => {
       )}
       {!metaTitle && (
         <>
-          <title>
-            {isAktuellesPage
-              ? `${title} | TTC Klingenmünster` ||
-                "Aktuelles | TTC Klingenmünster"
-              : "TTC Klingenmünster"}
-          </title>
-          <meta
-            property="og:title"
-            content={
-              isAktuellesPage
-                ? "Aktuelles | TTC Klingenmünster"
-                : "TTC Klingenmünster"
-            }
-          />
+          <title>{seoTitle}</title>
+          <meta property="og:title" content={seoTitle} />
         </>
       )}
       {metaDescription && (
