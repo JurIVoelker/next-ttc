@@ -52,12 +52,12 @@ const Login = () => {
           >
             <h1>Einloggen</h1>
             <AriaTextField
-              errorMessage={errorMessage}
               value={password}
               setValue={setPassword}
               label="Passwort"
               type="password"
-            ></AriaTextField>
+            />
+            {<div className={styles.errorMessage}>{errorMessage}</div>}
             <Button
               className={styles.button}
               isDisabled={isSending}

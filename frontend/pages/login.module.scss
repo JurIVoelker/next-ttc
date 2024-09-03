@@ -5,4 +5,8 @@
     margin-top: 16px;
     display: block;
   }
+  .errorMessage {
+    margin-top: 0.5rem;
+    color: $error;
+  }
 }
