@@ -45,7 +45,8 @@
     animation: open 200ms ease-out forwards;
   }
   &[data-exiting] {
-    animation: open 1000s ease-out forwards;
+    animation-delay: 100ms;
+    animation: open 200ms ease-out reverse;
   }
   .exitButton {
     position: absolute;
