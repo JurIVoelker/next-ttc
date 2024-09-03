@@ -2,7 +2,8 @@
   "collectionName": "components_content_trainers",
   "info": {
     "displayName": "trainer",
-    "icon": "user"
+    "icon": "user",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -10,14 +11,15 @@
       "type": "string"
     },
     "bild": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "geburtsDatum": {
       "type": "date"
@@ -38,9 +40,6 @@
       "type": "string"
     },
     "motivation": {
-      "type": "string"
-    },
-    "aufschlagtraining": {
       "type": "string"
     },
     "fairness": {
