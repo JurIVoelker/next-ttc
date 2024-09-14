@@ -7,17 +7,13 @@ A live preview right in your browser so you don't need to keep sending real emai
 First, install the dependencies:
 
 ```sh
-npm install
-# or
-yarn
+bun install
 ```
 
 Then, run the development server:
 
 ```sh
-npm run dev
-# or
-yarn dev
+bun run dev
 ```
 
 Open [localhost:3000](http://localhost:3000) with your browser to see the result.

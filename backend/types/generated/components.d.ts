@@ -74,6 +74,7 @@ export interface ContentTrainer extends Schema.Component {
   info: {
     displayName: 'trainer';
     icon: 'user';
+    description: '';
   };
   attributes: {
     name: Attribute.String;
@@ -85,7 +86,6 @@ export interface ContentTrainer extends Schema.Component {
     staerkenTrainer: Attribute.String;
     staerkenSpieler: Attribute.String;
     motivation: Attribute.String;
-    aufschlagtraining: Attribute.String;
     fairness: Attribute.String;
     ttKeinSport: Attribute.String;
   };

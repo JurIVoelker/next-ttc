@@ -1,5 +1,4 @@
 import Trainer from "../../components/Trainer/Trainer";
-import { TrainerType } from "../../types/globalTypes";
 import { TrainerPageProps } from "../../types/pageTypes";
 import { getRequest } from "../../utils/strapi";
 import styles from "./trainer.module.scss";

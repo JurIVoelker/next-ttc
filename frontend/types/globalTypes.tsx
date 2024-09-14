@@ -52,7 +52,6 @@ export interface Player {
 }
 
 export interface TrainerType {
-  aufschlagTraining: string;
   bild: StrapiImageType;
   fairness: string;
   geburtsDatum: string;

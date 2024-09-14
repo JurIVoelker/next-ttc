@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { TrainerType } from "../../types/globalTypes";
 import getAge from "../../utils/getAge";
 import { SIZES_TRAINER } from "../../utils/strapi";
@@ -12,7 +11,6 @@ interface TrainerComponentProps {
 const Trainer: React.FC<TrainerComponentProps> = ({ trainerProps }) => {
   const {
     trainerSeit,
-    aufschlagTraining,
     bild,
     fairness,
     geburtsDatum,
@@ -33,8 +31,7 @@ const Trainer: React.FC<TrainerComponentProps> = ({ trainerProps }) => {
     { name: "Mannschaft: ", value: mannschaft },
     { name: "Stärken als Trainer: ", value: staerkenTrainer },
     { name: "Stärken als Spieler: ", value: staerkenSpieler },
-    { name: "Motivation ", value: motivation },
-    { name: "Aufschlagtraining finde ich: ", value: aufschlagTraining },
+    { name: "Motivation: ", value: motivation },
     { name: "Fairness finde ich: ", value: fairness },
     {
       name: "Wenn jemand behauptet, Tischtennis sei kein Sport: ",

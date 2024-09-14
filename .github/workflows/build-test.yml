@@ -23,7 +23,7 @@ jobs:
           cd backend
           bun install
 
-      - name: set frontend env
+      - name: set backend env
         run: |
           echo "APP_KEYS=appkey1,appkey2" > backend/.env
           echo "API_TOKEN_SALT=toBeModified" >> backend/.env
@@ -31,7 +31,7 @@ jobs:
           echo "TRANSFER_TOKEN_SALT=toBeModified" >> backend/.env
           echo "JWT_SECRET=toBeModified" >> backend/.env
 
-      - name: set backend env
+      - name: set frontend env
         run: |
           echo "NEXT_PUBLIC_STRAPI_URL_PUBLIC=http://127.0.0.1:1337" > frontend/.env
           echo "STRAPI_URL_LOCAL=http://127.0.0.1:1337" >> frontend/.env
