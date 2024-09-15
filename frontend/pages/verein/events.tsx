@@ -27,7 +27,7 @@ export default Events;
 
 export async function getStaticProps() {
   const strapiData = await getRequest("events-page?populate=deep");
-  const events = await getRequest("events?populate=*&sort[0]=dateFrom:desc");
+  const events = await getRequest("events?populate=*&sort[0]=dateFrom:asc");
 
   return {
     props: {
