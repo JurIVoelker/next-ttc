@@ -924,17 +924,19 @@ export interface ApiEventEvent extends Schema.CollectionType {
     singularName: 'event';
     pluralName: 'events';
     displayName: 'Event';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
+    title: Attribute.String & Attribute.Required;
     content: Attribute.Text;
     image: Attribute.Media;
     location: Attribute.String;
     tags: Attribute.Text;
-    date: Attribute.String;
+    dateFrom: Attribute.Date & Attribute.Required;
+    dateTo: Attribute.Date;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

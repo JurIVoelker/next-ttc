@@ -15,21 +15,9 @@ const Events = ({ strapiData, events }) => {
           marginTop: "4rem",
         }}
       >
-        {events.map((event) => {
-          const { id, content, location, tags, title, image, date } =
-            event.attributes;
-          return (
-            <Event
-              key={id}
-              inhalt={content}
-              location={location}
-              tags={tags}
-              titel={title}
-              image={image}
-              date={date}
-            />
-          );
-        })}
+        {events.map((event, id) => (
+          <Event key={id} {...event.attributes} />
+        ))}
       </div>
     </div>
   );
@@ -39,7 +27,7 @@ export default Events;
 
 export async function getStaticProps() {
   const strapiData = await getRequest("events-page?populate=deep");
-  const events = await getRequest("events?populate=*");
+  const events = await getRequest("events?populate=*&sort[0]=dateFrom:desc");
 
   return {
     props: {

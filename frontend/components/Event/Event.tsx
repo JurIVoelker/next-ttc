@@ -5,9 +5,20 @@ import {
   faLocationPin,
 } from "@fortawesome/free-solid-svg-icons";
 import { StrapiImage } from "../StrapiImage/StrapiImage";
-import { SIZES_EVENT, SIZES_TRAINER } from "../../utils/strapi";
+import { SIZES_EVENT } from "../../utils/strapi";
+import { EventAttributesType } from "../../types/strapiTypes";
+import { reverseDate } from "../../utils/stringUtils";
 
-const Event = ({ inhalt, date, location, tags, titel, image, ...props }) => {
+const Event: React.FC<EventAttributesType> = ({
+  content,
+  dateFrom,
+  dateTo,
+  location,
+  tags,
+  title,
+  image,
+  ...props
+}) => {
   const tagsArray = typeof tags === "string" ? tags.split("\n") : [];
 
   const isImage = !!image?.data;
@@ -19,7 +30,7 @@ const Event = ({ inhalt, date, location, tags, titel, image, ...props }) => {
     >
       {isImage && <StrapiImage img={image.data} sizes={SIZES_EVENT} />}
       <div className={styles.content}>
-        <h2 className={styles.heading}>{titel}</h2>
+        <h2 className={styles.heading}>{title}</h2>
         <div className={styles.infoChips}>
           {location && (
             <div className={styles.chip}>
@@ -27,21 +38,20 @@ const Event = ({ inhalt, date, location, tags, titel, image, ...props }) => {
               {location}
             </div>
           )}
-          {date && (
+          {dateFrom && (
             <div className={styles.chip}>
               <FontAwesomeIcon icon={faCalendarAlt} />
-              {date}
+              {reverseDate(dateFrom)}
+              {dateTo && ` - ${reverseDate(dateTo)}`}
             </div>
           )}
-        </div>
-        <div className={styles.textContent}>{inhalt}</div>
-        <div className={styles.tags}>
           {tagsArray.map((tag, key) => (
             <div className={styles.chip} key={key}>
               {tag}
             </div>
           ))}
         </div>
+        <div className={styles.textContent}>{content}</div>
       </div>
     </div>
   );
