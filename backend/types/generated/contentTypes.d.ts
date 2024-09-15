@@ -856,6 +856,36 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
+export interface ApiBecomeMemberPageBecomeMemberPage extends Schema.SingleType {
+  collectionName: 'become_member_pages';
+  info: {
+    singularName: 'become-member-page';
+    pluralName: 'become-member-pages';
+    displayName: 'BecomeMemberPage';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.String;
+    text: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::become-member-page.become-member-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::become-member-page.become-member-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiDatenschutzPageDatenschutzPage extends Schema.SingleType {
   collectionName: 'datenschutz_pages';
   info: {
@@ -1437,6 +1467,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::akutelles-page.akutelles-page': ApiAkutellesPageAkutellesPage;
       'api::article.article': ApiArticleArticle;
+      'api::become-member-page.become-member-page': ApiBecomeMemberPageBecomeMemberPage;
       'api::datenschutz-page.datenschutz-page': ApiDatenschutzPageDatenschutzPage;
       'api::download-page.download-page': ApiDownloadPageDownloadPage;
       'api::event.event': ApiEventEvent;

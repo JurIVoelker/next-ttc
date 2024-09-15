@@ -37,6 +37,11 @@ const NavBar = () => {
         },
         { id: "sponsoren", name: "Sponsoren", href: "/verein/sponsoren" },
         { id: "halle", name: "Unsere Halle", href: "/verein/halle" },
+        {
+          id: "mitglied",
+          name: "Mitglied Werden",
+          href: "/verein/mitglied-werden",
+        },
       ],
     },
     {
