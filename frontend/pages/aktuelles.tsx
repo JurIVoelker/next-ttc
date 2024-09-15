@@ -108,6 +108,6 @@ export const getStaticProps = async () => {
 
   return {
     props: { initialArticles: articles, strapiData: aktuellesData.data },
-    revalidate: 10,
+    revalidate: 600,
   };
 };
