@@ -29,3 +29,10 @@ export const replaceAnchorTagsWithLink = (text) => {
 
   return result;
 };
+
+export const reverseDate = (text) => {
+  if (typeof text !== "string") return text;
+  const array = text.split("-");
+  if (array.length !== 3) return text;
+  return `${array[2]}.${array[1]}.${array[0]}`;
+};

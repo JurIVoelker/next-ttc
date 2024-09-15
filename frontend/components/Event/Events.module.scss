@@ -41,6 +41,7 @@
     .infoChips {
       display: flex;
       gap: 0.5rem;
+      flex-wrap: wrap;
       .chip {
         display: flex;
         gap: 0.5rem;

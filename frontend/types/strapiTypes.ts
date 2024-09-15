@@ -69,3 +69,13 @@ export interface MannschaftenPageType {
   };
   players: PlayersType[];
 }
+
+export interface EventAttributesType {
+  title: string;
+  content: string;
+  image: StrapiImageType;
+  location: string;
+  tags: string;
+  dateFrom: string;
+  dateTo?: string | null;
+}
