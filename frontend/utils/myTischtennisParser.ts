@@ -131,7 +131,7 @@ export async function getNextGames() {
     const datePart = game.date.split(" ")[1];
     const [day, month, year] = datePart.split(".").map(Number);
     const inputDate = new Date(year + 2000, month - 1, day);
-    return inputDate > currentDate;
+    return inputDate >= currentDate;
   });
 
   return upcomingGames;
