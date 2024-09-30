@@ -2,6 +2,7 @@ import axios, { all } from "axios";
 import { parse } from "node-html-parser";
 import { Player, TeamProps } from "../types/globalTypes";
 import { removeNewLine } from "../utils/regexs";
+import { getTeamNameFromLeague } from "./translationUtils";
 const myTischtennisDomain = "https://www.mytischtennis.de";
 
 export async function getAllTeams() {
@@ -176,6 +177,10 @@ async function getAllGames() {
       allyTeam = removeNewLine(secondTeam);
       enemyTeam = removeNewLine(firstTeam);
     }
+
+    allyTeam = getTeamNameFromLeague(league, allyTeam);
+    enemyTeam = getTeamNameFromLeague(league, enemyTeam);
+
     const result = removeNewLine(cols[8]?.querySelector("a")?.innerHTML) || "";
     let isWon = null;
     if (result) {
