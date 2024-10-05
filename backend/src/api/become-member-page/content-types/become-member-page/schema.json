@@ -4,7 +4,8 @@
   "info": {
     "singularName": "become-member-page",
     "pluralName": "become-member-pages",
-    "displayName": "BecomeMemberPage"
+    "displayName": "BecomeMemberPage",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -16,6 +17,22 @@
     },
     "text": {
       "type": "text"
+    },
+    "membershipCosts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.mitglieder-beitraege"
+    },
+    "secondText": {
+      "type": "text"
+    },
+    "aufnahmeAntrag": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
     }
   }
 }

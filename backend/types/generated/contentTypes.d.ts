@@ -862,6 +862,7 @@ export interface ApiBecomeMemberPageBecomeMemberPage extends Schema.SingleType {
     singularName: 'become-member-page';
     pluralName: 'become-member-pages';
     displayName: 'BecomeMemberPage';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -869,6 +870,9 @@ export interface ApiBecomeMemberPageBecomeMemberPage extends Schema.SingleType {
   attributes: {
     title: Attribute.String;
     text: Attribute.Text;
+    membershipCosts: Attribute.Component<'content.mitglieder-beitraege', true>;
+    secondText: Attribute.Text;
+    aufnahmeAntrag: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

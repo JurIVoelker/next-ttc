@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_content_mitglieder_beitraeges",
+  "info": {
+    "displayName": "mitgliederBeiträge",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "group": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "costs": {
+      "type": "string"
+    }
+  }
+}

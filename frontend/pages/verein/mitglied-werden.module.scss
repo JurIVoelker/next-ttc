@@ -1,0 +1,42 @@
+@import "../../components/Global/theme.scss";
+.content {
+  a {
+    color: $primary-dark;
+    text-decoration: underline;
+  }
+  .membershipCostsWrapper {
+    margin-top: 1rem;
+    width: clamp(400px, 100%, 800px);
+    background-color: $white-100;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    thead th {
+      text-align: left;
+      padding: 0.5rem 0.5rem 1rem 0.5rem;
+      color: $primary-dark;
+    }
+    border-spacing: 0;
+    padding: 0.5rem 1rem;
+    .membershipCost {
+      td {
+        padding: 0.5rem;
+        border-bottom: 2px solid $white-200;
+      }
+      &:last-child td {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .text {
+    max-width: 600px;
+    margin-top: 1rem;
+  }
+  .downloadButton {
+    margin-top: 1rem;
+    @include button-styles;
+    display: block;
+    width: fit-content;
+    text-align: center;
+  }
+}
