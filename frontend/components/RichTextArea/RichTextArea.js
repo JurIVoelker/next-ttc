@@ -33,11 +33,7 @@ const RichTextArea = ({ text, setText }) => {
   ];
 
   const handleUpdate = (e) => {
-    const content =
-      e.editor.contentComponent.editorContentRef.current.querySelector(
-        ".ProseMirror"
-      ).innerHTML;
-    setText(content);
+    setText(e?.editor?.getHTML());
   };
 
   const editor = useEditor({
