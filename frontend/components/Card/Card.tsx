@@ -40,8 +40,6 @@ const Card: React.FC<CardProps> = ({
     });
   };
 
-  const linkProps = slug ? { href: `aktuelles/${slug}` } : "";
-
   return (
     <div className={styles.cardWrapper}>
       {isEditable && (
@@ -61,31 +59,29 @@ const Card: React.FC<CardProps> = ({
           </DialogTrigger>
         </div>
       )}
-      <Link {...linkProps} className={styles.link}>
-        <div className={styles.card}>
-          {imageUrl && (
-            <Image
-              src={imageUrl}
-              width={300}
-              height={200}
-              alt={`Bildvorschau für ${title}`}
-              className={styles.image}
-            />
-          )}
+      <Link className={styles.card} href={slug ? `aktuelles/${slug}` : ""}>
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            width={300}
+            height={200}
+            alt={`Bildvorschau für ${title}`}
+            className={styles.image}
+          />
+        )}
 
-          {image?.attributes && (
-            <StrapiImage
-              img={image}
-              alt="Hinzugefügte Bilder"
-              sizes={SIZES_CARD}
-            />
-          )}
+        {image?.attributes && (
+          <StrapiImage
+            img={image}
+            alt="Hinzugefügte Bilder"
+            sizes={SIZES_CARD}
+          />
+        )}
 
-          <div className={styles.textContent}>
-            <h3>{title}</h3>
-            <p>{description}</p>
-            {date && <p>{date.split("-").reverse().join(".")}</p>}
-          </div>
+        <div className={styles.textContent}>
+          <h3>{title}</h3>
+          <p>{description}</p>
+          {date && <p>{date.split("-").reverse().join(".")}</p>}
         </div>
       </Link>
     </div>
