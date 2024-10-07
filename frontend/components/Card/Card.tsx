@@ -61,7 +61,7 @@ const Card: React.FC<CardProps> = ({
           </DialogTrigger>
         </div>
       )}
-      <Link {...linkProps}>
+      <Link {...linkProps} className={styles.link}>
         <div className={styles.card}>
           {imageUrl && (
             <Image

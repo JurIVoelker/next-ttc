@@ -1,6 +1,9 @@
 @import "../Global/theme.scss";
 .cardWrapper {
   position: relative;
+  .link {
+    z-index: 1;
+  }
   .card {
     height: 100%;
     border-radius: $border-radius;
