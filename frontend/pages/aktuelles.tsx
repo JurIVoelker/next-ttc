@@ -1,4 +1,3 @@
-import { Link } from "react-aria-components";
 import { getRequest, publicStrapiUrl } from "../utils/strapi";
 import Card from "../components/Card/Card";
 import React, { useEffect, useState } from "react";
@@ -8,6 +7,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import CardSkeletons from "../components/Card/CardSkeleton";
 import { AktuellesPageProps } from "../types/pageTypes";
+import Link from "next/link";
 
 const PAGE_SIZE = 12;
 const INITIAL_PAGE = 1;

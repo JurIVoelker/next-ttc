@@ -19,7 +19,7 @@ export const StrapiImage: React.FC<StrapiImageProps> = ({
   const { width, height } = img?.attributes || {};
 
   return (
-    <span
+    <div
       style={{
         backgroundColor: isLoading ? "rgb(215, 215, 215)" : "transparent",
         borderRadius: "0.325rem",
@@ -39,6 +39,6 @@ export const StrapiImage: React.FC<StrapiImageProps> = ({
         style={{ opacity: isLoading ? 0 : 1, transition: "opacity 250ms" }}
         {...props}
       />
-    </span>
+    </div>
   );
 };

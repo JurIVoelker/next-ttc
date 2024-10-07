@@ -1,7 +1,9 @@
 @import "../Global/theme.scss";
 .cardWrapper {
+  z-index: 1;
   position: relative;
   .card {
+    display: block;
     z-index: 1;
     height: 100%;
     border-radius: $border-radius;
@@ -24,6 +26,7 @@
     }
   }
   .adminButtons {
+    z-index: 2;
     position: absolute;
     display: flex;
     justify-content: flex-end;

@@ -1,6 +1,7 @@
 import styles from "./Card.module.scss";
 import React from "react";
-import { Button, DialogTrigger, Link } from "react-aria-components";
+
+import { Button, DialogTrigger } from "react-aria-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,6 +10,7 @@ import { deleteArticle, SIZES_CARD } from "../../utils/strapi";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { StrapiImage } from "../StrapiImage/StrapiImage";
+import Link from "next/link";
 
 interface CardProps {
   imageUrl?: string;
@@ -39,7 +41,6 @@ const Card: React.FC<CardProps> = ({
       push("/aktuelles");
     });
   };
-
   return (
     <div className={styles.cardWrapper}>
       {isEditable && (
