@@ -7,12 +7,15 @@
   display: block;
   .image {
     float: left;
-    border-radius: $border-radius;
     height: 350px;
     margin-right: 20px;
-    object-fit: cover;
-    width: auto;
     max-width: 600px;
+    img {
+      border-radius: $border-radius;
+      object-fit: cover;
+      width: 100%;
+      height: auto;
+    }
     @include size-s {
       float: none;
       margin-bottom: 16px;

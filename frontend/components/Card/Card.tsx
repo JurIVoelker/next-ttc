@@ -1,6 +1,7 @@
 import styles from "./Card.module.scss";
 import React from "react";
-import { Button, DialogTrigger, Link } from "react-aria-components";
+
+import { Button, DialogTrigger } from "react-aria-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,6 +10,7 @@ import { deleteArticle, SIZES_CARD } from "../../utils/strapi";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { StrapiImage } from "../StrapiImage/StrapiImage";
+import Link from "next/link";
 
 interface CardProps {
   imageUrl?: string;
@@ -17,6 +19,7 @@ interface CardProps {
   isShowMoreVisible?: boolean;
   date?: string;
   isEditable?: boolean;
+  href?: string;
   slug?: string;
   id?: number;
   image?: any;
@@ -28,6 +31,7 @@ const Card: React.FC<CardProps> = ({
   description,
   date,
   isEditable,
+  href,
   slug,
   id,
   image,
@@ -39,9 +43,6 @@ const Card: React.FC<CardProps> = ({
       push("/aktuelles");
     });
   };
-
-  const linkProps = slug ? { href: `aktuelles/${slug}` } : "";
-
   return (
     <div className={styles.cardWrapper}>
       {isEditable && (
@@ -61,31 +62,29 @@ const Card: React.FC<CardProps> = ({
           </DialogTrigger>
         </div>
       )}
-      <Link {...linkProps}>
-        <div className={styles.card}>
-          {imageUrl && (
-            <Image
-              src={imageUrl}
-              width={300}
-              height={200}
-              alt={`Bildvorschau für ${title}`}
-              className={styles.image}
-            />
-          )}
+      <Link className={styles.card} href={href}>
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            width={300}
+            height={200}
+            alt={`Bildvorschau für ${title}`}
+            className={styles.image}
+          />
+        )}
 
-          {image?.attributes && (
-            <StrapiImage
-              img={image}
-              alt="Hinzugefügte Bilder"
-              sizes={SIZES_CARD}
-            />
-          )}
+        {image?.attributes && (
+          <StrapiImage
+            img={image}
+            alt="Hinzugefügte Bilder"
+            sizes={SIZES_CARD}
+          />
+        )}
 
-          <div className={styles.textContent}>
-            <h3>{title}</h3>
-            <p>{description}</p>
-            {date && <p>{date.split("-").reverse().join(".")}</p>}
-          </div>
+        <div className={styles.textContent}>
+          <h3>{title}</h3>
+          <p>{description}</p>
+          {date && <p>{date.split("-").reverse().join(".")}</p>}
         </div>
       </Link>
     </div>

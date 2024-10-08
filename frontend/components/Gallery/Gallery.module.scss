@@ -1,0 +1,15 @@
+@import "../Global/theme.scss";
+
+.galleryWrapper {
+  column-width: 288px;
+  column-count: 4;
+  gap: 0.75rem;
+  .image {
+    margin-bottom: 0.5rem;
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: $border-radius;
+    }
+  }
+}

@@ -59,13 +59,13 @@ const Index: React.FC<HomePageProps> = ({
       <div className={styles.cardCollection}>
         {strapiData?.attributes.mehrErfahrenLinks.map((link, index) => {
           return (
-            <Link href={link.route} key={index}>
-              <Card
-                title={link.titel}
-                description={link.beschreibung}
-                image={link.vorschauBild.data}
-              />
-            </Link>
+            <Card
+              key={index}
+              href={link.route}
+              title={link.titel}
+              description={link.beschreibung}
+              image={link.vorschauBild.data}
+            />
           );
         })}
       </div>
@@ -77,13 +77,14 @@ const Index: React.FC<HomePageProps> = ({
       <div className={styles.cardCollection}>
         {articles.data.map((link, index) => {
           return (
-            <Link href={`aktuelles/${link.attributes.slug}`} key={index}>
-              <Card
-                title={link.attributes.titel}
-                description={link.attributes.kurzBeschreibung}
-                image={link.attributes.vorschauBild.data}
-              />
-            </Link>
+            <Card
+              href={`aktuelles/${link.attributes.slug}`}
+              slug={link.attributes.slug}
+              key={index}
+              title={link.attributes.titel}
+              description={link.attributes.kurzBeschreibung}
+              image={link.attributes.vorschauBild.data}
+            />
           );
         })}
       </div>
