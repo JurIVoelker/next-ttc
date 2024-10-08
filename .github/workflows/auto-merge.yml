@@ -1,4 +1,4 @@
-name: Auto Merge master to auto-deploy
+name: Update cms/master
 
 on:
   push:
@@ -6,29 +6,17 @@ on:
       - master
 
 jobs:
-  merge:
+  update-cms-master:
+    name: Merge master into release after a PR is merged
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout master branch
-        uses: actions/checkout@v3
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: merge
+        uses: mtanzi/action-automerge@v1
+        id: merge
         with:
-          ref: master
-
-      - name: Set up Git
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - name: Fetch all branches
-        run: git fetch --all
-
-      - name: Merge master into auto-deploy
-        run: |
-          git checkout auto-deploy
-          git merge master --no-edit
-
-      - name: Push changes
-        run: git push origin auto-deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
+          source: "master"
+          target: "release"
+          webhook_url: #if present add the Slack webhook
