@@ -19,7 +19,7 @@ interface CardProps {
   isShowMoreVisible?: boolean;
   date?: string;
   isEditable?: boolean;
-  href: string;
+  href?: string;
   slug?: string;
   id?: number;
   image?: any;
