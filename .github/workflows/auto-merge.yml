@@ -1,0 +1,34 @@
+name: Auto Merge master to auto-deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout master branch
+        uses: actions/checkout@v3
+        with:
+          ref: master
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Fetch all branches
+        run: git fetch --all
+
+      - name: Merge master into auto-deploy
+        run: |
+          git checkout auto-deploy
+          git merge master --no-edit
+
+      - name: Push changes
+        run: git push origin auto-deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
