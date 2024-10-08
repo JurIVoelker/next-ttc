@@ -26,6 +26,7 @@ export const StrapiImage: React.FC<StrapiImageProps> = ({
         height: "auto",
         display: "block",
       }}
+      {...props}
     >
       <Image
         src={getStrapiImage(img)}
@@ -37,7 +38,6 @@ export const StrapiImage: React.FC<StrapiImageProps> = ({
           setLoading(false);
         }}
         style={{ opacity: isLoading ? 0 : 1, transition: "opacity 250ms" }}
-        {...props}
       />
     </div>
   );

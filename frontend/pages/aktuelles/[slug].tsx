@@ -1,24 +1,15 @@
 import React from "react";
-import { getRequest, getStrapiImage } from "../../utils/strapi";
+import { getRequest } from "../../utils/strapi";
 import { Articles } from "../../types/globalTypes";
 import styles from "./aktuellesDetailPage.module.scss";
-import { Gallery } from "react-grid-gallery";
 import TextWrap from "../../components/TextWrap/TextWrap";
 import { AktuellesDetailsPageProps } from "../../types/pageTypes";
+import Gallery from "../../components/Gallery/Gallery";
 
 const AktuellesDetailPage: React.FC<AktuellesDetailsPageProps> = ({
   postData,
 }) => {
-  let images: { src: string; width: number; height: number }[];
-  if (postData?.attributes?.bilder?.data) {
-    images = postData.attributes.bilder.data.map((image) => {
-      return {
-        src: getStrapiImage(image),
-        width: image.attributes.width,
-        height: image.attributes.height,
-      };
-    });
-  }
+  const { bilder } = postData?.attributes || {};
   return (
     <>
       <h1 style={{ marginBottom: "8px" }}>{postData.attributes.titel}</h1>
@@ -30,13 +21,14 @@ const AktuellesDetailPage: React.FC<AktuellesDetailsPageProps> = ({
         text={postData.attributes.text}
         textType="html"
       />
-      {images && (
+      {bilder && (
         <div className={styles.gallery}>
-          <Gallery
+          {/* <Gallery
             images={images}
             enableImageSelection={false}
             rowHeight={250}
-          />
+          /> */}
+          <Gallery images={bilder.data} />
         </div>
       )}
     </>
