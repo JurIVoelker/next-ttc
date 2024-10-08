@@ -77,6 +77,7 @@ const Aktuelles: React.FC<AktuellesPageProps> = ({
           articles?.data?.map((article, index) => {
             return (
               <Card
+                href={`aktuelles/${article.attributes.slug}`}
                 key={index}
                 title={article.attributes.titel}
                 description={article.attributes.kurzBeschreibung}

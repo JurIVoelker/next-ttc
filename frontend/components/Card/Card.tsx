@@ -19,6 +19,7 @@ interface CardProps {
   isShowMoreVisible?: boolean;
   date?: string;
   isEditable?: boolean;
+  href: string;
   slug?: string;
   id?: number;
   image?: any;
@@ -30,6 +31,7 @@ const Card: React.FC<CardProps> = ({
   description,
   date,
   isEditable,
+  href,
   slug,
   id,
   image,
@@ -60,7 +62,7 @@ const Card: React.FC<CardProps> = ({
           </DialogTrigger>
         </div>
       )}
-      <Link className={styles.card} href={slug ? `aktuelles/${slug}` : ""}>
+      <Link className={styles.card} href={href}>
         {imageUrl && (
           <Image
             src={imageUrl}

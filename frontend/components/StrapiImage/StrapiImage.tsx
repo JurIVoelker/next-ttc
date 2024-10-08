@@ -33,7 +33,7 @@ export const StrapiImage: React.FC<StrapiImageProps> = ({
         width={width}
         height={height}
         sizes={sizes}
-        onLoadingComplete={() => {
+        onLoad={() => {
           setLoading(false);
         }}
         style={{ opacity: isLoading ? 0 : 1, transition: "opacity 250ms" }}
