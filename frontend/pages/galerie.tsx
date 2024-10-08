@@ -1,6 +1,6 @@
-import { Gallery } from "react-grid-gallery";
 import { getRequest, getStrapiImage } from "../utils/strapi";
 import { GaleriePageProps } from "../types/pageTypes";
+import Gallery from "../components/Gallery/Gallery";
 
 const Galerie: React.FC<GaleriePageProps> = ({ strapiData }) => {
   const { bilder, titel } = strapiData.attributes;
@@ -17,7 +17,8 @@ const Galerie: React.FC<GaleriePageProps> = ({ strapiData }) => {
   return (
     <>
       <h1>{titel}</h1>
-      <Gallery images={images} enableImageSelection={false} rowHeight={250} />
+      {/* <Gallery images={images} enableImageSelection={false} rowHeight={250} /> */}
+      <Gallery images={bilder} />
     </>
   );
 };
