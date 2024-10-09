@@ -1,5 +1,6 @@
 @import "../Global/theme.scss";
 .modalOverlay {
+  z-index: 10;
   position: fixed;
   top: 0;
   height: 100%;
