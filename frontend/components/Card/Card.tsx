@@ -38,6 +38,8 @@ const Card: React.FC<CardProps> = ({
 }) => {
   const { push } = useRouter();
 
+  const ContentWrapperComponent = href ? Link : "div";
+
   const handleDelete = () => {
     deleteArticle(id).then(() => {
       push("/aktuelles");
@@ -62,7 +64,7 @@ const Card: React.FC<CardProps> = ({
           </DialogTrigger>
         </div>
       )}
-      <Link className={styles.card} href={href}>
+      <ContentWrapperComponent className={styles.card} href={href}>
         {imageUrl && (
           <Image
             src={imageUrl}
@@ -86,7 +88,7 @@ const Card: React.FC<CardProps> = ({
           <p>{description}</p>
           {date && <p>{date.split("-").reverse().join(".")}</p>}
         </div>
-      </Link>
+      </ContentWrapperComponent>
     </div>
   );
 };
