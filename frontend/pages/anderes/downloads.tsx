@@ -155,5 +155,6 @@ export const getStaticProps = async () => {
       gameGroups,
       allGameGroups,
     },
+    revalidate: 21600,
   };
 };
