@@ -38,6 +38,6 @@ export async function getStaticProps() {
     props: {
       nextGames,
     },
-    revalidate: 600,
+    revalidate: 21600,
   };
 }
