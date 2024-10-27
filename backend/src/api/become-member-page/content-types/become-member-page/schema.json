@@ -1,0 +1,38 @@
+{
+  "kind": "singleType",
+  "collectionName": "become_member_pages",
+  "info": {
+    "singularName": "become-member-page",
+    "pluralName": "become-member-pages",
+    "displayName": "BecomeMemberPage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "text"
+    },
+    "membershipCosts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.mitglieder-beitraege"
+    },
+    "secondText": {
+      "type": "text"
+    },
+    "aufnahmeAntrag": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    }
+  }
+}
