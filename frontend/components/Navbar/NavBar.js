@@ -39,7 +39,7 @@ const NavBar = () => {
         { id: "halle", name: "Unsere Halle", href: "/verein/halle" },
         {
           id: "mitglied",
-          name: "Mitglied Werden",
+          name: "Mitglied werden",
           href: "/verein/mitglied-werden",
         },
       ],
