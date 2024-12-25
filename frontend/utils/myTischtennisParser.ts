@@ -37,6 +37,7 @@ export async function getPlayersFromTeams(teams: TeamProps[]) {
 
 async function getPlayers(team: TeamProps, showDoubles = false) {
   const html = await axios.get(team.link);
+  console.log({ link: team.link });
   const root = parse(html.data);
   const table = root.querySelector("#gamestatsTable");
   if (!table) return {};

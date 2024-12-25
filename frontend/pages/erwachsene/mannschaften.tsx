@@ -7,6 +7,7 @@ import {
   getPlayersFromTeams,
 } from "../../utils/myTischtennisParser";
 import { getRequest } from "../../utils/strapi";
+import { getTeamLink } from "../../utils/stringUtils";
 
 const Mannschaften: React.FC<MannschaftenPageType> = ({
   strapiData,
@@ -54,16 +55,14 @@ export async function getStaticProps() {
   );
 
   const filteredTeams = _filteredTeams.map((data) => {
-    const split = data.link.split("/");
     return {
       ...data,
-      link:
-        split.splice(0, split.length - 4).join("/") +
-        "/TTC-Klingenmuenster/spielerbilanzen/vr/",
+      link: getTeamLink(data),
     };
   });
 
   const players: PlayersProps[] = await getPlayersFromTeams(filteredTeams); // Get all individual players from each team
+
   const filteredPlayers = players.filter(
     (team) => team?.players && team?.players?.length !== 0
   ); // Remove teams without players

@@ -7,6 +7,7 @@ import {
 } from "../../utils/myTischtennisParser";
 import { PlayersProps } from "../../types/globalTypes";
 import { MannschaftenPageType } from "../../types/strapiTypes";
+import { getTeamLink } from "../../utils/stringUtils";
 
 const Mannschaften: React.FC<MannschaftenPageType> = ({
   strapiData,
@@ -54,12 +55,9 @@ export async function getStaticProps() {
   );
 
   const filteredTeams = _filteredTeams.map((data) => {
-    const split = data.link.split("/");
     return {
       ...data,
-      link:
-        split.splice(0, split.length - 4).join("/") +
-        "/TTC-Klingenmuenster/spielerbilanzen/vr/",
+      link: getTeamLink(data),
     };
   });
 

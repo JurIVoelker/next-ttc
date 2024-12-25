@@ -36,3 +36,13 @@ export const reverseDate = (text) => {
   if (array.length !== 3) return text;
   return `${array[2]}.${array[1]}.${array[0]}`;
 };
+
+export const getTeamLink = (data) => {
+  const prefix =
+    process.env.MY_TISCHTENNIS_SPIELERBILANZEN_PREFIX_LINK ||
+    "/TTC-Klingenmuenster/spielerbilanzen/";
+  const splitLink = data.link.split("/");
+  const currentMonth = new Date().getMonth() + 1; // getMonth() returns 0-11
+  const suffix = currentMonth >= 8 && currentMonth <= 12 ? "/vr" : "/rr";
+  return splitLink.splice(0, splitLink.length - 4).join("/") + prefix + suffix;
+};

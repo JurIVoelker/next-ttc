@@ -15,6 +15,7 @@ import { Button } from "react-aria-components";
 import { DownloadsPageProps } from "../../types/pageTypes";
 import GameResults from "../../components/Export/GameResults/GameResults";
 import { useIsAuthorized } from "../../hooks/authHooks";
+import { getTeamLink } from "../../utils/stringUtils";
 
 const Downloads: React.FC<DownloadsPageProps> = ({
   strapiData,
@@ -129,12 +130,9 @@ export const getStaticProps = async () => {
   );
 
   const filteredTeams = _filteredTeams.map((data) => {
-    const split = data.link.split("/");
     return {
       ...data,
-      link:
-        split.splice(0, split.length - 4).join("/") +
-        "/TTC-Klingenmuenster/spielerbilanzen/vr/",
+      link: getTeamLink(data),
     };
   });
 
