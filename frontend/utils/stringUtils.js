@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 export const replaceAnchorTagsWithLink = (text) => {
-  // Regular expression to match all anchor tags
-  const regex = /<a href="(.*?)">(.*?)<\/a>/g;
+  // Regular expression to match all anchor tags and <br /> tags
+  const regex = /<a href="(.*?)">(.*?)<\/a>|<br\s*\/?>/g;
 
   // Initialize an array to hold the result
   const result = [];
@@ -13,12 +13,17 @@ export const replaceAnchorTagsWithLink = (text) => {
     // Push the text before the match
     result.push(text.substring(lastIndex, index));
 
-    // Push the Link component for the match
-    result.push(
-      <Link key={index} href={href}>
-        {textContent}
-      </Link>
-    );
+    if (href) {
+      // Push the Link component for the anchor tag match
+      result.push(
+        <Link key={index} href={href}>
+          {textContent}
+        </Link>
+      );
+    } else {
+      // Push a <br /> element for the <br /> tag match
+      result.push(<br key={index} />);
+    }
 
     // Update the last index to the end of the current match
     lastIndex = index + match.length;
