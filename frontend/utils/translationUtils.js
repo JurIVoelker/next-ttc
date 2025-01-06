@@ -31,8 +31,6 @@ export const getTeamNameFromLeague = (league, name) => {
     leagueName?.league?.includes("Mädchen")
   ) {
     result = name.replace("TTC Klingenmünster", leagueName.kind);
-  } else {
-    console.log(leagueName, result);
   }
   return result || name;
 };
