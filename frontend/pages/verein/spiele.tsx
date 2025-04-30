@@ -1,5 +1,4 @@
 import GameCard from "../../components/GameCard/GameCard";
-import { getNextGames } from "../../utils/myTischtennisParser";
 import styles from "./spiele.module.scss";
 const Spiele = ({ nextGames }) => {
   const categorizedGames = [];
@@ -13,19 +12,26 @@ const Spiele = ({ nextGames }) => {
   });
   return (
     <>
-      <div>
-        {categorizedGames.map((games) => (
-          <div className={styles.gameDay}>
-            <h2>{games[0].date}</h2>
-            <div className={styles.games}>
-              {games.map((game, i) => (
-                <GameCard {...game} key={i} />
-              ))}
+      {nextGames.length > 0 ? (
+        <div>
+          {categorizedGames.map((games) => (
+            <div className={styles.gameDay}>
+              <h2>{games[0].date}</h2>
+              <div className={styles.games}>
+                {games.map((game, i) => (
+                  <GameCard {...game} key={i} />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-        {!categorizedGames?.length && <div>Keine Spiele</div>}
-      </div>
+          ))}
+          {!categorizedGames?.length && <div>Keine Spiele</div>}
+        </div>
+      ) : (
+        <p>
+          Die nächsten Spiele sind noch nicht bekannt. Bitte schau später wieder
+          vorbei.
+        </p>
+      )}
     </>
   );
 };
@@ -33,10 +39,9 @@ const Spiele = ({ nextGames }) => {
 export default Spiele;
 
 export async function getStaticProps() {
-  const nextGames = await getNextGames();
   return {
     props: {
-      nextGames,
+      nextGames: [],
     },
     revalidate: 21600,
   };

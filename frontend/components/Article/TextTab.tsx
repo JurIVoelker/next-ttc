@@ -13,7 +13,7 @@ export const TextTab = ({ title, setTitle, text, setText, date, setDate }) => {
           setValue={setTitle}
           label="Titel"
           className={styles.textField}
-        ></AriaTextField>
+        />
         <AriaDatePicker
           setDate={setDate}
           date={date}

@@ -4,7 +4,7 @@ import styles from "./Training.module.scss";
 const Training = ({ trainDates, title, image, text }) => {
   return (
     <>
-      <h1>{title}</h1>
+      <h1 className="mb-6">{title}</h1>
       <TextWrap image={image} text={text} />
       <div className={styles.trainDatesWrapper}>
         <h2>{"Trainingszeiten:"}</h2>

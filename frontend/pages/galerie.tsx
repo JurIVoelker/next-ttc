@@ -6,7 +6,7 @@ const Galerie: React.FC<GaleriePageProps> = ({ strapiData }) => {
   const { bilder, titel } = strapiData.attributes;
   return (
     <>
-      <h1>{titel}</h1>
+      <h1 className="mb-6">{titel}</h1>
       <Gallery images={bilder.data} />
     </>
   );

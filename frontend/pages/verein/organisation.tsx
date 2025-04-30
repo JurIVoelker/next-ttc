@@ -6,7 +6,7 @@ const Organisation = ({ strapiData }) => {
   const { title, organisation } = strapiData;
   return (
     <div>
-      <h1>{title}</h1>
+      <h1 className="mb-6">{title}</h1>
       {organisation.map((o, i) => (
         <ImageTextModule
           image={o.bild}

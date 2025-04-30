@@ -58,6 +58,11 @@ export interface TrainingsZeitType {
   zeit: string;
 }
 
+export type TTAPITeamType = {
+  teamName: string;
+  players: { name: string; QTTR: number; position: number }[];
+};
+
 export interface MannschaftenPageType {
   strapiData: {
     id: number;
@@ -67,7 +72,7 @@ export interface MannschaftenPageType {
       altBild: StrapiImageType;
     };
   };
-  players: PlayersType[];
+  teams: TTAPITeamType[];
 }
 
 export interface EventAttributesType {

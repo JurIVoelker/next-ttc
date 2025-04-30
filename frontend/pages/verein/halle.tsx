@@ -5,7 +5,7 @@ import { getRequest } from "../../utils/strapi";
 const Halle: React.FC<HallePageProps> = ({ strapiData }) => {
   return (
     <>
-      <h1>{strapiData.attributes.titel}</h1>
+      <h1 className="mb-6">{strapiData.attributes.titel}</h1>
       {strapiData.attributes.hallen.map((halle, index) => {
         return (
           <ImageTextModule

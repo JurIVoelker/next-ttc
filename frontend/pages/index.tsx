@@ -93,14 +93,18 @@ const Index: React.FC<HomePageProps> = ({
       >
         Mehr Artikel anzeigen
       </Link>
-      <h2 style={{ marginBottom: "16px", marginTop: "48px" }}>
-        {strapiData?.attributes?.newGamesTitle}
-      </h2>
-      <div className={styles.games}>
-        {nextGames.map((game, i) => (
-          <GameCard {...game} key={i} isShowDate />
-        ))}
-      </div>
+      {nextGames.length > 0 && (
+        <>
+          <h2 style={{ marginBottom: "16px", marginTop: "48px" }}>
+            {strapiData?.attributes?.newGamesTitle}
+          </h2>
+          <div className={styles.games}>
+            {nextGames.map((game, i) => (
+              <GameCard {...game} key={i} isShowDate />
+            ))}
+          </div>
+        </>
+      )}
     </>
   );
 };

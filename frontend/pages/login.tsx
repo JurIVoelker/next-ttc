@@ -56,6 +56,7 @@ const Login = () => {
               setValue={setPassword}
               label="Passwort"
               type="password"
+              className="mt-4"
             />
             {<div className={styles.errorMessage}>{errorMessage}</div>}
             <Button
@@ -71,7 +72,7 @@ const Login = () => {
       )}
       {isToken && (
         <>
-          <h1>Ausloggen</h1>
+          <h1 className="mb-6">Ausloggen</h1>
           <p>Du bist angemeldet. Möchtest du dich abmelden?</p>
           <Button
             className={styles.button}

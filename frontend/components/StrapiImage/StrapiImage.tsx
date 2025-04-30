@@ -11,11 +11,6 @@ export const StrapiImage: React.FC<StrapiImageProps> = ({
 }) => {
   const [isLoading, setLoading] = useState(true);
 
-  if (!img?.attributes)
-    throw new Error(
-      "Image does not have attributes. Maybe you forgot to pass the image.data as prop"
-    );
-
   const { width, height } = img?.attributes || {};
 
   return (
