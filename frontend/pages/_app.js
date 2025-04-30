@@ -11,13 +11,6 @@ export default function MyApp({ Component, pageProps, globalFooterData }) {
 
   return (
     <>
-      <head>
-        <script
-          defer
-          src="https://umami.jurivoelker.de/script.js"
-          data-website-id="42e46bdc-2ace-4470-b77c-526ed9288f05"
-        />
-      </head>
       <Seo
         seo={seo}
         title={aktuellesTitle}

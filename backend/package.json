@@ -13,7 +13,8 @@
     "deploy:frontend": "node deploy-frontend.js",
     "develop": "strapi develop",
     "start": "strapi start",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "strapi:export": "strapi export --file export.tar.gz --no-encrypt"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "4.24.0",

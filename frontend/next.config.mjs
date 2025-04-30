@@ -2,6 +2,7 @@
 let protocol = "http";
 let hostname = "http";
 let port = "1337";
+
 const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL_PUBLIC;
 if (strapiUrl) {
   const urlArray = strapiUrl.split("://");
@@ -14,7 +15,6 @@ if (strapiUrl) {
     port = 80;
   }
 }
-
 
 const nextConfig = {
   images: {

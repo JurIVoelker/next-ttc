@@ -9,7 +9,6 @@ import GameCard from "../components/GameCard/GameCard";
 import { START_PAGE_NEXT_GAMES_COUNT } from "../utils/constants";
 import { StrapiImage } from "../components/StrapiImage/StrapiImage";
 import { HomePageProps } from "../types/pageTypes";
-import { getNextGames } from "../utils/myTischtennisParser";
 
 const Index: React.FC<HomePageProps> = ({
   strapiData,
@@ -108,7 +107,7 @@ const Index: React.FC<HomePageProps> = ({
 
 export async function getStaticProps() {
   const startPageData = await getRequest("start-page?populate=deep");
-  const nextGames = await getNextGames();
+  const nextGames = [];
   const articles = await getRequest(
     "articles?pagination[page]=1&pagination[pageSize]=3&populate=deep&sort[0]=datum:desc"
   );

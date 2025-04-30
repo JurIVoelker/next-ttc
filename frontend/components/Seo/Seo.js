@@ -17,6 +17,13 @@ const Seo = ({ seo, title, description }) => {
 
   return (
     <Head>
+      {process.env.NODE_ENV === "production" && (
+        <script
+          defer
+          src="https://umami.jurivoelker.de/script.js"
+          data-website-id="42e46bdc-2ace-4470-b77c-526ed9288f05"
+        />
+      )}
       {metaTitle && (
         <>
           <title>{metaTitle}</title>
