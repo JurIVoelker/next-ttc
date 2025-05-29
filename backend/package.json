@@ -14,7 +14,8 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "strapi": "strapi",
-    "strapi:export": "strapi export --file export.tar.gz --no-encrypt"
+    "strapi:export": "strapi export --file export.tar.gz --no-encrypt",
+    "strapi:import": "strapi import --file export.tar.gz"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "4.24.0",

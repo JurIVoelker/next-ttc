@@ -67,6 +67,18 @@ export interface ContentMitgliederBeitraege extends Schema.Component {
   };
 }
 
+export interface ContentSponsor extends Schema.Component {
+  collectionName: 'components_content_sponsors';
+  info: {
+    displayName: 'sponsor';
+  };
+  attributes: {
+    name: Attribute.String;
+    url: Attribute.String;
+    text: Attribute.String;
+  };
+}
+
 export interface ContentTextImageModule extends Schema.Component {
   collectionName: 'components_content_text_image_modules';
   info: {
@@ -229,6 +241,7 @@ declare module '@strapi/types' {
       'content.mannschaft': ContentMannschaft;
       'content.mannschaften': ContentMannschaften;
       'content.mitglieder-beitraege': ContentMitgliederBeitraege;
+      'content.sponsor': ContentSponsor;
       'content.text-image-module': ContentTextImageModule;
       'content.trainer': ContentTrainer;
       'content.trainingszeit': ContentTrainingszeit;

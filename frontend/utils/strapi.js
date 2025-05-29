@@ -12,8 +12,12 @@ export async function getRequest(route, options) {
     return data;
   } catch (error) {
     // Handle error if needed
-    console.error("Error fetching data:", error);
-    throw error; // Re-throw the error to be handled by the caller
+    console.error();
+    if (error?.response?.status === 403)
+      throw new Error("No permission to fetch " + route);
+    throw new Error(
+      `Error while fetching ${route} (Error ${error.response?.status})`
+    );
   }
 }
 

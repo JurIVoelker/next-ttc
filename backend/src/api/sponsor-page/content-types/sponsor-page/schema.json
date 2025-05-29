@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "sponsor_pages",
+  "info": {
+    "singularName": "sponsor-page",
+    "pluralName": "sponsor-pages",
+    "displayName": "Sponsor Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "text"
+    },
+    "sponsors": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.sponsor"
+    }
+  }
+}
