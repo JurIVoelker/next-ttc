@@ -34,5 +34,4 @@ NEXT_PUBLIC_STRAPI_URL_PUBLIC=http://127.0.0.1:1337
 # NEXT_PUBLIC_STRAPI_URL_PUBLIC=https://yourdomain.com
 
 STRAPI_URL_LOCAL=http://127.0.0.1:1337
-MY_TISCHTENNIS_LINK=https://www.mytischtennis.de/...
 ```

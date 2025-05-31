@@ -35,8 +35,6 @@ jobs:
         run: |
           echo "NEXT_PUBLIC_STRAPI_URL_PUBLIC=http://127.0.0.1:1337" > frontend/.env
           echo "STRAPI_URL_LOCAL=http://127.0.0.1:1337" >> frontend/.env
-          echo "MY_TISCHTENNIS_LINK=https://www.mytischtennis.de/clicktt/PTTV/24-25/verein/118/TTC-Klingenmuenster/mannschaften/?contesttype=ligen" >> frontend/.env
-          echo "MY_TISCHTENNIS_ALL_GAMES=https://www.mytischtennis.de/clicktt/PTTV/24-25/verein/118/TTC-Klingenmuenster/spielplan/" >> frontend/.env
 
       - name: deps frontend
         run: |
