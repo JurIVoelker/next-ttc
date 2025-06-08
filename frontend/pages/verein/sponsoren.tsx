@@ -52,6 +52,7 @@ export async function getStaticProps() {
   return {
     props: {
       pageMeta: sponsors?.data?.attributes || [],
+      revalidate: 21600,
     },
   };
 }
