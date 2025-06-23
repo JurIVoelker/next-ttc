@@ -3,6 +3,15 @@ import { getRequest } from "../../utils/strapi";
 
 const Events = ({ strapiData, events }) => {
   const { title, description } = strapiData;
+  const filteredEvents = events.filter((event) => {
+    const dateFrom = new Date(event.attributes.dateFrom);
+    const dateTo = event.attributes.dateTo
+      ? new Date(event.attributes.dateTo)
+      : null;
+    const today = new Date(new Date().setHours(0, 0, 0, 0)); // Set time to midnight for comparison
+    if (dateTo === null) return dateFrom > today;
+    return dateTo > today;
+  });
   return (
     <div>
       <h1>{title}</h1>
@@ -15,9 +24,12 @@ const Events = ({ strapiData, events }) => {
           marginTop: "4rem",
         }}
       >
-        {events.map((event, id) => (
+        {filteredEvents.map((event, id) => (
           <Event key={id} {...event.attributes} />
         ))}
+        {filteredEvents.length === 0 && (
+          <p className="text-gray-500">Keine kommenden Veranstaltungen.</p>
+        )}
       </div>
     </div>
   );
