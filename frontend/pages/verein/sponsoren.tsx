@@ -51,8 +51,8 @@ export async function getStaticProps() {
   } = await getRequest("sponsor-page?populate=*");
   return {
     props: {
-      pageMeta: sponsors?.data?.attributes || [],
-      revalidate: 21600,
+      pageMeta: sponsors?.data?.attributes || [];
     },
+    revalidate: 21600,
   };
 }
