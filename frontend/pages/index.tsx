@@ -9,6 +9,8 @@ import GameCard from "../components/GameCard/GameCard";
 import { START_PAGE_NEXT_GAMES_COUNT } from "../utils/constants";
 import { StrapiImage } from "../components/StrapiImage/StrapiImage";
 import { HomePageProps } from "../types/pageTypes";
+import { Match, TTApiMatchesReturnType } from "@/types/ttApiTypes";
+import { apiRequest } from "@/utils/apiUtils";
 
 const Index: React.FC<HomePageProps> = ({
   strapiData,
@@ -96,11 +98,11 @@ const Index: React.FC<HomePageProps> = ({
       {nextGames.length > 0 && (
         <>
           <h2 style={{ marginBottom: "16px", marginTop: "48px" }}>
-            {strapiData?.attributes?.newGamesTitle}
+            {strapiData?.attributes?.newGamesTitle || "Nächste Spiele"}
           </h2>
           <div className={styles.games}>
-            {nextGames.map((game, i) => (
-              <GameCard {...game} key={i} isShowDate />
+            {nextGames.map((game: Match, i) => (
+              <GameCard game={game} key={i} isShowDate />
             ))}
           </div>
         </>
@@ -111,15 +113,15 @@ const Index: React.FC<HomePageProps> = ({
 
 export async function getStaticProps() {
   const startPageData = await getRequest("start-page?populate=deep");
-  const nextGames = [];
+  const nextGames: TTApiMatchesReturnType = await apiRequest("/api/v1/matches");
   const articles = await getRequest(
     "articles?pagination[page]=1&pagination[pageSize]=3&populate=deep&sort[0]=datum:desc"
   );
-
   return {
     props: {
       strapiData: startPageData.data,
-      nextGames: nextGames.splice(0, START_PAGE_NEXT_GAMES_COUNT),
+      nextGames:
+        nextGames?.matches.splice(0, START_PAGE_NEXT_GAMES_COUNT) || [],
       articles,
     },
     revalidate: 600,

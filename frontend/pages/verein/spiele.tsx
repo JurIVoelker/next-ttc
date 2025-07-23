@@ -1,25 +1,38 @@
+import { Match, TTApiMatchesReturnType } from "@/types/ttApiTypes";
 import GameCard from "../../components/GameCard/GameCard";
 import styles from "./spiele.module.scss";
-const Spiele = ({ nextGames }) => {
+import { apiRequest } from "@/utils/apiUtils";
+
+const Spiele = ({ nextGames }: { nextGames: Match[] }) => {
   const categorizedGames = [];
-  let previousGameDay = "";
+  let previousGameDate = null;
 
   nextGames.forEach((game) => {
-    if (game?.date && previousGameDay === game.date)
+    const gameDate = new Date(game.datetime);
+    gameDate.setHours(0, 0, 0, 0);
+    if (!previousGameDate) {
+      previousGameDate = gameDate;
+      categorizedGames.push([game]);
+      return;
+    } else if (gameDate.getTime() === previousGameDate.getTime()) {
       categorizedGames[categorizedGames.length - 1].push(game);
-    else if (game?.allyTeam && game?.enemyTeam) categorizedGames.push([game]);
-    previousGameDay = game.date;
+      return;
+    } else {
+      previousGameDate = gameDate;
+      categorizedGames.push([game]);
+    }
   });
+
   return (
     <>
       {nextGames.length > 0 ? (
         <div>
-          {categorizedGames.map((games) => (
+          {categorizedGames.map((games: Match[]) => (
             <div className={styles.gameDay}>
-              <h2>{games[0].date}</h2>
+              <h2>{new Date(games[0].datetime).toLocaleDateString()}</h2>
               <div className={styles.games}>
                 {games.map((game, i) => (
-                  <GameCard {...game} key={i} />
+                  <GameCard game={game} key={i} />
                 ))}
               </div>
             </div>
@@ -39,9 +52,10 @@ const Spiele = ({ nextGames }) => {
 export default Spiele;
 
 export async function getStaticProps() {
+  const nextGames: TTApiMatchesReturnType = await apiRequest("/api/v1/matches");
   return {
     props: {
-      nextGames: [],
+      nextGames: nextGames.matches,
     },
     revalidate: 21600,
   };
