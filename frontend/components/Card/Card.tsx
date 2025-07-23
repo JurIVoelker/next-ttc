@@ -23,6 +23,7 @@ interface CardProps {
   slug?: string;
   id?: number;
   image?: any;
+  isDraft?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -35,21 +36,20 @@ const Card: React.FC<CardProps> = ({
   slug,
   id,
   image,
+  isDraft = false,
 }) => {
-  const { push } = useRouter();
-
   const ContentWrapperComponent = href ? Link : "div";
 
   const handleDelete = () => {
     deleteArticle(id).then(() => {
-      push("/aktuelles");
+      window.location.reload();
     });
   };
   return (
     <div className={styles.cardWrapper}>
       {isEditable && (
         <div className={styles.adminButtons}>
-          <Link href={`/bearbeiten/${slug}`}>
+          <Link href={`/zeitungsartikel?slug=${slug}`}>
             <FontAwesomeIcon icon={faPen} color="white" />
           </Link>
           <DialogTrigger>
@@ -61,9 +61,15 @@ const Card: React.FC<CardProps> = ({
               text={`Möchtest du wirklich den Artikel "${title}" löschen? Dieser Schritt kann nicht rückgängig gemacht werden!`}
               onConfirm={handleDelete}
             />
+            {isDraft && (
+              <div className="bg-amber-50 w-fit px-4 py-2 rounded-md border border-amber-200 text-amber-800 absolute right-24">
+                Entwurf
+              </div>
+            )}
           </DialogTrigger>
         </div>
       )}
+
       <ContentWrapperComponent className={styles.card} href={href}>
         {imageUrl && (
           <Image

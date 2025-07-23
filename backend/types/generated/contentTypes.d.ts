@@ -829,7 +829,7 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
     titel: Attribute.String & Attribute.Required;
@@ -841,6 +841,7 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     bilder: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::article.article',
       'oneToOne',

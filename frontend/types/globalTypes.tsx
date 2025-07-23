@@ -10,6 +10,7 @@ export interface Article {
     vorschauBild: StrapiImageType;
     slug: string;
     bilder: StrapiImagesType;
+    publishedAt?: string | null;
   };
 }
 

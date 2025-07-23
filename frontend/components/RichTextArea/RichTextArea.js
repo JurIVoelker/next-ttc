@@ -15,7 +15,7 @@ import {
   faTextSlash,
 } from "@fortawesome/free-solid-svg-icons";
 
-const RichTextArea = ({ text, setText }) => {
+const RichTextArea = ({ text, setText, className = "" }) => {
   const content = text;
 
   const extensions = [
@@ -44,7 +44,7 @@ const RichTextArea = ({ text, setText }) => {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={cn(styles.container, className)}>
         <MenuBar editor={editor}></MenuBar>
         <EditorContent
           editor={editor}
@@ -60,6 +60,7 @@ export default RichTextArea;
 import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
 import { Button } from "react-aria-components";
+import { cn } from "@/lib/utils";
 
 export const MenuBar = ({ editor }) => {
   if (!editor) {

@@ -115,3 +115,4 @@ build
 
 # custom
 ttc-strapi/
+*.docx
