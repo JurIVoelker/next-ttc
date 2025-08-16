@@ -723,6 +723,10 @@ const CheckStep = ({
           {!isLoading && (
             <>
               <p>Artikel erfolgreich hochgeladen!</p>
+              <p>
+                Falls du einen Zeitungsartikel im Südpfalzkurier veröffentlichen
+                möchtest, musst du das nun auf der Webseite bestätigen.
+              </p>
               <Button
                 onClick={() => (window.location.href = "/aktuelles")}
                 className="mt-8"
