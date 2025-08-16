@@ -25,33 +25,58 @@ const Aktuelles: React.FC<AktuellesPageProps> = ({
     parseInt(typeof query.seite !== "string" ? "1" : query.seite) || -1;
   const maxPages = initialArticles.meta.pagination.pageCount;
 
-  async function fetchServices() {
-    const services = await axios.get(
-      `${publicStrapiUrl}/api/articles?pagination[page]=${currentPage}&pagination[pageSize]=${PAGE_SIZE}&populate=deep&sort[0]=datum:desc`
+  async function fetchArticles() {
+    const isAdmin = Boolean(localStorage.getItem("jwt"));
+    const articles = await axios.get(
+      `${publicStrapiUrl}/api/articles?pagination[page]=${
+        currentPage - 1
+      }&pagination[pageSize]=${PAGE_SIZE}&populate=deep&sort[0]=datum:desc${
+        isAdmin ? "&publicationState=preview" : ""
+      }`
     );
-    return services.data;
+    return articles.data;
   }
 
   useEffect(() => {
-    if (typeof localStorage !== "undefined") {
-      setJwt(localStorage.getItem("jwt"));
+    if (typeof localStorage === "undefined" || !isReady) {
+      return;
     }
-    if (!isReady) return;
-    if (currentPage > maxPages) handleChangePage(maxPages);
-    if (currentPage < INITIAL_PAGE) handleChangePage(INITIAL_PAGE);
-    if (currentPage === 1) {
+    const jwt = localStorage.getItem("jwt");
+    setJwt(jwt);
+    if (currentPage === 1 && !jwt) {
       setArticles(initialArticles);
       setTimeout(() => {
         setLoading(false);
       }, 300);
-    } else {
-      fetchServices().then((res) => {
-        setArticles(res);
-        setTimeout(() => {
-          setLoading(false);
-        }, 200);
-      });
+      return;
     }
+    if ((currentPage || 0) < INITIAL_PAGE)
+      return handleChangePage(INITIAL_PAGE);
+    if (currentPage > Math.max(maxPages, 1)) return handleChangePage(maxPages);
+    fetchArticles().then((res) => {
+      const sortedArticles = res.data.sort((a, b) => {
+        if (
+          a.attributes.publishedAt === null &&
+          b.attributes.publishedAt !== null
+        ) {
+          return -1;
+        }
+        if (
+          a.attributes.publishedAt !== null &&
+          b.attributes.publishedAt === null
+        ) {
+          return 1;
+        }
+        return (
+          new Date(b.attributes.datum).getTime() -
+          new Date(a.attributes.datum).getTime()
+        );
+      });
+      setArticles({ data: sortedArticles, meta: res.meta });
+      setTimeout(() => {
+        setLoading(false);
+      }, 200);
+    });
   }, [isReady, currentPage]);
 
   const handleChangePage = (page: number) => {
@@ -67,8 +92,8 @@ const Aktuelles: React.FC<AktuellesPageProps> = ({
       </h1>
       <p>{strapiData?.attributes?.aktuellesText}</p>
       {jwt && (
-        <Link className={styles.newArticle} href="/aktuelles/neuer-artikel">
-          Neuen Artikel schreiben
+        <Link className={styles.newArticle} href="/zeitungsartikel">
+          Artikel schreiben
         </Link>
       )}
       <div className={styles.cardCollection}>
@@ -77,7 +102,11 @@ const Aktuelles: React.FC<AktuellesPageProps> = ({
           articles?.data?.map((article, index) => {
             return (
               <Card
-                href={`aktuelles/${article.attributes.slug}`}
+                href={
+                  article.attributes.publishedAt !== null
+                    ? `/aktuelles/${article.attributes.slug}`
+                    : `/zeitungsartikel?slug=${article.attributes.slug}`
+                }
                 key={index}
                 title={article.attributes.titel}
                 description={article.attributes.kurzBeschreibung}
@@ -86,6 +115,7 @@ const Aktuelles: React.FC<AktuellesPageProps> = ({
                 slug={article.attributes.slug}
                 id={article.id}
                 image={article.attributes.vorschauBild.data}
+                isDraft={article.attributes.publishedAt === null}
               />
             );
           })}

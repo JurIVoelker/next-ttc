@@ -10,7 +10,7 @@ interface GalleryProps {
 const Gallery: React.FC<GalleryProps> = ({ images }) => {
   return (
     <div className={styles.galleryWrapper}>
-      {images.map((image, id) => (
+      {images?.map((image, id) => (
         <StrapiImage
           img={image}
           className={styles.image}

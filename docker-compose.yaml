@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./frontend:/app
+    command: ["npm", "start"]
+    depends_on:
+      - backend
+    expose:
+      - 3000
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "1337:1337"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./backend:/app
+    command: ["npm", "start"]
+  

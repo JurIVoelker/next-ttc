@@ -1,6 +1,7 @@
 import { z } from "zod";
 import axios from "axios";
 import { getAuthHeader } from "../utils/authUtils";
+import slugify from "slugify";
 
 export const publicStrapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL_PUBLIC;
 
@@ -75,17 +76,30 @@ function validateArticle(body) {
   }
 }
 
-export async function createArticle(body, images, previewImage, setProgress) {
+export async function createArticle(
+  body,
+  images,
+  previewImage,
+  setProgress,
+  options = {}
+) {
   // Validate input
   if (validateArticle(body));
 
+  const { saveAsDraft, draftData } = options;
+
   // Check if slug is defined
-  const slug = getSlug(body.titel);
-  if (!slug) throw new Error(`Fehler beim erstellen der Route: ${slug}`);
+  const slug = slugify(body.titel);
+  if (!slug) throw new Error(`Der Titel ist Leer! Bitte gib einen Titel ein.`);
 
   // Extract date
-  const { day, month, year } = body.datum;
-  const date = new Date(year, month - 1, day + 1);
+  let date;
+  if (typeof body.datum?.day === "undefined") {
+    date = new Date();
+  } else {
+    const { day, month, year } = body.datum;
+    date = new Date(year, month - 1, day + 1);
+  }
 
   // Request body
   const reqBody = {
@@ -94,17 +108,30 @@ export async function createArticle(body, images, previewImage, setProgress) {
     datum: date,
     text: body.text,
     slug: slug,
+    publishedAt: saveAsDraft ? null : new Date().toISOString(),
   };
 
   try {
+    let response;
     // Upload article
-    const response = await axios.post(
-      publicStrapiUrl + "/api/articles",
-      {
-        data: reqBody,
-      },
-      getAuthHeader()
-    );
+    if (draftData) {
+      reqBody.slug = undefined;
+      response = await axios.put(
+        publicStrapiUrl + `/api/articles/${draftData.id}`,
+        {
+          data: reqBody,
+        },
+        getAuthHeader()
+      );
+    } else {
+      response = await axios.post(
+        publicStrapiUrl + "/api/articles",
+        {
+          data: reqBody,
+        },
+        getAuthHeader()
+      );
+    }
 
     // Upload images
     const articleId = response.data.data.id;
@@ -172,11 +199,14 @@ export async function editArticle(body, articleId) {
 const ArticlesSchema = z.object({
   titel: z.string(),
   kurzBeschreibung: z.string(),
-  datum: z.object({
-    day: z.number(),
-    month: z.number(),
-    year: z.number(),
-  }),
+  datum: z.union([
+    z.object({
+      day: z.number(),
+      month: z.number(),
+      year: z.number(),
+    }),
+    z.date(),
+  ]),
   text: z.string(),
 });
 
@@ -194,7 +224,7 @@ const getSlug = (string) => {
   return slug;
 };
 
-async function uploadArticleImage(file, refId, field) {
+export async function uploadArticleImage(file, refId, field) {
   const formData = new FormData();
   formData.append("ref", "api::article.article");
   formData.append("refId", refId);
