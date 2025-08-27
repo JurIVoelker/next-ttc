@@ -12,7 +12,6 @@
     "ci:import-strapi-data": "bun run strapi import --force -f strapi-export-ci.tar.gz",
     "deploy:frontend": "node deploy-frontend.js",
     "develop": "strapi develop",
-    "install-linux-deps": "bash install.sh",
     "start": "strapi start",
     "strapi": "strapi",
     "strapi:export": "strapi export --file export.tar.gz --no-encrypt",

@@ -34,16 +34,17 @@ const selectArticle = async (page, filePath) => {
 };
 
 const uploadArticle = async (filePath) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
 
   await page.goto("https://meinwittich.wittich.de/");
   await closeCookieModal(page);
   await login(page);
   await openArticleList(page);
-
   await selectArticle(page, filePath);
-
   console.log("Article uploaded successfully!");
   await browser.close();
   console.log("Browser closed.");
