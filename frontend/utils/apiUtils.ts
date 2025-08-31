@@ -7,7 +7,6 @@ export const apiRequest = async (path: string) => {
         Authorization: process.env.TT_API_KEY,
       },
     });
-    console.log({ data: res.data });
     return res.data;
   } catch (error) {
     console.error("Error fetching data from the API:", error.status);

@@ -16,7 +16,6 @@ const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController("api::article.article", () => ({
   async aiArticle(ctx) {
-    console.log("AI Article request received");
     const { text, task } = ctx.request.body;
     if (!text || !task) {
       return ctx.badRequest("Text and task are required.");
@@ -27,7 +26,6 @@ module.exports = createCoreController("api::article.article", () => ({
     });
   },
   async newsPaperArticle(ctx) {
-    console.log("News paper article request received");
     try {
       const { title, text, images } = ctx?.request?.body;
       const bufferedImageWithDetails = [];

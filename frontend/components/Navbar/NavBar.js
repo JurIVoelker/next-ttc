@@ -75,7 +75,6 @@ const NavBar = () => {
       id: "anderes",
       name: "Anderes",
       children: [
-        { id: "links", name: "Links", href: "/anderes/links" },
         { id: "downloads", name: "Downloads", href: "/anderes/downloads" },
         { id: "impressum", name: "Impressum", href: "/anderes/impressum" },
         {
