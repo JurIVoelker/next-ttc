@@ -2,6 +2,7 @@ import { Match, TTApiMatchesReturnType } from "@/types/ttApiTypes";
 import GameCard from "../../components/GameCard/GameCard";
 import styles from "./spiele.module.scss";
 import { apiRequest } from "@/utils/apiUtils";
+import { getUpcomingMatches } from "@/utils/matchUtils";
 
 const Spiele = ({ nextGames }: { nextGames: Match[] }) => {
   const categorizedGames = [];
@@ -53,9 +54,10 @@ export default Spiele;
 
 export async function getStaticProps() {
   const nextGames: TTApiMatchesReturnType = await apiRequest("/api/v1/matches");
+
   return {
     props: {
-      nextGames: nextGames.matches,
+      nextGames: getUpcomingMatches(nextGames.matches),
     },
     revalidate: 21600,
   };

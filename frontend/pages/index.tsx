@@ -11,6 +11,7 @@ import { StrapiImage } from "../components/StrapiImage/StrapiImage";
 import { HomePageProps } from "../types/pageTypes";
 import { Match, TTApiMatchesReturnType } from "@/types/ttApiTypes";
 import { apiRequest } from "@/utils/apiUtils";
+import { getUpcomingMatches } from "@/utils/matchUtils";
 
 const Index: React.FC<HomePageProps> = ({
   strapiData,
@@ -121,7 +122,10 @@ export async function getStaticProps() {
     props: {
       strapiData: startPageData.data,
       nextGames:
-        nextGames?.matches.splice(0, START_PAGE_NEXT_GAMES_COUNT) || [],
+        getUpcomingMatches(nextGames.matches).splice(
+          0,
+          START_PAGE_NEXT_GAMES_COUNT
+        ) || [],
       articles,
     },
     revalidate: 600,
