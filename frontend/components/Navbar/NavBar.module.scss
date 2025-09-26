@@ -7,9 +7,6 @@
   position: fixed;
   z-index: 2;
   .buttonContainer {
-    @include size-s {
-      display: flex;
-    }
     height: 100%;
     display: none;
     align-items: center;
@@ -27,6 +24,11 @@
         height: 100%;
         width: 100%;
       }
+    }
+  }
+  @include size-s {
+    .buttonContainer {
+      display: flex;
     }
   }
 }
