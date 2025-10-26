@@ -46,7 +46,7 @@ export async function getStaticProps() {
       strapiData: mannschaftenData.data,
       teams: teams.filter(
         (team) =>
-          team.teamName.startsWith("Herren") ||
+          team.teamName.startsWith("Erwachsene") ||
           team.teamName.startsWith("Damen")
       ),
     },
