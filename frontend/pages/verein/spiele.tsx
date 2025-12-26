@@ -2,7 +2,7 @@ import { Match, TTApiMatchesReturnType } from "@/types/ttApiTypes";
 import GameCard from "../../components/GameCard/GameCard";
 import styles from "./spiele.module.scss";
 import { apiRequest } from "@/utils/apiUtils";
-import { getUpcomingMatches } from "@/utils/matchUtils";
+import { getUpcomingMatches as filterUpcomingMatches } from "@/utils/matchUtils";
 
 const Spiele = ({ nextGames }: { nextGames: Match[] }) => {
   const categorizedGames = [];
@@ -33,7 +33,7 @@ const Spiele = ({ nextGames }: { nextGames: Match[] }) => {
               <h2>{new Date(games[0].datetime).toLocaleDateString()}</h2>
               <div className={styles.games}>
                 {games.map((game, i) => (
-                  <GameCard game={game} key={i} />
+                  <GameCard game={game} key={i} isShowDate />
                 ))}
               </div>
             </div>
@@ -57,7 +57,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      nextGames: getUpcomingMatches(nextGames.matches),
+      nextGames: filterUpcomingMatches(nextGames.matches),
     },
     revalidate: 21600,
   };

@@ -20,18 +20,8 @@ const GameCard = ({
         </div>
       )}
       <div className={styles.teams}>
-        {game.isHomeGame && (
-          <>
-            <div>{game.teams.home.name}</div>
-            <div>{game.teams.away.name}</div>
-          </>
-        )}
-        {!game.isHomeGame && (
-          <>
-            <div>{game.teams.away.name}</div>
-            <div>{game.teams.home.name}</div>
-          </>
-        )}
+        <div>{game.teams.home.name}</div>
+        <div>{game.teams.away.name}</div>
       </div>
     </div>
   );
