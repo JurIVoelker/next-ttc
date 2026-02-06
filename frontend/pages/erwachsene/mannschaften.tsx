@@ -14,7 +14,7 @@ const Mannschaften: React.FC<MannschaftenPageType> = ({
       <h1 className="mb-6">{titel}</h1>
       {teams.map((team, index) => {
         const image = mannschaften.find(
-          (strapiTeam) => strapiTeam.name === team.teamName
+          (strapiTeam) => strapiTeam.name === team.teamName,
         );
         return (
           <Team
@@ -35,7 +35,7 @@ export default Mannschaften;
 
 export async function getStaticProps() {
   const mannschaftenData = await getRequest(
-    "mannschaften-herren-page?populate=deep"
+    "mannschaften-herren-page?populate=deep",
   );
 
   const teams: TTAPITeamType[] = (await apiRequest("/api/v1/players"))
@@ -47,7 +47,7 @@ export async function getStaticProps() {
       teams: teams.filter(
         (team) =>
           team.teamName.startsWith("Erwachsene") ||
-          team.teamName.startsWith("Damen")
+          team.teamName.startsWith("Damen"),
       ),
     },
     revalidate: 600,

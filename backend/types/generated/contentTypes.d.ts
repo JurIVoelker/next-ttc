@@ -1395,6 +1395,7 @@ export interface ApiTrainingErwachsenePageTrainingErwachsenePage
     bild: Attribute.Media;
     trainingszeiten: Attribute.Component<'content.trainingszeit', true>;
     seo: Attribute.Component<'shared.seo'>;
+    additionalInfo: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

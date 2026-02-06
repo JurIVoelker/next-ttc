@@ -13,6 +13,7 @@ export interface StrapiImageProps {
   className?: string;
   alt?: string;
   sizes?: string;
+  style?: React.CSSProperties;
 }
 
 export interface TeamType {

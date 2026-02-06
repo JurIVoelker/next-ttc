@@ -101,6 +101,7 @@ export interface ErwachseneTrainingPageProps {
       bild: StrapiImageType;
       text: string;
       titel: string;
+      additionalInfo?: StrapiImageType;
     };
   };
 }

@@ -7,6 +7,7 @@ export const StrapiImage: React.FC<StrapiImageProps> = ({
   img,
   alt = "bild",
   sizes = sizesDefault,
+  style = {},
   ...props
 }) => {
   const [isLoading, setLoading] = useState(true);
@@ -20,6 +21,7 @@ export const StrapiImage: React.FC<StrapiImageProps> = ({
         borderRadius: "0.325rem",
         height: "auto",
         display: "block",
+        ...style,
       }}
       {...props}
     >
@@ -32,7 +34,12 @@ export const StrapiImage: React.FC<StrapiImageProps> = ({
         onLoad={() => {
           setLoading(false);
         }}
-        style={{ opacity: isLoading ? 0 : 1, transition: "opacity 250ms" }}
+        style={{
+          opacity: isLoading ? 0 : 1,
+          transition: "opacity 250ms",
+          width: "100%",
+          height: "auto",
+        }}
       />
     </div>
   );
