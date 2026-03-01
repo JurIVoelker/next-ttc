@@ -1,35 +1,16 @@
-const axios = require("axios");
+const { revalidatePaths } = require("../../../../../utils/revalidate");
 
 module.exports = {
-  async afterCreate() {
-    await revalidatePaths();
+  async afterCreate(event) {
+    revalidatePaths(["/aktuelles", "/"]);
   },
 
-  async afterUpdate() {
-    await revalidatePaths();
+  async afterUpdate(event) {
+    revalidatePaths(["/aktuelles", "/", `/aktuelles/${event.result.slug}`]);
   },
 
-  async afterDelete() {
-    await revalidatePaths();
+  async afterDelete(event) {
+    console.log("afterDelete event:", event);
+    revalidatePaths(["/aktuelles", "/", `/aktuelles/${event.result.slug}`]);
   },
 };
-
-async function revalidatePaths() {
-  const paths = ["/aktuelles", "/"];
-
-  const revalidationPromises = paths.map((path) =>
-    axios.post(`${process.env.NEXT_PUBLIC_URL}/api/revalidate`, null, {
-      params: {
-        secret: process.env.REVALIDATION_SECRET,
-        path: path,
-      },
-    })
-  );
-
-  try {
-    await Promise.all(revalidationPromises);
-    console.log("All paths revalidated successfully");
-  } catch (error) {
-    console.error("Error revalidating paths:", error);
-  }
-}

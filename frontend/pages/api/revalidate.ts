@@ -43,12 +43,19 @@ export default async function handler(
       .json({ message: "secret and path are required fields" });
 
   if (secret !== REVALIDATION_SECRET)
-    return res.status(401).json({ message: "secret is invalid" });
+    return res.status(403).json({ message: "secret is invalid" });
 
   try {
     await res.revalidate(path.toString());
   } catch (error) {
+    if (error instanceof Error) {
+      if (error.message.includes("404")) {
+        console.warn(`Path ${path} not found during revalidation`);
+        return res.status(404).json({ message: `Path ${path} not found` });
+      }
+    }
     return res.status(500).json({ message: `Could not revalidate ${path}` });
+
   }
   return res
     .status(200)
