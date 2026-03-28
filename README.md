@@ -2,6 +2,8 @@
 
 Dies ist die offizielle Website des **TTC Klingenmünster** (Tischtennisclub Klingenmünster). Die Seite dient als zentrale Informationsplattform für Mitglieder, Interessierte und Gäste des Vereins – mit Neuigkeiten, Trainingszeiten, Mannschaftsinformationen und mehr.
 
+![TTC Klingenmünster – Startseite](assets/ttcklm-startseite.png)
+
 ## Technologien
 
 ### Frontend
