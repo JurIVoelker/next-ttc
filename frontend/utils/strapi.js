@@ -5,6 +5,11 @@ import slugify from "slugify";
 
 export const publicStrapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL_PUBLIC;
 
+// Strapi UID fields only allow [A-Za-z0-9-_.~], so strip everything else
+// (e.g. ":" or "!") and transliterate umlauts (ü -> ue).
+export const getArticleSlug = (title) =>
+  slugify(title || "", { strict: true, locale: "de" });
+
 export async function getRequest(route, options) {
   try {
     const data = await axios
@@ -89,7 +94,7 @@ export async function createArticle(
   const { saveAsDraft, draftData } = options;
 
   // Check if slug is defined
-  const slug = slugify(body.titel);
+  const slug = getArticleSlug(body.titel);
   if (!slug) throw new Error(`Der Titel ist Leer! Bitte gib einen Titel ein.`);
 
   // Extract date
@@ -111,6 +116,7 @@ export async function createArticle(
     publishedAt: saveAsDraft ? null : new Date().toISOString(),
   };
 
+  let failedImageUploads = 0;
   try {
     let response;
     // Upload article
@@ -135,36 +141,38 @@ export async function createArticle(
 
     // Upload images
     const articleId = response.data.data.id;
-    const uploadPromises = images.map((image) => {
-      return uploadArticleImage(image, articleId, "bilder")
-        .then(() => {
-          setProgress((prev) => prev + 1);
-        })
-        .catch((e) => {
-          return "error", e; // Todo logging
-        });
-    });
+    const uploads = images.map((image) => ({ image, field: "bilder" }));
+    if (previewImage) uploads.push({ image: previewImage, field: "vorschauBild" });
 
-    uploadPromises.push(
-      uploadArticleImage(previewImage, articleId, "vorschauBild")
-        .then(() => {
+    const results = await Promise.allSettled(
+      uploads.map(({ image, field }) =>
+        uploadArticleImage(image, articleId, field).then(() => {
           setProgress((prev) => prev + 1);
         })
-        .catch((e) => {
-          return "error", e; // Todo logging
-        })
+      )
     );
-    await Promise.all(uploadPromises);
+    failedImageUploads = results.filter(
+      (result) => result.status === "rejected"
+    ).length;
   } catch (error) {
-    if (error?.response?.data?.error?.details?.errors) {
-      if (error?.response?.data?.error?.details?.errors[0].path[0] === "slug") {
-        throw new Error(
-          `Bitte wähle einen anderen Titel! "${body.titel}" ist bereits vergeben!`
-        );
-      }
+    const slugError = error?.response?.data?.error?.details?.errors?.find(
+      (e) => e?.path?.[0] === "slug"
+    );
+    if (slugError && /unique/i.test(slugError.message || "")) {
+      throw new Error(
+        `Bitte wähle einen anderen Titel! "${body.titel}" ist bereits vergeben!`
+      );
     }
     throw new Error(
-      error?.message || "Ein unerwarteter Fehler ist aufgetreten"
+      error?.response?.data?.error?.message ||
+        error?.message ||
+        "Ein unerwarteter Fehler ist aufgetreten"
+    );
+  }
+
+  if (failedImageUploads > 0) {
+    throw new Error(
+      `Der Artikel wurde gespeichert, aber ${failedImageUploads} Bild(er) konnten nicht hochgeladen werden.`
     );
   }
 }

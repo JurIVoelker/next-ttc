@@ -20,6 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 import {
   createArticle,
+  getArticleSlug,
   getRequest,
   publicStrapiUrl,
   publicStrapiUrl as STRAPI_URL,
@@ -28,7 +29,6 @@ import {
 import { Loader2, OctagonAlert } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import slugify from "slugify";
 import { useDebounce } from "use-debounce";
 import z from "zod";
 
@@ -62,7 +62,7 @@ const ZeitungsArtikelPage = () => {
 
   const { push } = useRouter();
 
-  const [debouncedSlug] = useDebounce(slugify(title), 500);
+  const [debouncedSlug] = useDebounce(getArticleSlug(title), 500);
 
   useEffect(() => {
     const ERROR_MESSAGE = "Artikel mit diesem Titel existiert bereits.";
@@ -207,12 +207,14 @@ const ZeitungsArtikelPage = () => {
         );
       } catch (error) {
         setError(error?.message || "Fehler beim Hochladen des Artikels");
+        setIsLoading(false);
+        return false;
       }
-      setIsLoading(false);
     } catch (error) {
       console.error("Error uploading article:", error);
       setError("Fehler beim Hochladen des Artikels");
       setIsLoading(false);
+      return false;
     }
     console.log("Artikel erfolgreich hochgeladen!");
     setUploadProgress((prev) => ({
@@ -220,6 +222,7 @@ const ZeitungsArtikelPage = () => {
       article: 100,
     }));
     setIsLoading(false);
+    return true;
   };
 
   const uploadNewsPaperArticle = async (data: {
@@ -261,7 +264,7 @@ const ZeitungsArtikelPage = () => {
       console.error("Error uploading newspaper article:", error);
       setError("Fehler beim Hochladen des Zeitungsartikels");
       setIsLoading(false);
-      return;
+      return false;
     }
     setUploadProgress((prev) => ({
       ...prev,
@@ -269,6 +272,7 @@ const ZeitungsArtikelPage = () => {
     }));
     console.log("Zeitungsartikel erfolgreich hochgeladen!");
     setIsLoading(false);
+    return true;
   };
 
   const saveAsDraft = async (data: { title: string; text: string }) => {
@@ -490,12 +494,12 @@ const CheckStep = ({
     text: string;
     titleImage: FileWithPreview;
     images: FileWithPreview[];
-  }) => Promise<void>;
+  }) => Promise<boolean>;
   uploadNewsPaperArticle: (data: {
     title: string;
     text: string;
     images: FileWithPreview[];
-  }) => Promise<void>;
+  }) => Promise<boolean>;
   isLoading: boolean;
   uploadProgress: {
     article: number;
@@ -507,12 +511,17 @@ const CheckStep = ({
     null
   );
   const [newsPaperImages, setNewsPaperImages] = useState<FileWithPreview[]>([]);
+  const [uploadResult, setUploadResult] = useState<{
+    article?: boolean;
+    newspaperArticle?: boolean;
+  } | null>(null);
 
   useEffect(() => {
     (async () => {
       if (finishStep === 4) {
+        const result: { article?: boolean; newspaperArticle?: boolean } = {};
         if (saveSettings.website.checked) {
-          await uploadArticle({
+          result.article = await uploadArticle({
             title: validatedData.data.title,
             text: validatedData.data.text,
             titleImage: selectedImage,
@@ -520,12 +529,13 @@ const CheckStep = ({
           });
         }
         if (saveSettings.newsPaper.checked) {
-          await uploadNewsPaperArticle({
+          result.newspaperArticle = await uploadNewsPaperArticle({
             title: validatedData.data.title,
             text: validatedData.data.text,
             images: newsPaperImages,
           });
         }
+        setUploadResult(result);
       }
     })();
   }, [finishStep]);
@@ -720,13 +730,28 @@ const CheckStep = ({
               )}
             </>
           )}
-          {!isLoading && (
+          {!isLoading && uploadResult && (
             <>
-              <p>Artikel erfolgreich hochgeladen!</p>
-              <p>
-                Falls du einen Zeitungsartikel im Südpfalzkurier veröffentlichen
-                möchtest, musst du das nun auf der Webseite bestätigen.
-              </p>
+              {uploadResult.article === true && (
+                <p>Artikel erfolgreich hochgeladen!</p>
+              )}
+              {uploadResult.article === false && (
+                <p className="text-red-500">
+                  Der Artikel konnte nicht hochgeladen werden.
+                </p>
+              )}
+              {uploadResult.newspaperArticle === true && (
+                <p>
+                  Zeitungsartikel erfolgreich hochgeladen! Damit er im
+                  Südpfalzkurier veröffentlicht wird, musst du das nun auf der
+                  Webseite bestätigen.
+                </p>
+              )}
+              {uploadResult.newspaperArticle === false && (
+                <p className="text-red-500">
+                  Der Zeitungsartikel konnte nicht hochgeladen werden.
+                </p>
+              )}
               <Button
                 onClick={() => (window.location.href = "/aktuelles")}
                 className="mt-8"
