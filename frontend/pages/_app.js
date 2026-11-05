@@ -8,9 +8,9 @@ import { useEffect } from "react";
 import { decode } from "jsonwebtoken";
 
 export default function MyApp({ Component, pageProps, globalFooterData }) {
-  const seo = pageProps?.strapiData?.data?.attributes?.seo;
-  const aktuellesTitle = pageProps?.postData?.attributes?.titel;
-  const aktuellesDescription = pageProps?.postData?.attributes?.text;
+  const seo = pageProps?.strapiData?.data?.seo;
+  const aktuellesTitle = pageProps?.postData?.titel;
+  const aktuellesDescription = pageProps?.postData?.text;
 
   useEffect(() => {
     if (typeof localStorage === "undefined") return;
@@ -42,7 +42,7 @@ MyApp.getInitialProps = async (appContext) => {
     const response = await axios.get(
       `${publicStrapiUrl}/api/global?populate=*`,
     );
-    const { joolaLogo, ttcKlingenmuensterLogo } = response.data.data.attributes;
+    const { joolaLogo, ttcKlingenmuensterLogo } = response.data.data;
     return {
       ...appProps,
       globalFooterData: {

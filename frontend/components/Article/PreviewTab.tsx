@@ -39,10 +39,10 @@ export const PreviewTab = ({
             <h3 style={{ marginBottom: "16px" }}>Vorschau</h3>
             <Card
               description={shortenedText}
-              imageUrl={preview.data ? undefined : URL.createObjectURL(preview)}
+              imageUrl={preview.url ? undefined : URL.createObjectURL(preview)}
               title={title}
               date={formattedDate}
-              image={preview.data ? preview.data : undefined}
+              image={preview.url ? preview : undefined}
             />
           </>
         )}

@@ -21,7 +21,7 @@ interface CardProps {
   isEditable?: boolean;
   href?: string;
   slug?: string;
-  id?: number;
+  documentId?: string;
   image?: any;
   isDraft?: boolean;
 }
@@ -34,14 +34,14 @@ const Card: React.FC<CardProps> = ({
   isEditable,
   href,
   slug,
-  id,
+  documentId,
   image,
   isDraft = false,
 }) => {
   const ContentWrapperComponent = href ? Link : "div";
 
   const handleDelete = () => {
-    deleteArticle(id).then(() => {
+    deleteArticle(documentId).then(() => {
       window.location.reload();
     });
   };
@@ -81,7 +81,7 @@ const Card: React.FC<CardProps> = ({
           />
         )}
 
-        {image?.attributes && (
+        {image?.url && (
           <StrapiImage
             img={image}
             alt="Hinzugefügte Bilder"

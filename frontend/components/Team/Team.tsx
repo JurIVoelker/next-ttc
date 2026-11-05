@@ -2,7 +2,9 @@ import styles from "./Team.module.scss";
 import ImageTextModule from "../ImageTextModule/ImageTextModule";
 
 const Team = ({ image, players, title, imagePosition, altImage }) => {
-  const img = image ? image : altImage;
+  // `image` is undefined when no Strapi team matches; a matched team without
+  // a picture (null) shows no image, as in Strapi 4 (where it was { data: null }).
+  const img = image !== undefined ? image : altImage;
   return (
     <ImageTextModule
       image={img}

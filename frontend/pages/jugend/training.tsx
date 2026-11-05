@@ -4,10 +4,10 @@ import { getRequest } from "../../utils/strapi";
 
 const Jugend: React.FC<JugendTraininPageProps> = ({ strapiData }) => {
   const trainDates = [
-    { title: "Anfänger", data: strapiData.attributes.anfaengerTraining },
+    { title: "Anfänger", data: strapiData.anfaengerTraining },
     {
       title: "Fortgeschrittene",
-      data: strapiData.attributes.fortgeschrittenenTraining,
+      data: strapiData.fortgeschrittenenTraining,
     },
   ];
 
@@ -15,9 +15,9 @@ const Jugend: React.FC<JugendTraininPageProps> = ({ strapiData }) => {
     <>
       <Training
         trainDates={trainDates}
-        title={strapiData.attributes.titel}
-        image={strapiData.attributes.bild}
-        text={strapiData.attributes.text}
+        title={strapiData.titel}
+        image={strapiData.bild}
+        text={strapiData.text}
       />
     </>
   );

@@ -1,7 +1,7 @@
 import { getRequest } from "@/utils/strapi";
 import { replaceAnchorTagsWithLink } from "@/utils/stringUtils";
 
-type SponsorType = { name?: string; url?: string; text?: string; id: number };
+type SponsorType = { name?: string; url?: string; text?: string; id?: number };
 type PageMetaType = {
   title: string;
   text: string;
@@ -17,9 +17,9 @@ const Sponsoren = ({ pageMeta }: { pageMeta: PageMetaType }) => {
       <p className="mb-10">{replaceAnchorTagsWithLink(text)}</p>
       <div className="space-y-6">
         {sponsors?.length > 0 &&
-          sponsors.map((sponsor) => (
+          sponsors.map((sponsor, index) => (
             <div
-              key={sponsor?.id}
+              key={sponsor?.id ?? index}
               className="outline-1 outline-gray-300 p-4 rounded-lg"
             >
               <h3 className="mb-2">{sponsor?.name}</h3>
@@ -45,13 +45,11 @@ export default Sponsoren;
 
 export async function getStaticProps() {
   const sponsors: {
-    data: {
-      attributes: PageMetaType;
-    };
+    data: PageMetaType | null;
   } = await getRequest("sponsor-page?populate=*");
   return {
     props: {
-      pageMeta: sponsors?.data?.attributes || [],
+      pageMeta: sponsors?.data || [],
     },
     revalidate: 21600,
   };

@@ -1,18 +1,14 @@
 import { Player } from "./globalTypes";
 
-export interface StrapiImageType {
-  data: {
-    attributes: StrapiImageAttributesType;
-  };
-}
+// Strapi 5: media fields are flat file objects (or null / an array of them)
+export type StrapiImageType = StrapiImageAttributesType | null;
 
-export interface StrapiImagesType {
-  data: {
-    attributes: StrapiImageAttributesType;
-  }[];
-}
+export type StrapiImagesType = StrapiImageAttributesType[] | null;
 
 export interface StrapiImageAttributesType {
+  id?: number;
+  documentId?: string;
+  name?: string;
   width: number;
   height: number;
   url: string;
@@ -66,11 +62,9 @@ export type TTAPITeamType = {
 export interface MannschaftenPageType {
   strapiData: {
     id: number;
-    attributes: {
-      titel: string;
-      mannschaften: MannschaftType[];
-      altBild: StrapiImageType;
-    };
+    titel: string;
+    mannschaften: MannschaftType[];
+    altBild: StrapiImageType;
   };
   teams: TTAPITeamType[];
 }

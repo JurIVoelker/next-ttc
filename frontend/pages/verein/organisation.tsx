@@ -29,7 +29,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      strapiData: hallePageData.data.attributes,
+      strapiData: hallePageData.data,
     },
     revalidate: 600,
   };

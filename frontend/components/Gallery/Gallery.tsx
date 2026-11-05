@@ -4,7 +4,7 @@ import { StrapiImage } from "../StrapiImage/StrapiImage";
 import styles from "./Gallery.module.scss";
 
 interface GalleryProps {
-  images: { attributes: StrapiImageAttributesType }[];
+  images: StrapiImageAttributesType[];
 }
 
 const Gallery: React.FC<GalleryProps> = ({ images }) => {

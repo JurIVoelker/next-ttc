@@ -18,6 +18,12 @@ jobs:
         with:
           bun-version: latest
 
+      # Strapi 5 requires Node.js >= 22
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: deps backend
         run: |
           cd backend

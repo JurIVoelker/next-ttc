@@ -24,7 +24,7 @@ import {
   getRequest,
   publicStrapiUrl,
   publicStrapiUrl as STRAPI_URL,
-  uploadArticleImage,
+  uploadFile,
 } from "@/utils/strapi";
 import { Loader2, OctagonAlert } from "lucide-react";
 import { useRouter } from "next/router";
@@ -58,7 +58,9 @@ const ZeitungsArtikelPage = () => {
   });
   const [unAcceptedMessage, setUnAcceptedMessage] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [draftData, setDraftData] = useState<{ id: number } | null>(null);
+  const [draftData, setDraftData] = useState<{ documentId: string } | null>(
+    null
+  );
 
   const { push } = useRouter();
 
@@ -69,7 +71,7 @@ const ZeitungsArtikelPage = () => {
     (async () => {
       if (!debouncedSlug || draftData) return;
       const articles = await getRequest(
-        "articles?publicationState=preview&filters[slug][$eq]=" + debouncedSlug
+        "articles?status=draft&filters[slug][$eq]=" + debouncedSlug
       );
       if (articles.data.length > 0) {
         setError(ERROR_MESSAGE);
@@ -84,7 +86,7 @@ const ZeitungsArtikelPage = () => {
     const slug = query.get("slug");
     (async () => {
       const response = await getRequest(
-        "articles?publicationState=preview&filters[slug][$eq]=" + slug,
+        "articles?status=draft&filters[slug][$eq]=" + slug,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt") || ""}`,
@@ -93,9 +95,9 @@ const ZeitungsArtikelPage = () => {
       );
       const data = response.data;
       if (data.length > 0) {
-        setText(data[0].attributes.text);
-        setTitle(data[0].attributes.titel);
-        setDraftData({ id: data[0].id });
+        setText(data[0].text);
+        setTitle(data[0].titel);
+        setDraftData({ documentId: data[0].documentId });
       }
     })();
   }, []);
@@ -234,12 +236,12 @@ const ZeitungsArtikelPage = () => {
       setIsLoading(true);
       let rawUploadedData = [];
       for (const file of data.images) {
-        const uploadedFile = await uploadArticleImage(file.file, 0, "images");
+        const uploadedFile = await uploadFile(file.file);
         rawUploadedData.push(uploadedFile);
       }
 
       const uploadedImageUrls = rawUploadedData.map(
-        (file) => publicStrapiUrl + (file?.data[0]?.url || "")
+        (file) => publicStrapiUrl + (file?.url || "")
       );
 
       const res = await fetch(publicStrapiUrl + "/api/news-paper-article", {

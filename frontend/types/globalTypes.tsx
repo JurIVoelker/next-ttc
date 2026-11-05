@@ -2,16 +2,16 @@ import { StrapiImagesType, StrapiImageType } from "./strapiTypes";
 
 export interface Article {
   id: number;
-  attributes: {
-    datum: string;
-    kurzBeschreibung: string;
-    text: string;
-    titel: string;
-    vorschauBild: StrapiImageType;
-    slug: string;
-    bilder: StrapiImagesType;
-    publishedAt?: string | null;
-  };
+  documentId: string;
+  isDraft?: boolean;
+  datum: string;
+  kurzBeschreibung: string;
+  text: string;
+  titel: string;
+  vorschauBild: StrapiImageType;
+  slug: string;
+  bilder: StrapiImagesType;
+  publishedAt?: string | null;
 }
 
 export interface Articles {

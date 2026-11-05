@@ -4,7 +4,7 @@ import Image from "next/image";
 import { KontaktPageProps } from "../../types/pageTypes";
 
 const Kontakt: React.FC<KontaktPageProps> = ({ strapiData }) => {
-  const { titel, text, bild } = strapiData.attributes;
+  const { titel, text, bild } = strapiData;
   return (
     <>
       <h1>{titel}</h1>

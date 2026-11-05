@@ -8,7 +8,7 @@ const TextWrap = ({ image, text, textType = "text" }) => {
     <>
       <div className={styles.textWrapper}>
         <StrapiImage
-          img={image.data}
+          img={image}
           className={styles.image}
           sizes={SIZES_START_IMAGE}
         />

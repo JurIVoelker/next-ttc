@@ -4,7 +4,7 @@ import styles from "./impressum.module.scss";
 import { DatenschutzPageProps } from "../../types/pageTypes";
 
 const Datenschutz: React.FC<DatenschutzPageProps> = ({ strapiData }) => {
-  const { titel, datenschutz } = strapiData.data.attributes;
+  const { titel, datenschutz } = strapiData.data;
   return (
     <>
       <h1>{titel}</h1>

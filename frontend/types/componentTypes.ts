@@ -9,7 +9,7 @@ export interface LinkCardProps {
 }
 
 export interface StrapiImageProps {
-  img: { attributes: StrapiImageAttributesType };
+  img: StrapiImageAttributesType | null;
   className?: string;
   alt?: string;
   sizes?: string;

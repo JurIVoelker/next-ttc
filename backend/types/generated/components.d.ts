@@ -1,130 +1,130 @@
-import type { Schema, Attribute } from '@strapi/strapi';
+import type { Schema, Struct } from '@strapi/strapi';
 
-export interface ContentEvent extends Schema.Component {
+export interface ContentEvent extends Struct.ComponentSchema {
   collectionName: 'components_content_events';
   info: {
+    description: '';
     displayName: 'event';
     icon: 'question';
-    description: '';
   };
   attributes: {
-    titel: Attribute.String;
-    inhalt: Attribute.Blocks;
-    image: Attribute.Media;
-    location: Attribute.String;
-    tags: Attribute.Text;
-    date: Attribute.String;
+    date: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    inhalt: Schema.Attribute.Blocks;
+    location: Schema.Attribute.String;
+    tags: Schema.Attribute.Text;
+    titel: Schema.Attribute.String;
   };
 }
 
-export interface ContentFile extends Schema.Component {
+export interface ContentFile extends Struct.ComponentSchema {
   collectionName: 'components_content_files';
   info: {
+    description: '';
     displayName: 'file';
     icon: 'archive';
-    description: '';
   };
   attributes: {
-    datei: Attribute.Media;
-    name: Attribute.String;
+    datei: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    name: Schema.Attribute.String;
   };
 }
 
-export interface ContentMannschaft extends Schema.Component {
+export interface ContentMannschaft extends Struct.ComponentSchema {
   collectionName: 'components_content_mannschafts';
   info: {
     displayName: 'mannschaft';
     icon: 'emotionHappy';
   };
   attributes: {
-    name: Attribute.String;
-    bild: Attribute.Media;
+    bild: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    name: Schema.Attribute.String;
   };
 }
 
-export interface ContentMannschaften extends Schema.Component {
+export interface ContentMannschaften extends Struct.ComponentSchema {
   collectionName: 'components_content_mannschaftens';
   info: {
     displayName: 'mannschaften';
     icon: 'emotionHappy';
   };
   attributes: {
-    name: Attribute.String;
-    bild: Attribute.Media;
+    bild: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    name: Schema.Attribute.String;
   };
 }
 
-export interface ContentMitgliederBeitraege extends Schema.Component {
+export interface ContentMitgliederBeitraege extends Struct.ComponentSchema {
   collectionName: 'components_content_mitglieder_beitraeges';
   info: {
     displayName: 'mitgliederBeitr\u00E4ge';
     icon: 'check';
   };
   attributes: {
-    group: Attribute.String;
-    name: Attribute.String;
-    costs: Attribute.String;
+    costs: Schema.Attribute.String;
+    group: Schema.Attribute.String;
+    name: Schema.Attribute.String;
   };
 }
 
-export interface ContentSponsor extends Schema.Component {
+export interface ContentSponsor extends Struct.ComponentSchema {
   collectionName: 'components_content_sponsors';
   info: {
     displayName: 'sponsor';
   };
   attributes: {
-    name: Attribute.String;
-    url: Attribute.String;
-    text: Attribute.String;
+    name: Schema.Attribute.String;
+    text: Schema.Attribute.String;
+    url: Schema.Attribute.String;
   };
 }
 
-export interface ContentTextImageModule extends Schema.Component {
+export interface ContentTextImageModule extends Struct.ComponentSchema {
   collectionName: 'components_content_text_image_modules';
   info: {
+    description: '';
     displayName: 'textImageModule';
     icon: 'cube';
-    description: '';
   };
   attributes: {
-    titel: Attribute.String;
-    text: Attribute.Text;
-    bild: Attribute.Media;
-    tags: Attribute.Component<'tags.link', true>;
+    bild: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    tags: Schema.Attribute.Component<'tags.link', true>;
+    text: Schema.Attribute.Text;
+    titel: Schema.Attribute.String;
   };
 }
 
-export interface ContentTrainer extends Schema.Component {
+export interface ContentTrainer extends Struct.ComponentSchema {
   collectionName: 'components_content_trainers';
   info: {
+    description: '';
     displayName: 'trainer';
     icon: 'user';
-    description: '';
   };
   attributes: {
-    name: Attribute.String;
-    bild: Attribute.Media;
-    geburtsDatum: Attribute.Date;
-    trainerSeit: Attribute.Date;
-    vereinsfunktion: Attribute.String;
-    mannschaft: Attribute.String;
-    staerkenTrainer: Attribute.String;
-    staerkenSpieler: Attribute.String;
-    motivation: Attribute.String;
-    fairness: Attribute.String;
-    ttKeinSport: Attribute.String;
+    bild: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    fairness: Schema.Attribute.String;
+    geburtsDatum: Schema.Attribute.Date;
+    mannschaft: Schema.Attribute.String;
+    motivation: Schema.Attribute.String;
+    name: Schema.Attribute.String;
+    staerkenSpieler: Schema.Attribute.String;
+    staerkenTrainer: Schema.Attribute.String;
+    trainerSeit: Schema.Attribute.Date;
+    ttKeinSport: Schema.Attribute.String;
+    vereinsfunktion: Schema.Attribute.String;
   };
 }
 
-export interface ContentTrainingszeit extends Schema.Component {
+export interface ContentTrainingszeit extends Struct.ComponentSchema {
   collectionName: 'components_content_trainingszeits';
   info: {
+    description: '';
     displayName: 'trainingszeit';
     icon: 'clock';
-    description: '';
   };
   attributes: {
-    wochentag: Attribute.Enumeration<
+    wochentag: Schema.Attribute.Enumeration<
       [
         'Montag',
         'Dienstag',
@@ -133,109 +133,109 @@ export interface ContentTrainingszeit extends Schema.Component {
         'Freitag',
         'Samstag',
         'Sonntag',
-        'Feiertag'
+        'Feiertag',
       ]
     >;
-    zeit: Attribute.String;
+    zeit: Schema.Attribute.String;
   };
 }
 
-export interface LinkLink extends Schema.Component {
+export interface LinkLink extends Struct.ComponentSchema {
   collectionName: 'components_link_links';
   info: {
+    description: '';
     displayName: 'link';
     icon: 'attachment';
-    description: '';
   };
   attributes: {
-    name: Attribute.String;
-    link: Attribute.String;
+    link: Schema.Attribute.String;
+    name: Schema.Attribute.String;
   };
 }
 
-export interface LinkStartPageLink extends Schema.Component {
+export interface LinkStartPageLink extends Struct.ComponentSchema {
   collectionName: 'components_link_start_page_links';
   info: {
+    description: '';
     displayName: 'startPageLink';
     icon: 'link';
-    description: '';
   };
   attributes: {
-    titel: Attribute.String;
-    beschreibung: Attribute.Text;
-    route: Attribute.String;
-    vorschauBild: Attribute.Media;
+    beschreibung: Schema.Attribute.Text;
+    route: Schema.Attribute.String;
+    titel: Schema.Attribute.String;
+    vorschauBild: Schema.Attribute.Media<'images'>;
   };
 }
 
-export interface SharedMetaSocial extends Schema.Component {
+export interface SharedMetaSocial extends Struct.ComponentSchema {
   collectionName: 'components_shared_meta_socials';
   info: {
     displayName: 'metaSocial';
     icon: 'project-diagram';
   };
   attributes: {
-    socialNetwork: Attribute.Enumeration<['Facebook', 'Twitter']> &
-      Attribute.Required;
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    description: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+    description: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         maxLength: 65;
       }>;
-    image: Attribute.Media;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    socialNetwork: Schema.Attribute.Enumeration<['Facebook', 'Twitter']> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
   };
 }
 
-export interface SharedSeo extends Schema.Component {
+export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
     displayName: 'seo';
     icon: 'search';
   };
   attributes: {
-    metaTitle: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+    canonicalURL: Schema.Attribute.String;
+    keywords: Schema.Attribute.Text;
+    metaDescription: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+        minLength: 50;
+      }>;
+    metaImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    metaRobots: Schema.Attribute.String;
+    metaSocial: Schema.Attribute.Component<'shared.meta-social', true>;
+    metaTitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
       }>;
-    metaDescription: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 50;
-        maxLength: 160;
-      }>;
-    metaImage: Attribute.Media;
-    metaSocial: Attribute.Component<'shared.meta-social', true>;
-    keywords: Attribute.Text;
-    metaRobots: Attribute.String;
-    structuredData: Attribute.JSON;
-    metaViewport: Attribute.String;
-    canonicalURL: Attribute.String;
+    metaViewport: Schema.Attribute.String;
+    structuredData: Schema.Attribute.JSON;
   };
 }
 
-export interface TagsLink extends Schema.Component {
+export interface TagsLink extends Struct.ComponentSchema {
   collectionName: 'components_tags_links';
   info: {
+    description: '';
     displayName: 'link';
     icon: 'earth';
-    description: '';
   };
   attributes: {
-    text: Attribute.String;
-    url: Attribute.String;
-    icon: Attribute.Enumeration<['info', 'link']>;
+    icon: Schema.Attribute.Enumeration<['info', 'link']>;
+    text: Schema.Attribute.String;
+    url: Schema.Attribute.String;
   };
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface Components {
+declare module '@strapi/strapi' {
+  export namespace Public {
+    export interface ComponentSchemas {
       'content.event': ContentEvent;
       'content.file': ContentFile;
       'content.mannschaft': ContentMannschaft;

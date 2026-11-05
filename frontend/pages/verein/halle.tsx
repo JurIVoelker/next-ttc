@@ -5,12 +5,12 @@ import { getRequest } from "../../utils/strapi";
 const Halle: React.FC<HallePageProps> = ({ strapiData }) => {
   return (
     <>
-      <h1 className="mb-6">{strapiData.attributes.titel}</h1>
-      {strapiData.attributes.hallen.map((halle, index) => {
+      <h1 className="mb-6">{strapiData.titel}</h1>
+      {strapiData.hallen.map((halle, index) => {
         return (
           <ImageTextModule
             image={halle.bild}
-            key={halle.id}
+            key={halle.id ?? index}
             imagePosition={index % 2 === 0 ? "left" : "right"}
             tags={halle.tags}
           >

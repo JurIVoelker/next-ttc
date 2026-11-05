@@ -36,15 +36,15 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
                     onPress={() => {
                       handleSelectImage(image);
                     }}
-                    key={image.name || image.attributes.url}
+                    key={image.name || image.url}
                   >
-                    {image.attributes && (
+                    {image.url && (
                       <StrapiImage
-                        img={image.attributes}
+                        img={image}
                         alt="Hinzugefügte Bilder"
                       />
                     )}
-                    {!image.attributes && (
+                    {!image.url && (
                       <Image
                         src={URL.createObjectURL(image)}
                         alt="Hinzugefügte Bilder"
@@ -53,7 +53,7 @@ export const ImageTab = ({ images, setImages, preview, setPreview }) => {
                       />
                     )}
 
-                    <p>{image.name || image.attributes.name}</p>
+                    <p>{image.name}</p>
                   </Button>
                   <Button
                     className={styles.removeButton}

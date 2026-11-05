@@ -4,7 +4,7 @@ import styles from "./downloads.module.scss";
 import { DownloadsPageProps } from "../../types/pageTypes";
 
 const Downloads: React.FC<DownloadsPageProps> = ({ strapiData }) => {
-  const { downloads, titel } = strapiData.attributes;
+  const { downloads, titel } = strapiData;
 
   return (
     <>

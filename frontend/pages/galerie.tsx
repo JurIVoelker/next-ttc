@@ -3,11 +3,11 @@ import { GaleriePageProps } from "../types/pageTypes";
 import Gallery from "../components/Gallery/Gallery";
 
 const Galerie: React.FC<GaleriePageProps> = ({ strapiData }) => {
-  const { bilder, titel } = strapiData.attributes;
+  const { bilder, titel } = strapiData;
   return (
     <>
       <h1 className="mb-6">{titel}</h1>
-      <Gallery images={bilder.data} />
+      <Gallery images={bilder} />
     </>
   );
 };

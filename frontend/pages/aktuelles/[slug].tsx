@@ -9,16 +9,16 @@ import Gallery from "../../components/Gallery/Gallery";
 const AktuellesDetailPage: React.FC<AktuellesDetailsPageProps> = ({
   postData,
 }) => {
-  const { bilder } = postData?.attributes || {};
+  const { bilder } = postData || {};
   return (
     <>
-      <h1 style={{ marginBottom: "8px" }}>{postData.attributes.titel}</h1>
+      <h1 style={{ marginBottom: "8px" }}>{postData.titel}</h1>
       <span className={styles.date}>
-        {postData.attributes.datum.split("-").reverse().join(".")}
+        {postData.datum.split("-").reverse().join(".")}
       </span>
       <TextWrap
-        image={postData.attributes.vorschauBild}
-        text={postData.attributes.text}
+        image={postData.vorschauBild}
+        text={postData.text}
         textType="html"
       />
       {bilder && (
@@ -28,7 +28,7 @@ const AktuellesDetailPage: React.FC<AktuellesDetailsPageProps> = ({
             enableImageSelection={false}
             rowHeight={250}
           /> */}
-          <Gallery images={bilder.data} />
+          <Gallery images={bilder} />
         </div>
       )}
     </>
@@ -40,7 +40,7 @@ export default AktuellesDetailPage;
 export const getStaticPaths = async () => {
   const articles: Articles = await getRequest("articles");
   const paths = articles.data.map((article) => {
-    return { params: { slug: article.attributes.slug } };
+    return { params: { slug: article.slug } };
   });
 
   return {

@@ -4,7 +4,7 @@ import styles from "./impressum.module.scss";
 import { ImpressumPageProps } from "../../types/pageTypes";
 
 const Impressum: React.FC<ImpressumPageProps> = ({ strapiData }) => {
-  const { titel, impressum } = strapiData.attributes;
+  const { titel, impressum } = strapiData;
   return (
     <>
       <h1>{titel}</h1>

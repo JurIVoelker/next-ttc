@@ -27,9 +27,7 @@ const ImageTextModule: React.FC<ImageTextModuleProps> = ({
         imagePosition === "left" ? "" : styles.right
       } ${className ? className : ""}`}
     >
-      {image?.data && (
-        <StrapiImage img={image?.data} sizes={SIZES_START_IMAGE} />
-      )}
+      {image && <StrapiImage img={image} sizes={SIZES_START_IMAGE} />}
       <div className={styles.contentContainer}>
         {children}
         <div className={styles.tags}>

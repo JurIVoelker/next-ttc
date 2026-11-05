@@ -27,14 +27,10 @@ export async function getRequest(route, options) {
   }
 }
 
-export const getStrapiImage = (object) => {
-  let url;
-  if (object?.data) {
-    url = publicStrapiUrl + object?.data?.attributes?.url;
-  } else if (object?.attributes) {
-    url = publicStrapiUrl + object?.attributes?.url;
-  }
-  return url;
+// Strapi 5 returns media as flat file objects ({ id, url, width, ... }) or null.
+export const getStrapiImage = (file) => {
+  if (!file?.url) return undefined;
+  return publicStrapiUrl + file.url;
 };
 
 export const sizesDefault =
@@ -81,6 +77,10 @@ function validateArticle(body) {
   }
 }
 
+// Strapi 5 deprecates date-times for `date` fields. Send the same (UTC) day that
+// Strapi stored when it received the full ISO date-time.
+const toStrapiDate = (date) => date.toISOString().slice(0, 10);
+
 export async function createArticle(
   body,
   images,
@@ -110,11 +110,24 @@ export async function createArticle(
   const reqBody = {
     titel: body.titel,
     kurzBeschreibung: body.kurzBeschreibung,
-    datum: date,
+    datum: toStrapiDate(date),
     text: body.text,
     slug: slug,
-    publishedAt: saveAsDraft ? null : new Date().toISOString(),
   };
+
+  // Strapi 5: the publication state is set with the `status` query parameter
+  // (default: published). Saving an existing article as draft also takes its
+  // published version offline, like `publishedAt: null` did in Strapi 4.
+  const status = saveAsDraft ? "draft" : "published";
+
+  const uploads = images.map((image) => ({ image, field: "bilder" }));
+  if (previewImage) uploads.push({ image: previewImage, field: "vorschauBild" });
+
+  // With images, the article is saved as draft first and published together
+  // with its images in the last request, so visitors (and the ISR revalidation)
+  // never see a published article without its images.
+  const publishWithImages = !saveAsDraft && uploads.length > 0;
+  const firstStatus = publishWithImages ? "draft" : status;
 
   let failedImageUploads = 0;
   try {
@@ -123,7 +136,9 @@ export async function createArticle(
     if (draftData) {
       reqBody.slug = undefined;
       response = await axios.put(
-        publicStrapiUrl + `/api/articles/${draftData.id}`,
+        publicStrapiUrl +
+          `/api/articles/${draftData.documentId}?status=${firstStatus}` +
+          (saveAsDraft ? "&unpublish=true" : ""),
         {
           data: reqBody,
         },
@@ -131,7 +146,7 @@ export async function createArticle(
       );
     } else {
       response = await axios.post(
-        publicStrapiUrl + "/api/articles",
+        publicStrapiUrl + `/api/articles?status=${firstStatus}`,
         {
           data: reqBody,
         },
@@ -139,21 +154,52 @@ export async function createArticle(
       );
     }
 
-    // Upload images
-    const articleId = response.data.data.id;
-    const uploads = images.map((image) => ({ image, field: "bilder" }));
-    if (previewImage) uploads.push({ image: previewImage, field: "vorschauBild" });
+    const { documentId } = response.data.data;
 
-    const results = await Promise.allSettled(
-      uploads.map(({ image, field }) =>
-        uploadArticleImage(image, articleId, field).then(() => {
-          setProgress((prev) => prev + 1);
-        })
-      )
-    );
-    failedImageUploads = results.filter(
-      (result) => result.status === "rejected"
-    ).length;
+    // Upload images. Strapi 5 no longer reliably links uploads to an entry via
+    // ref/refId (draft and published versions are separate rows), so the files
+    // are uploaded first and then attached to the article by their file id.
+    if (uploads.length > 0) {
+      const results = await Promise.allSettled(
+        uploads.map(({ image }) =>
+          uploadFile(image).then((file) => {
+            setProgress((prev) => prev + 1);
+            return file;
+          })
+        )
+      );
+      failedImageUploads = results.filter(
+        (result) => result.status === "rejected"
+      ).length;
+
+      const uploaded = results
+        .map((result, i) => ({ ...uploads[i], result }))
+        .filter(({ result }) => result.status === "fulfilled");
+      const newImageIds = uploaded
+        .filter(({ field }) => field === "bilder")
+        .map(({ result }) => result.value.id);
+      const newPreviewImage = uploaded.find(
+        ({ field }) => field === "vorschauBild"
+      );
+
+      const mediaData = {};
+      if (newImageIds.length > 0) {
+        // Uploading to a multiple media field appended files in Strapi 4.
+        const existingImageIds = draftData
+          ? await getArticleImageIds(documentId)
+          : [];
+        mediaData.bilder = [...existingImageIds, ...newImageIds];
+      }
+      if (newPreviewImage)
+        mediaData.vorschauBild = newPreviewImage.result.value.id;
+      if (publishWithImages || Object.keys(mediaData).length > 0) {
+        await axios.put(
+          publicStrapiUrl + `/api/articles/${documentId}?status=${status}`,
+          { data: mediaData },
+          getAuthHeader()
+        );
+      }
+    }
   } catch (error) {
     const slugError = error?.response?.data?.error?.details?.errors?.find(
       (e) => e?.path?.[0] === "slug"
@@ -177,7 +223,16 @@ export async function createArticle(
   }
 }
 
-export async function editArticle(body, articleId) {
+async function getArticleImageIds(documentId) {
+  const response = await axios.get(
+    publicStrapiUrl +
+      `/api/articles/${documentId}?status=draft&fields[0]=slug&populate[0]=bilder`,
+    getAuthHeader()
+  );
+  return (response.data.data?.bilder || []).map((image) => image.id);
+}
+
+export async function editArticle(body, documentId) {
   if (typeof localStorage !== "undefined") {
     const jwt = localStorage.getItem("jwt");
     const { day, month, year } = body.datum;
@@ -186,11 +241,11 @@ export async function editArticle(body, articleId) {
     const reqBody = {
       titel: body.titel,
       kurzBeschreibung: body.kurzBeschreibung,
-      datum: date,
+      datum: toStrapiDate(date),
       text: body.text,
     };
     const response = await axios.put(
-      publicStrapiUrl + `/api/articles/${articleId}`,
+      publicStrapiUrl + `/api/articles/${documentId}`,
       {
         data: reqBody,
       },
@@ -232,25 +287,23 @@ const getSlug = (string) => {
   return slug;
 };
 
-export async function uploadArticleImage(file, refId, field) {
+// Uploads a file to the media library and returns the created file object.
+export async function uploadFile(file) {
   const formData = new FormData();
-  formData.append("ref", "api::article.article");
-  formData.append("refId", refId);
-  formData.append("field", field);
   formData.append("files", file);
 
-  const imageUpload = await axios.post(
+  const response = await axios.post(
     publicStrapiUrl + "/api/upload",
     formData,
     getAuthHeader()
   );
-  return imageUpload;
+  return response.data[0];
 }
 
-export async function deleteArticle(id) {
+export async function deleteArticle(documentId) {
   if (typeof localStorage !== "undefined") {
     const jwt = localStorage.getItem("jwt");
-    await axios.delete(`${publicStrapiUrl}/api/articles/${id}`, {
+    await axios.delete(`${publicStrapiUrl}/api/articles/${documentId}`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },

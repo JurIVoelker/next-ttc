@@ -7,27 +7,25 @@ import { StrapiImageType } from "../../types/strapiTypes";
 
 interface MitgliedWerdenProps {
   strapiData: {
-    attributes: {
-      title: string;
-      text: string;
-      secondText: string;
-      membershipCosts: {
-        name: string;
-        group: string;
-        costs: string;
-      }[];
-      aufnahmeAntrag: StrapiImageType;
-    };
+    title: string;
+    text: string;
+    secondText: string;
+    membershipCosts: {
+      name: string;
+      group: string;
+      costs: string;
+    }[];
+    aufnahmeAntrag: StrapiImageType;
   };
 }
 
 const MitgliedWerden: React.FC<MitgliedWerdenProps> = ({ strapiData }) => {
-  const { aufnahmeAntrag } = strapiData.attributes;
+  const { aufnahmeAntrag } = strapiData;
   return (
     <div className={styles.content}>
-      <h1>{strapiData.attributes.title}</h1>
+      <h1>{strapiData.title}</h1>
       <p className={styles.text}>
-        {replaceAnchorTagsWithLink(strapiData.attributes.text)}
+        {replaceAnchorTagsWithLink(strapiData.text)}
       </p>
       <section>
         <table className={styles.membershipCostsWrapper}>
@@ -39,8 +37,8 @@ const MitgliedWerden: React.FC<MitgliedWerdenProps> = ({ strapiData }) => {
             </tr>
           </thead>
           <tbody>
-            {strapiData?.attributes.membershipCosts &&
-              strapiData.attributes.membershipCosts.map((costs, i) => (
+            {strapiData?.membershipCosts &&
+              strapiData.membershipCosts.map((costs, i) => (
                 <tr className={styles.membershipCost} key={i}>
                   <td>{costs.group}</td>
                   <td>{costs.name}</td>
@@ -49,7 +47,7 @@ const MitgliedWerden: React.FC<MitgliedWerdenProps> = ({ strapiData }) => {
               ))}
           </tbody>
         </table>
-        <p className={styles.text}>{strapiData.attributes.secondText}</p>
+        <p className={styles.text}>{strapiData.secondText}</p>
         <Link
           href={getStrapiImage(aufnahmeAntrag)}
           className={styles.downloadButton}

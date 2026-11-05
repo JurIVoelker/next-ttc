@@ -14,7 +14,24 @@ const { imageSize } = require("image-size");
 
 const { createCoreController } = require("@strapi/strapi").factories;
 
-module.exports = createCoreController("api::article.article", () => ({
+module.exports = createCoreController("api::article.article", ({ strapi }) => ({
+  /**
+   * Strapi 5 keeps the published version online when only the draft is updated
+   * (`PUT /api/articles/:documentId?status=draft`). In Strapi 4, saving an article
+   * as draft (`publishedAt: null`) took it offline. The frontend passes
+   * `unpublish=true` to keep that behaviour.
+   */
+  async update(ctx) {
+    const { unpublish, ...query } = ctx.query || {};
+    ctx.query = query;
+    const response = await super.update(ctx);
+    if (unpublish === "true" && response?.data) {
+      await strapi
+        .documents("api::article.article")
+        .unpublish({ documentId: ctx.params.id });
+    }
+    return response;
+  },
   async aiArticle(ctx) {
     const { text, task } = ctx.request.body;
     if (!text || !task) {

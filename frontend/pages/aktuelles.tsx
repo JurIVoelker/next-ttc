@@ -31,10 +31,32 @@ const Aktuelles: React.FC<AktuellesPageProps> = ({
       `${publicStrapiUrl}/api/articles?pagination[page]=${
         currentPage - 1
       }&pagination[pageSize]=${PAGE_SIZE}&populate=deep&sort[0]=datum:desc${
-        isAdmin ? "&publicationState=preview" : ""
+        isAdmin ? "&status=draft" : ""
       }`
     );
-    return articles.data;
+    if (!isAdmin) return articles.data;
+
+    // Strapi 5: `status=draft` returns the draft version of every article
+    // (publishedAt is always null there). Mark only never published articles
+    // as drafts, like `publicationState=preview` did in Strapi 4.
+    const documentIds = articles.data.data.map((a) => a.documentId);
+    const neverPublished = new Set<string>();
+    if (documentIds.length > 0) {
+      const filter = documentIds
+        .map((id, i) => `&filters[documentId][$in][${i}]=${id}`)
+        .join("");
+      const drafts = await axios.get(
+        `${publicStrapiUrl}/api/articles?status=draft&publicationFilter=never-published&fields[0]=documentId&pagination[pageSize]=${PAGE_SIZE}${filter}`
+      );
+      drafts.data.data.forEach((a) => neverPublished.add(a.documentId));
+    }
+    return {
+      ...articles.data,
+      data: articles.data.data.map((a) => ({
+        ...a,
+        isDraft: neverPublished.has(a.documentId),
+      })),
+    };
   }
 
   useEffect(() => {
@@ -55,22 +77,13 @@ const Aktuelles: React.FC<AktuellesPageProps> = ({
     if (currentPage > Math.max(maxPages, 1)) return handleChangePage(maxPages);
     fetchArticles().then((res) => {
       const sortedArticles = res.data.sort((a, b) => {
-        if (
-          a.attributes.publishedAt === null &&
-          b.attributes.publishedAt !== null
-        ) {
+        if (a.isDraft && !b.isDraft) {
           return -1;
         }
-        if (
-          a.attributes.publishedAt !== null &&
-          b.attributes.publishedAt === null
-        ) {
+        if (!a.isDraft && b.isDraft) {
           return 1;
         }
-        return (
-          new Date(b.attributes.datum).getTime() -
-          new Date(a.attributes.datum).getTime()
-        );
+        return new Date(b.datum).getTime() - new Date(a.datum).getTime();
       });
       setArticles({ data: sortedArticles, meta: res.meta });
       setTimeout(() => {
@@ -88,9 +101,9 @@ const Aktuelles: React.FC<AktuellesPageProps> = ({
   return (
     <>
       <h1 style={{ marginBottom: "12px" }}>
-        {strapiData?.attributes?.aktuellesTitel}
+        {strapiData?.aktuellesTitel}
       </h1>
-      <p>{strapiData?.attributes?.aktuellesText}</p>
+      <p>{strapiData?.aktuellesText}</p>
       {jwt && (
         <Link className={styles.newArticle} href="/zeitungsartikel">
           Artikel schreiben
@@ -103,19 +116,19 @@ const Aktuelles: React.FC<AktuellesPageProps> = ({
             return (
               <Card
                 href={
-                  article.attributes.publishedAt !== null
-                    ? `/aktuelles/${article.attributes.slug}`
-                    : `/zeitungsartikel?slug=${article.attributes.slug}`
+                  !article.isDraft
+                    ? `/aktuelles/${article.slug}`
+                    : `/zeitungsartikel?slug=${article.slug}`
                 }
                 key={index}
-                title={article.attributes.titel}
-                description={article.attributes.kurzBeschreibung}
-                date={article.attributes.datum}
+                title={article.titel}
+                description={article.kurzBeschreibung}
+                date={article.datum}
                 isEditable={!!jwt}
-                slug={article.attributes.slug}
-                id={article.id}
-                image={article.attributes.vorschauBild.data}
-                isDraft={article.attributes.publishedAt === null}
+                slug={article.slug}
+                documentId={article.documentId}
+                image={article.vorschauBild}
+                isDraft={!!article.isDraft}
               />
             );
           })}

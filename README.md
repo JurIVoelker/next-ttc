@@ -17,7 +17,7 @@ Dies ist die offizielle Website des **TTC Klingenmünster** (Tischtennisclub Kli
 - **TypeScript** – Typsicherheit im Frontend-Code
 
 ### Backend
-- **Strapi 4** – Headless CMS für die Inhaltsverwaltung
+- **Strapi 5** – Headless CMS für die Inhaltsverwaltung
 - **SQLite** (via `better-sqlite3`) – Datenbank für Entwicklung und Produktion
 - **Puppeteer** – Headless-Browser für serverseitige Funktionen (z. B. PDF-Export)
 
@@ -26,6 +26,8 @@ Dies ist die offizielle Website des **TTC Klingenmünster** (Tischtennisclub Kli
 - **Nginx** – Reverse Proxy für die Produktion
 
 ## Entwicklung
+
+Voraussetzung: **Node.js 22** (Strapi 5 benötigt Node.js >= 22).
 
 ```bash
 bun run dev
@@ -45,6 +47,7 @@ API_TOKEN_SALT=tobemodified
 ADMIN_JWT_SECRET=tobemodified
 TRANSFER_TOKEN_SALT=tobemodified
 JWT_SECRET=tobemodified
+ENCRYPTION_KEY=tobemodified
 ```
 
 ### `/frontend/.env.local`

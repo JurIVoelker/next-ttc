@@ -22,7 +22,7 @@ const Index: React.FC<HomePageProps> = ({
     titel: eventTitle,
     image: eventImage,
     inhalt: eventContent,
-  } = strapiData?.attributes?.events || {};
+  } = strapiData?.events || {};
   const isEventVisible = eventTitle && eventImage && eventContent;
 
   return (
@@ -30,11 +30,11 @@ const Index: React.FC<HomePageProps> = ({
       {/* Willkommenstext + Bild */}
       <div className={styles.welcomeContainer}>
         <div className={styles.welcomeText}>
-          <h1>{strapiData?.attributes?.willkommenTitel}</h1>
-          <p>{strapiData?.attributes?.willkommenText}</p>
+          <h1>{strapiData?.willkommenTitel}</h1>
+          <p>{strapiData?.willkommenText}</p>
         </div>
         <StrapiImage
-          img={strapiData?.attributes?.titelbild.data}
+          img={strapiData?.titelbild}
           sizes={SIZES_START_IMAGE}
         />
       </div>
@@ -56,17 +56,17 @@ const Index: React.FC<HomePageProps> = ({
 
       {/* Mehr über unseren Verein */}
       <h2 style={{ marginBottom: "16px" }}>
-        {strapiData?.attributes?.mehrTitel}
+        {strapiData?.mehrTitel}
       </h2>
       <div className={styles.cardCollection}>
-        {strapiData?.attributes.mehrErfahrenLinks.map((link, index) => {
+        {strapiData?.mehrErfahrenLinks.map((link, index) => {
           return (
             <Card
               key={index}
               href={link.route}
               title={link.titel}
               description={link.beschreibung}
-              image={link.vorschauBild.data}
+              image={link.vorschauBild}
             />
           );
         })}
@@ -74,18 +74,18 @@ const Index: React.FC<HomePageProps> = ({
 
       {/* Aktuelles */}
       <h2 style={{ marginBottom: "16px", marginTop: "48px" }}>
-        {strapiData?.attributes?.aktuellesTitel}
+        {strapiData?.aktuellesTitel}
       </h2>
       <div className={styles.cardCollection}>
         {articles.data.map((link, index) => {
           return (
             <Card
-              href={`aktuelles/${link.attributes.slug}`}
-              slug={link.attributes.slug}
+              href={`aktuelles/${link.slug}`}
+              slug={link.slug}
               key={index}
-              title={link.attributes.titel}
-              description={link.attributes.kurzBeschreibung}
-              image={link.attributes.vorschauBild.data}
+              title={link.titel}
+              description={link.kurzBeschreibung}
+              image={link.vorschauBild}
             />
           );
         })}
@@ -99,7 +99,7 @@ const Index: React.FC<HomePageProps> = ({
       {nextGames.length > 0 && (
         <>
           <h2 style={{ marginBottom: "16px", marginTop: "48px" }}>
-            {strapiData?.attributes?.newGamesTitle || "Nächste Spiele"}
+            {strapiData?.newGamesTitle || "Nächste Spiele"}
           </h2>
           <div className={styles.games}>
             {nextGames.map((game: Match, i) => (

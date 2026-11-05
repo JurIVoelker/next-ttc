@@ -9,13 +9,13 @@ const emptyTextAreaContent = '<p><br class="ProseMirror-trailingBreak"></p>';
 const EditPage = ({ postData }) => {
   const [tab, setTab] = useState("text");
   /* Text Tab */
-  const [title, setTitle] = useState(postData?.attributes?.titel);
-  const [date, setDate] = useState(parseDate(postData.attributes.datum));
-  const [text, setText] = useState(postData.attributes.text);
+  const [title, setTitle] = useState(postData?.titel);
+  const [date, setDate] = useState(parseDate(postData.datum));
+  const [text, setText] = useState(postData.text);
 
   /* Image Tab */
   const [previewImage, setPreviewImage] = useState(
-    postData.attributes.vorschauBild || false
+    postData.vorschauBild || false
   );
   const [images, setImages] = useState(null);
 
@@ -35,7 +35,7 @@ const EditPage = ({ postData }) => {
       datum: date,
       text: text,
     };
-    editArticle(body, postData.id).then((res) => {
+    editArticle(body, postData.documentId).then((res) => {
       setIsSending(false);
       if ((res as any).error) {
         if ((res as any) === "slug must be unique") {
@@ -84,7 +84,7 @@ export default EditPage;
 export const getStaticPaths = async () => {
   const articles: Articles = await getRequest("articles");
   const paths = articles.data.map((article) => {
-    return { params: { slug: article.attributes.slug } };
+    return { params: { slug: article.slug } };
   });
 
   return {

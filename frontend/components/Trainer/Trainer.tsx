@@ -41,7 +41,7 @@ const Trainer: React.FC<TrainerComponentProps> = ({ trainerProps }) => {
   return (
     <div className={styles.wrapper}>
       <StrapiImage
-        img={bild.data}
+        img={bild}
         className={styles.image}
         alt="Bild vom Trainer"
         sizes={SIZES_TRAINER}

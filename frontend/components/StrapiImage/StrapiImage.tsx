@@ -12,7 +12,7 @@ export const StrapiImage: React.FC<StrapiImageProps> = ({
 }) => {
   const [isLoading, setLoading] = useState(true);
 
-  const { width, height } = img?.attributes || {};
+  const { width, height } = img || {};
 
   return (
     <div

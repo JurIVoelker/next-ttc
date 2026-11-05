@@ -8,7 +8,7 @@ const Mannschaften: React.FC<MannschaftenPageType> = ({
   strapiData,
   teams,
 }) => {
-  const { titel, mannschaften, altBild } = strapiData.attributes;
+  const { titel, mannschaften, altBild } = strapiData;
   return (
     <>
       <h1 className="mb-6">{titel}</h1>

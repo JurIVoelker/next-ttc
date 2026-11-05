@@ -21,14 +21,14 @@ const Event: React.FC<EventAttributesType> = ({
 }) => {
   const tagsArray = typeof tags === "string" ? tags.split("\n") : [];
 
-  const isImage = !!image?.data;
+  const isImage = !!image;
 
   return (
     <div
       {...props}
       className={`${styles.eventWrapper} ${!isImage ? styles.noImage : ""}`}
     >
-      {isImage && <StrapiImage img={image.data} sizes={SIZES_EVENT} />}
+      {isImage && <StrapiImage img={image} sizes={SIZES_EVENT} />}
       <div className={styles.content}>
         <h2 className={styles.heading}>{title}</h2>
         <div className={styles.infoChips}>

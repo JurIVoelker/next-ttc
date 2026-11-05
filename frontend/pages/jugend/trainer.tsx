@@ -6,9 +6,9 @@ import styles from "./trainer.module.scss";
 const TrainerPage: React.FC<TrainerPageProps> = ({ strapiData }) => {
   return (
     <>
-      <h1 className="mb-6">{strapiData.attributes.titel}</h1>
+      <h1 className="mb-6">{strapiData.titel}</h1>
       <div className={styles.trainer}>
-        {strapiData.attributes.trainer.map((trainer) => (
+        {strapiData.trainer.map((trainer) => (
           <Trainer key={trainer.name} trainerProps={trainer} />
         ))}
       </div>

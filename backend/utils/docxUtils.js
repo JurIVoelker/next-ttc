@@ -1,7 +1,7 @@
 const { writeFileSync, existsSync, mkdirSync } = require("fs");
 const { Document, Packer, Paragraph, TextRun, ImageRun } = require("docx");
 const { default: slugify } = require("slugify");
-const { v4: uuid } = require("uuid");
+const { randomUUID: uuid } = require("crypto");
 
 const DOCUMENT_PX_WIDTH = 575;
 
